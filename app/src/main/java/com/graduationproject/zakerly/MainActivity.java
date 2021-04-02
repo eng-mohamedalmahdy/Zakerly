@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.engmahdy.zakerly.R;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
