@@ -1,14 +1,13 @@
 package com.graduationproject.zakerly;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.engmahdy.zakerly.R;
-import com.engmahdy.zakerly.databinding.ActivityMainBinding;
 import com.graduationproject.zakerly.core.base.BaseActivity;
+import com.graduationproject.zakerly.databinding.ActivityMainBinding;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.graduationproject.zakerly.core.constants.NavigationConstants;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,6 +22,7 @@ public class MainActivity extends BaseActivity {
 
         initViews();
         initListeners();
+        navigationBar.setItemSelected(R.id.home, true);
     }
 
 
@@ -36,7 +36,26 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    public void setNavigationVisibility(boolean visible){
-        navigationBar.setVisibility(visible? View.VISIBLE:View.GONE);
+    public void setNavigationVisibility(boolean visible) {
+        navigationBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    public void setSelectedPage(int page) {
+        switch (page) {
+            case NavigationConstants.HOME_PAGE:
+                navigationBar.setItemSelected(R.id.home, true);
+                break;
+            case NavigationConstants.SEARCH_PAGE:
+                navigationBar.setItemSelected(R.id.search, true);
+                break;
+            case NavigationConstants.FAVORITE_PAGE:
+                navigationBar.setItemSelected(R.id.favorite, true);
+                break;
+            case NavigationConstants.ACCOUNT_PAGE:
+                navigationBar.setItemSelected(R.id.account, true);
+                break;
+            case NavigationConstants.NOTIFICATION_PAGE:
+                navigationBar.setItemSelected(R.id.notification, true);
+        }
     }
 }
