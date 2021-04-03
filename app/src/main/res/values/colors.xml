@@ -10,11 +10,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lightGreen">#6BCCB5</color>
-    <color name="MilkyColor">#1E88FF</color>
-    <color name="Blue">#0F00FF</color>
-    <color name="Green">#089A38</color>
+    <color name="milkyColor">#1E88FF</color>
+    <color name="blue">#0F00FF</color>
+    <color name="green">#089A38</color>
     <color name="yellow">#EFD13A</color>
     <color name="lightPurple">#918BF2</color>
     <color name="red">#F80303</color>
     <color name="lightGrey">#9A9999</color>
+
 </resources>

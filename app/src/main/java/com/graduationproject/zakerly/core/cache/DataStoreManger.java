@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
 
-import com.graduationproject.zakerly.core.util.StoreConstants;
+import com.graduationproject.zakerly.core.constants.StoreConstants;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
