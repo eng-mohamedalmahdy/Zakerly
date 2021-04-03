@@ -28,37 +28,46 @@ public class DataStoreManger {
 
     }
 
-    public  Flowable<Boolean> getIsFirstLaunch() {
-        return dataStore.data().map(prefs -> prefs.get(StoreConstants.IS_FIRST_LAUNCH));
+    public Flowable<Boolean> getIsFirstLaunch() {
+        return dataStore.data().map(prefs -> {
+            Boolean res = prefs.get(StoreConstants.IS_FIRST_LAUNCH);
+            return res == null ? false : res;
+        });
 
     }
 
-    public  Flowable<Boolean> getIsDarkModeEnabled() {
-        return dataStore.data().map(prefs -> prefs.get(StoreConstants.IS_DARK_MODE_ENABLED));
+    public Flowable<Boolean> getIsDarkModeEnabled() {
+        return dataStore.data().map(prefs -> {
+            Boolean res = prefs.get(StoreConstants.IS_DARK_MODE_ENABLED);
+            return res == null ? false : res;
+        });
     }
 
-    public  Flowable<String> getLanguage() {
-        return dataStore.data().map(prefs -> prefs.get(StoreConstants.LANGUAGE));
+    public Flowable<String> getLanguage() {
+        return dataStore.data().map(prefs -> {
+            String res = prefs.get(StoreConstants.LANGUAGE);
+            return res == null ? "" : res;
+        });
     }
 
-    public  Single<Preferences> setIsFirstLaunch(boolean isFirstLaunch) {
-        return (Single<Preferences>) dataStore.updateDataAsync(prefsIn -> {
+    public Single<Preferences> setIsFirstLaunch(boolean isFirstLaunch) {
+        return dataStore.updateDataAsync(prefsIn -> {
             MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
             mutablePreferences.set(StoreConstants.IS_FIRST_LAUNCH, isFirstLaunch);
             return Single.just(mutablePreferences);
         });
     }
 
-    public  Single<Preferences> setIsDarkModeEnabled(boolean enabled) {
-        return (Single<Preferences>) dataStore.updateDataAsync(prefsIn -> {
+    public Single<Preferences> setIsDarkModeEnabled(boolean enabled) {
+        return dataStore.updateDataAsync(prefsIn -> {
             MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
             mutablePreferences.set(StoreConstants.IS_DARK_MODE_ENABLED, enabled);
             return Single.just(mutablePreferences);
         });
     }
 
-    public  Single<Preferences> setLanguage(String language) {
-        return (Single<Preferences>) dataStore.updateDataAsync(prefsIn -> {
+    public Single<Preferences> setLanguage(String language) {
+        return dataStore.updateDataAsync(prefsIn -> {
             MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
             mutablePreferences.set(StoreConstants.LANGUAGE, language);
             return Single.just(mutablePreferences);
