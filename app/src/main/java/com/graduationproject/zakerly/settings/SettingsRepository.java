@@ -47,11 +47,6 @@ public class SettingsRepository {
     }
 
     private void setNightMode(boolean enabled) {
-        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
-        if (Build.VERSION.SDK_INT <= 22) {
-            uiModeManager.enableCarMode(0);
-            return;
-        }
         int mode = enabled ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
         AppCompatDelegate.setDefaultNightMode(mode);
     }
