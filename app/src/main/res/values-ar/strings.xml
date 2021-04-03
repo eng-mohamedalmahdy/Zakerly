@@ -6,4 +6,7 @@
     <string name="favorite">Favorite</string>
     <string name="account">Account</string>
     <string name="notification">Notification</string>
+    <string name="facebook_app_id">259345919172555</string>
+    <string name="fb_login_protocol_scheme">fb259345919172555</string>
+
 </resources>
