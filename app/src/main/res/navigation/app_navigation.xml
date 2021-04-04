@@ -10,5 +10,6 @@
     <action app:launchSingleTop="true"
         app:popUpTo="@id/app_navigation" app:popUpToInclusive="true"/>
 </fragment>
-
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/app_navigation"
+    app:startDestination="@id/placeholder">
 </navigation>

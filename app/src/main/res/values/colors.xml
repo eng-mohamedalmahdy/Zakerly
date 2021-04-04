@@ -5,7 +5,16 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
+    <!--project colors-->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_green">#76CCB7</color>
+    <color name="lightGreen">#6BCCB5</color>
+    <color name="milkyColor">#1E88FF</color>
+    <color name="blue">#0F00FF</color>
+    <color name="green">#089A38</color>
+    <color name="yellow">#EFD13A</color>
+    <color name="lightPurple">#918BF2</color>
+    <color name="red">#F80303</color>
+    <color name="lightGrey">#9A9999</color>
 </resources>

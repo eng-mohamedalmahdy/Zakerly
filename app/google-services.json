@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "399767924752",
+    "project_id": "zakerly-35636",
+    "storage_bucket": "zakerly-35636.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399767924752:android:c17d59905e2718b12b9a95",
+        "android_client_info": {
+          "package_name": "com.graduationproject.zakerly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399767924752-o1l7eoelpio8fcn6dvjpe070nhjfutt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqUhaVjzn9FiFDbQJSAhb1lyOD5J8yfAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399767924752-o1l7eoelpio8fcn6dvjpe070nhjfutt7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

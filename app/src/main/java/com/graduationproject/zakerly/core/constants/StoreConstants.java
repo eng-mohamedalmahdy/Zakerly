@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.core.util;
+package com.graduationproject.zakerly.core.constants;
 
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.core.PreferencesKeys;
