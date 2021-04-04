@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -24,6 +25,7 @@ public class MainActivity extends BaseActivity {
     private ChipNavigationBar navigationBar;
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
     GoogleClient googleClient=new GoogleClient(MainActivity.this);
+    private CallbackManager callbackManager;
     @Override
     public void onStart() {
         super.onStart();
@@ -43,6 +45,10 @@ public class MainActivity extends BaseActivity {
         initViews();
         initListeners();
         navigationBar.setItemSelected(R.id.home, true);
+
+        //used for facebook sign in
+        callbackManager=CallbackManager.Factory.create();
+        //you should define facebook login button in your xml then implement it here and call method registerCallback
     }
 
 
@@ -80,6 +86,8 @@ public class MainActivity extends BaseActivity {
     }
     @Override
     public void  onActivityResult(int requestCode, int resultCode, Intent data) {
+        // this line used in  facebook signIn
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GoogleClient.RC_SIGN_IN) {
