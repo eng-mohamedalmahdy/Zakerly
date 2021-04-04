@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/app_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/splashFragment">
 
-<fragment android:id="@+id/splashFragment"
-    android:name="com.graduationproject.zakerly.intro.splash.SplashFragment"
-    android:label="SplashFragment">
-
-    <action app:launchSingleTop="true"
-        app:popUpTo="@id/app_navigation" app:popUpToInclusive="true"/>
-</fragment>
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/app_navigation"
-    app:startDestination="@id/placeholder">
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.graduationproject.zakerly.intro.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_mainListFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/app_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

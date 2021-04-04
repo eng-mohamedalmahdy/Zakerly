@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.graduationproject.zakerly.core.base.BaseActivity;
 import com.graduationproject.zakerly.databinding.ActivityMainBinding;
-import com.graduationproject.zakerly.databinding.ActivityMainBinding;
 import com.graduationproject.zakerly.network.GoogleClient;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.graduationproject.zakerly.core.constants.NavigationConstants;
@@ -24,9 +23,10 @@ public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
     private ChipNavigationBar navigationBar;
-    FirebaseAuth mAuth= FirebaseAuth.getInstance();
-    GoogleClient googleClient=new GoogleClient(MainActivity.this);
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    GoogleClient googleClient = new GoogleClient(MainActivity.this);
     private CallbackManager callbackManager;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -45,10 +45,11 @@ public class MainActivity extends BaseActivity {
 
         initViews();
         initListeners();
+        setNavigationVisibility(false);
         navigationBar.setItemSelected(R.id.home, true);
 
         //used for facebook sign in
-        callbackManager=CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
         //you should define facebook login button in your xml then implement it here and call method registerCallback
     }
 
@@ -85,8 +86,9 @@ public class MainActivity extends BaseActivity {
                 navigationBar.setItemSelected(R.id.notification, true);
         }
     }
+
     @Override
-    public void  onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // this line used in  facebook signIn
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
