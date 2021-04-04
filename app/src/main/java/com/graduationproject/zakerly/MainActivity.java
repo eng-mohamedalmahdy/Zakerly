@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.graduationproject.zakerly.core.base.BaseActivity;
 import com.graduationproject.zakerly.databinding.ActivityMainBinding;
+import com.graduationproject.zakerly.databinding.ActivityMainBinding;
 import com.graduationproject.zakerly.network.GoogleClient;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.graduationproject.zakerly.core.constants.NavigationConstants;
@@ -42,7 +43,6 @@ public class MainActivity extends BaseActivity {
 
         initViews();
         initListeners();
-        navigationBar.setItemSelected(R.id.home, true);
     }
 
 

@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.graduationproject.zakerly.R;
 
-import com.engmahdy.zakerly.R;
 public class SplashFragment extends Fragment {
 
 private SplashViewModel splashViewModel ;
