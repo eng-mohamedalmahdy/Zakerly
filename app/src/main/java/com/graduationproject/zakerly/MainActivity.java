@@ -41,14 +41,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         initViews();
         initListeners();
         setNavigationVisibility(false);
         navigationBar.setItemSelected(R.id.home, true);
 
         //used for facebook sign in
-        callbackManager=CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
         //you should define facebook login button in your xml then implement it here and call method registerCallback
     }
 
