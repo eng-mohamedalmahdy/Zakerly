@@ -8,7 +8,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class BaseActivity extends LocalizationActivity {
     private SettingsRepository settingsRepository;
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -16,6 +15,7 @@ public class BaseActivity extends LocalizationActivity {
         setDarkMode();
 
     }
+
 
     private void setDarkMode() {
         settingsRepository.getDarkModeEnabled().
@@ -26,5 +26,6 @@ public class BaseActivity extends LocalizationActivity {
                 });
     }
 
-
 }
+
+
