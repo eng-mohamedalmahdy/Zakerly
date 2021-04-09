@@ -13,10 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Zakerly">
-        <activity android:name=".authentication.splash.OnBoardingActivity">
-        </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".authentication.signIn.view.MainActivity2"></activity>
+        <activity android:name=".authentication.splash.OnBoardingActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
