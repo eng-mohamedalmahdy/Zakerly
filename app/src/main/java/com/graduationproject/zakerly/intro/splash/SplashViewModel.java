@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel;
 
 public class SplashViewModel extends ViewModel {
 
-    private SplashRepository splashRepository ;
-  public SplashViewModel(SplashRepository splashRepository){
+     private SplashRepository splashRepository ;
+     public SplashViewModel(SplashRepository splashRepository){
        this.splashRepository = splashRepository ;
    }
 }

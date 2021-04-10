@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class SplashViewModelFactory  implements ViewModelProvider.Factory{
 
      private SplashRepository splashRepository ;
-    public SplashViewModelFactory( SplashRepository splashRepository) {
+     public SplashViewModelFactory( SplashRepository splashRepository) {
         this.splashRepository=splashRepository;
     }
 
@@ -24,4 +24,6 @@ public class SplashViewModelFactory  implements ViewModelProvider.Factory{
         }
         throw new IllegalArgumentException("Unable to construct viewmodel") ;
     }
+
+
 }
