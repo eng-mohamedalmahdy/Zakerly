@@ -23,6 +23,18 @@
 
     </fragment>
 
+<fragment
+    android:name="com.graduationproject.zakerly.authentication.forgetpassword.ForgetPasswordFragment"
+    android:id="@+id/forgetPasswordFragment"
+    tools:layout="@layout/fragment_forget_password"
+    android:label="fragment_forget_password">
+
+    <action
+        android:id="@+id/action_forgetPassword_fragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true"/>
+
+</fragment>
 
 
     <fragment

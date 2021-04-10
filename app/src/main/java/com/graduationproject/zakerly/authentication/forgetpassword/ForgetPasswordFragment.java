@@ -15,7 +15,7 @@ import com.graduationproject.zakerly.authentication.signIn.LoginViewModel;
 import com.graduationproject.zakerly.core.base.BaseFragment;
 import com.graduationproject.zakerly.databinding.FragmentForgetPasswordBinding;
 
-class ForgetPasswordFragment extends BaseFragment {
+public class ForgetPasswordFragment extends BaseFragment {
 
 private FragmentForgetPasswordBinding binding ;
 
