@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.authentication.signIn.model;
+package com.graduationproject.zakerly.authentication.signIn;
 
 public class User {
     private String email;

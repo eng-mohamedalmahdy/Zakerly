@@ -5,6 +5,8 @@ import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.models.Teacher;
 
 import io.realm.Realm;
+import io.realm.RealmModel;
+
 public class RealmQueries {
 
     Realm realm = Realm.getDefaultInstance();

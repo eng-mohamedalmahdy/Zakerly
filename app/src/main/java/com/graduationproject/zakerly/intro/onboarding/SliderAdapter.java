@@ -1,10 +1,11 @@
-package com.graduationproject.zakerly.authentication.splash;
+package com.graduationproject.zakerly.intro.onboarding;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,9 +22,9 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     private int [] slide_images = {
-            R.drawable.onboardingone,
-            R.drawable.onboardingtwo,
-            R.drawable.onboardingthree
+            R.drawable.onboadingimgone,
+            R.drawable.onboardingimgtwo,
+            R.drawable.onboardingimgthree
     };
 
     public int [] slide_descriptions = {
@@ -60,6 +61,6 @@ public class SliderAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((ConstraintLayout)object);
+        container.removeView((LinearLayout)object);
     }
 }

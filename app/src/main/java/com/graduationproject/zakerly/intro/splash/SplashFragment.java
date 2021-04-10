@@ -38,12 +38,13 @@ public class SplashFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         splashRepository = new SplashRepository(getContext());
         splashViewModel = new SplashViewModelFactory(splashRepository).create(SplashViewModel.class);
+        binding.splashContainer.animate().setDuration(SPLASH_TIME).alpha(1f).withEndAction(() -> splashViewModel.navigateToNextDestination()).start();
 
-        binding.splashContainer.animate().setDuration(SPLASH_TIME).alpha(1f).withEndAction(() -> {
-            MainActivity activity = (MainActivity) getActivity();
-            //TODO navigate to home or to on board
-            activity.setNavigationVisibility(true);
-        }).start();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        splashViewModel.onCleared();
     }
 }

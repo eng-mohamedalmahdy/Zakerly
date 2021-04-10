@@ -10,11 +10,17 @@
     <string name="notification">Notification</string>
     <string name="facebook_app_id">259345919172555</string>
     <string name="fb_login_protocol_scheme">fb259345919172555</string>
-    <string name="text_slider_description_one" translatable="false">You can search about perfect instructors and make a good deal with him</string>
-    <string name="text_slider_description_two" translatable="false">You can find all majors and learn as if you were a college student</string>
-    <string name="text_slider_description_three" translatable="false">And now you can start your career</string>
-    <string name="log_in" translatable="false">Log In</string>
-    <string name="hint_your_email" translatable="false">Your Email</string>
-    <string name="hint_password" translatable="false">password</string>
-    <string name="sign_in" translatable="false">Sign In</string>
+    <string name="text_slider_description_one" >You can search about perfect instructors and make a good deal with him</string>
+    <string name="text_slider_description_two" >You can find all majors and learn as if you were a college student</string>
+    <string name="text_slider_description_three" >And now you can start your career</string>
+    <string name="log_in">Log In</string>
+    <string name="hint_your_email" >Your Email</string>
+    <string name="hint_password" >password</string>
+    <string name="sign_in" >Sign In</string>
+    <string name="next">Next</string>
+    <string name="done">Done</string>
+    <string name="back">Back</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="your_email_to_reset_password">Your Email to reset Password</string>
+    <string name="reset_password">Reset Password</string>
 </resources>

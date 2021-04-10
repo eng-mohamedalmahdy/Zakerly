@@ -1,28 +1,27 @@
 package com.graduationproject.zakerly.core.models;
 
-import android.media.Image;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Index;
 
 public class User extends RealmObject {
     @Index
-    private int UID;
+    private String UID;
     private String type;
     private String fName ;
     private String lName;
     private String email ;
-    private Image profileImg;
+    private String profileImg;
 
     public User() {
     }
 
 
-    public int getUID() {
+    public String getUID() {
         return UID;
     }
 
-    public void setUID(int UID) {
+    public void setUID(String UID) {
         this.UID = UID;
     }
 
@@ -58,11 +57,11 @@ public class User extends RealmObject {
         this.email = email;
     }
 
-    public Image getProfileImg() {
+    public String getProfileImg() {
         return profileImg;
     }
 
-    public void setProfileImg(Image profileImg) {
+    public void setProfileImg(String profileImg) {
         this.profileImg = profileImg;
     }
 }

@@ -31,7 +31,7 @@ public class DataStoreManger {
     public Flowable<Boolean> getIsFirstLaunch() {
         return dataStore.data().map(prefs -> {
             Boolean res = prefs.get(StoreConstants.IS_FIRST_LAUNCH);
-            return res == null ? false : res;
+            return res == null ? true : res;
         });
 
     }
