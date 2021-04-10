@@ -24,8 +24,8 @@ public class SettingsRepository {
         DataStoreManger.getInstance(context).setIsDarkModeEnabled(enabled)
                 .subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-        setNightMode(enabled);
+                .subscribe((preferences, throwable) -> setNightMode(enabled));
+
     }
 
     public Flowable<Boolean> getDarkModeEnabled() {

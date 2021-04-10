@@ -11,8 +11,10 @@ import androidx.lifecycle.ViewModelProvider;
 public class SplashViewModelFactory  implements ViewModelProvider.Factory{
 
      private SplashRepository splashRepository ;
-    public SplashViewModelFactory( SplashRepository splashRepository) {
+     private SplashFragment splashFragment;
+    public SplashViewModelFactory( SplashRepository splashRepository,SplashFragment splashFragment) {
         this.splashRepository=splashRepository;
+        this.splashFragment = splashFragment;
     }
 
     @NonNull
@@ -20,7 +22,7 @@ public class SplashViewModelFactory  implements ViewModelProvider.Factory{
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) { // create object from viewModel class
 
         if (modelClass.isAssignableFrom(SplashViewModel.class)) {
-            return (T) new SplashViewModel(splashRepository) ;
+            return (T) new SplashViewModel(splashRepository,splashFragment) ;
         }
         throw new IllegalArgumentException("Unable to construct viewmodel") ;
     }

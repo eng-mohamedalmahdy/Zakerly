@@ -27,6 +27,6 @@ public class BaseApplication extends Application {
 
     @Override
     public Context getApplicationContext() {
-        return localizationDelegate.getApplicationContext(super.getApplicationContext());
+        return localizationDelegate.getApplicationContext(this);
     }
 }

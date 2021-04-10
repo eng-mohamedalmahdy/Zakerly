@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.authentication.signIn.viewmodel;
+package com.graduationproject.zakerly.authentication.signIn;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -13,8 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.graduationproject.zakerly.BR;
-import com.graduationproject.zakerly.authentication.signIn.model.User;
 
 public class LoginViewModel extends BaseObservable {
     private User user;
@@ -24,21 +22,11 @@ public class LoginViewModel extends BaseObservable {
     private String errorMessage = "Email Or Password not valid";
 
     @Bindable
-    private String toastMessage = null;
-    public String getToastMessage(){
-        return toastMessage;
-    }
-    private void setToastMessage(String toastMessage){
-        this.toastMessage = toastMessage;
-        notifyPropertyChanged(BR.toastMessage);
-    }
-    @Bindable
     public String getUserEmail(){
         return user.getEmail();
     }
     public void setUserEmail(String userEmail){
         user.setEmail(userEmail);
-        notifyPropertyChanged(BR.userEmail);
     }
 
     @Bindable
@@ -47,7 +35,6 @@ public class LoginViewModel extends BaseObservable {
     }
     public void setUserPassword(String userPassword){
         user.setPassword(userPassword);
-        notifyPropertyChanged(BR.userPassword);
     }
     public LoginViewModel (Context context){
         this.context = context;
@@ -55,7 +42,6 @@ public class LoginViewModel extends BaseObservable {
     }
     public void onLoginClicked(){
         if (isInputDataValid()){
-            setToastMessage(successMessage);
             mAuth.signInWithEmailAndPassword(getUserEmail(),getUserPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -68,7 +54,7 @@ public class LoginViewModel extends BaseObservable {
             });
 
         }else{
-            setToastMessage(errorMessage);
+
         }
     }
 
@@ -76,7 +62,6 @@ public class LoginViewModel extends BaseObservable {
         return !TextUtils.isEmpty(getUserEmail()) &&
                 !TextUtils.isEmpty(getUserPassword())&&
                 Patterns.EMAIL_ADDRESS.matcher(getUserEmail()).matches() &&
-                getUserPassword().length() > 5
-                ;
+                getUserPassword().length() > 5;
     }
 }

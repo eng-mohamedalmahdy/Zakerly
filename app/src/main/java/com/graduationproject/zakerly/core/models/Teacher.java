@@ -1,14 +1,20 @@
 package com.graduationproject.zakerly.core.models;
 
-public class Teacher extends User {
+import io.realm.RealmObject;
 
+public class Teacher  extends RealmObject {
 
+    private User user;
     private String specialization;
     private double price_for_hour;
 
-    public Teacher(String specialization, double price_for_hour) {
-        this.specialization = specialization;
-        this.price_for_hour = price_for_hour;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getSpecialization() {

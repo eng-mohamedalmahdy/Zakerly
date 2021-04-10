@@ -2,20 +2,30 @@ package com.graduationproject.zakerly.core.models;
 
 import java.util.List;
 
-public class Student  extends User {
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
-    private List<String> interests ;
+
+public class Student extends RealmObject {
 
 
-    public Student(List<String> interests) {
-        this.interests = interests;
-    }
 
-    public List<String> getInterests() {
+    private User user;
+    private RealmList<String> interests ;
+
+
+    public RealmList<String> getInterests() {
         return interests;
     }
 
-    public void setInterests(List<String> interests) {
+    public void setInterests(RealmList<String> interests) {
         this.interests = interests;
+    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

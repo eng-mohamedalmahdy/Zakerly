@@ -7,14 +7,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.graduationproject.zakerly.authentication.signIn.viewmodel.LoginViewModel" />
+            type="com.graduationproject.zakerly.authentication.signIn.LoginViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".authentication.signIn.view.MainActivity2">
+        tools:context=".authentication.signIn.LogInFragment">
             <TextView
                 android:id="@+id/text_view_login"
                 android:layout_width="wrap_content"
@@ -55,7 +55,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
-                android:onClick="@{()->viewModel.onLoginClicked()}"
-                bind:toastMessage="@{viewModel.toastMessage}"/>
+                android:onClick="@{()->viewModel.onLoginClicked()}"/>
     </LinearLayout>
 </layout>
