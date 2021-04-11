@@ -14,11 +14,13 @@
             android:id="@+id/action_splashFragment_to_onBoardingFragment"
             app:destination="@id/onBoardingFragment"
             app:launchSingleTop="true"
+            app:popUpTo="@+id/app_navigation"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_logInFragment"
             app:destination="@id/logInFragment"
             app:launchSingleTop="true"
+            app:popUpTo="@+id/app_navigation"
             app:popUpToInclusive="true" />
 
     </fragment>
@@ -29,13 +31,11 @@
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding">
         <action
+            app:popUpTo="@+id/app_navigation"
             android:id="@+id/action_onBoardingFragment_to_logInFragment"
-            app:destination="@id/logInFragment"
+            app:destination="@id/signUpFragment"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_onBoardingFragment_to_splashFragment"
-            app:destination="@id/splashFragment" />
     </fragment>
 
     <fragment
@@ -45,5 +45,12 @@
         app:launchSingleTop="true"
         app:popUpToInclusive="true"
         tools:layout="@layout/fragment_login" />
+
+
+    <fragment
+        tools:layout="@layout/fragment_sign_up"
+        android:id="@+id/signUpFragment"
+        android:name="com.graduationproject.zakerly.authentication.signup.SignUpFragment"
+        android:label="SignUpFragment" />
 
 </navigation>

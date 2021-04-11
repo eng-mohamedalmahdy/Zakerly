@@ -17,7 +17,7 @@ import com.graduationproject.zakerly.core.base.BaseActivity;
 import com.graduationproject.zakerly.databinding.ActivityMainBinding;
 import com.graduationproject.zakerly.network.GoogleClient;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-import com.graduationproject.zakerly.core.constants.NavigationConstants;
+import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 
 public class MainActivity extends BaseActivity {
 
@@ -68,19 +68,19 @@ public class MainActivity extends BaseActivity {
 
     public void setSelectedPage(int page) {
         switch (page) {
-            case NavigationConstants.HOME_PAGE:
+            case BottomNavigationConstants.HOME_PAGE:
                 navigationBar.setItemSelected(R.id.home, true);
                 break;
-            case NavigationConstants.SEARCH_PAGE:
+            case BottomNavigationConstants.SEARCH_PAGE:
                 navigationBar.setItemSelected(R.id.search, true);
                 break;
-            case NavigationConstants.FAVORITE_PAGE:
+            case BottomNavigationConstants.FAVORITE_PAGE:
                 navigationBar.setItemSelected(R.id.favorite, true);
                 break;
-            case NavigationConstants.ACCOUNT_PAGE:
+            case BottomNavigationConstants.ACCOUNT_PAGE:
                 navigationBar.setItemSelected(R.id.account, true);
                 break;
-            case NavigationConstants.NOTIFICATION_PAGE:
+            case BottomNavigationConstants.NOTIFICATION_PAGE:
                 navigationBar.setItemSelected(R.id.notification, true);
         }
     }

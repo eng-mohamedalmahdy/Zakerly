@@ -8,5 +8,12 @@
     <string name="notification">Notification</string>
     <string name="facebook_app_id">259345919172555</string>
     <string name="fb_login_protocol_scheme">fb259345919172555</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="instructor">Instructor</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="specialization">Specialization</string>
+    <string name="egp_hour">EGP/Hour</string>
 
 </resources>
