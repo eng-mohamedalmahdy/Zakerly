@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.network;
+package com.graduationproject.zakerly.core.network;
 
 import android.app.Activity;
 import android.content.Intent;

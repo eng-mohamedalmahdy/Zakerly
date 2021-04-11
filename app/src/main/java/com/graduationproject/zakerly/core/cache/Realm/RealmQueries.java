@@ -1,11 +1,10 @@
-package com.graduationproject.zakerly.core.Realm;
+package com.graduationproject.zakerly.core.cache.Realm;
 
 
 import com.graduationproject.zakerly.core.models.Student;
-import com.graduationproject.zakerly.core.models.Teacher;
+import com.graduationproject.zakerly.core.models.Instructor;
 
 import io.realm.Realm;
-import io.realm.RealmModel;
 
 public class RealmQueries {
 
@@ -17,7 +16,7 @@ public class RealmQueries {
         realm.commitTransaction();
     }
 
-    public void addTeacher(Teacher teacher){  // add Teacher to Realm
+    public void addTeacher(Instructor teacher){  // add Teacher to Realm
         realm.beginTransaction();
         realm.createObject(Student.class);
         realm.commitTransaction();
@@ -30,7 +29,7 @@ public class RealmQueries {
         realm.commitTransaction();
     }
 
-    public void editTeacher(Teacher teacher){  //Edit Teacher details
+    public void editTeacher(Instructor teacher){  //Edit Teacher details
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(teacher);
         realm.commitTransaction();
@@ -43,7 +42,7 @@ public class RealmQueries {
         realm.commitTransaction();
    }
 
-    public void deleteTeacher(Teacher teacher){   // Delete Teacher from Realm
+    public void deleteTeacher(Instructor teacher){   // Delete Teacher from Realm
         realm.beginTransaction();
         teacher.deleteFromRealm();
         realm.commitTransaction();

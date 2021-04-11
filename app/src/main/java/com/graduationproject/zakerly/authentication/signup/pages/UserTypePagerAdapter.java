@@ -6,9 +6,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class UserTypePagerAdapter extends FragmentStateAdapter {
     private static final int PAGES_COUNT = 2;
+    private Fragment instructorSignUpFragment;
+    private Fragment studentSignUpFragment;
 
     public UserTypePagerAdapter(@NonNull Fragment fragment) {
         super(fragment);
+        instructorSignUpFragment = new InstructorSignUpFragment();
+        studentSignUpFragment = new StudentSignUpFragment();
     }
 
     @NonNull
@@ -16,10 +20,10 @@ public class UserTypePagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new InstructorSignUpFragment();
+                return instructorSignUpFragment;
             case 1:
             default:
-                return new StudentSignUpFragment();
+                return studentSignUpFragment;
         }
     }
 
@@ -27,5 +31,16 @@ public class UserTypePagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return PAGES_COUNT;
+    }
+
+    public Fragment getFragmentAt(int position) {
+
+        switch (position) {
+            case 0:
+                return instructorSignUpFragment;
+            case 1:
+            default:
+                return studentSignUpFragment;
+        }
     }
 }

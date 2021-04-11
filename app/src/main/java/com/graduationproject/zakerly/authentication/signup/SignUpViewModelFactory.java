@@ -9,18 +9,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class SignUpViewModelFactory implements ViewModelProvider.Factory {
     private SignUpRepository repository;
-    private Context context;
 
-    public SignUpViewModelFactory(SignUpRepository repository,Context context) {
+    public SignUpViewModelFactory(SignUpRepository repository) {
         this.repository = repository;
-        this.context = context;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(SignUpViewModel.class)) {
-            return (T) new SignUpViewModel(repository,context);
+            return (T) new SignUpViewModel(repository);
         }
         throw new IllegalArgumentException("Unable to construct viewmodel");
     }

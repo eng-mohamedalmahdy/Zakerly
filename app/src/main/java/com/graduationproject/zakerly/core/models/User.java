@@ -16,6 +16,14 @@ public class User extends RealmObject {
     public User() {
     }
 
+    public User(String UID, String type, String fName, String lName, String email, String profileImg) {
+        this.UID = UID;
+        this.type = type;
+        this.fName = fName;
+        this.lName = lName;
+        this.email = email;
+        this.profileImg = profileImg;
+    }
 
     public String getUID() {
         return UID;

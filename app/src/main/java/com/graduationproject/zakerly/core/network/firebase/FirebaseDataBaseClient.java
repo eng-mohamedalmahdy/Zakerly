@@ -1,8 +1,11 @@
-package com.graduationproject.zakerly.network;
+package com.graduationproject.zakerly.core.network.firebase;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
+
 
 public class FirebaseDataBaseClient {
 
@@ -21,8 +24,11 @@ public class FirebaseDataBaseClient {
         return instance;
     }
 
-    public void addStudent(Student student) {
-        usersReference.child(student.getUser().getUID()).setValue(student);
+    public Task<Void> addStudent(Student student) {
+        return usersReference.child(student.getUser().getUID()).setValue(student);
     }
 
+    public Task<Void> addInstructor(Instructor instructor) {
+        return usersReference.child(instructor.getUser().getUID()).setValue(instructor);
+    }
 }

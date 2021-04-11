@@ -16,9 +16,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.authentication.signup.pages.InstructorSignUpFragment;
+import com.graduationproject.zakerly.authentication.signup.pages.StudentSignUpFragment;
 import com.graduationproject.zakerly.authentication.signup.pages.UserTypePagerAdapter;
 import com.graduationproject.zakerly.core.base.BaseFragment;
 import com.graduationproject.zakerly.core.constants.UserTypes;
+import com.graduationproject.zakerly.core.models.Instructor;
+import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.databinding.FragmentSignUpBinding;
 
 public class SignUpFragment extends BaseFragment {
@@ -28,6 +32,7 @@ public class SignUpFragment extends BaseFragment {
     private ViewPager2 userTypePager;
     private Button studentTab;
     private Button instructorTab;
+    private Button signUp;
 
 
     @Override
@@ -42,12 +47,24 @@ public class SignUpFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        mViewModel = new SignUpViewModelFactory(new SignUpRepository(),getContext()).create(SignUpViewModel.class);
+        mViewModel = new SignUpViewModelFactory(new SignUpRepository()).create(SignUpViewModel.class);
 
+        initViews();
+
+        initViewPager();
+
+        initListeners();
+    }
+
+
+    private void initViews() {
         userTypePager = binding.viewPager;
         studentTab = binding.studentButton;
         instructorTab = binding.instructorButton;
+        signUp = binding.signUp;
+    }
 
+    private void initViewPager() {
         userTypePager.setAdapter(new UserTypePagerAdapter(this));
         userTypePager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -56,21 +73,39 @@ public class SignUpFragment extends BaseFragment {
                 updateLiveData(position);
             }
         });
+    }
 
-        instructorTab.setOnClickListener((v)->userTypePager.setCurrentItem(0,true));
-        studentTab.setOnClickListener((v)->userTypePager.setCurrentItem(1,true));
+    private void initListeners() {
+        instructorTab.setOnClickListener((v) -> userTypePager.setCurrentItem(0, true));
+        studentTab.setOnClickListener((v) -> userTypePager.setCurrentItem(1, true));
+        signUp.setOnClickListener((v) -> {
+            String type = mViewModel.getCurrentType().getValue();
+            if (type.equals(UserTypes.TYPE_INSTRUCTOR)) {
+                InstructorSignUpFragment instructorSignUpFragment = (InstructorSignUpFragment) ((UserTypePagerAdapter) (userTypePager.getAdapter()))
+                        .getFragmentAt(0);
+                Instructor instructor = instructorSignUpFragment.getInstructor();
+                String password = instructorSignUpFragment.getPassword();
+                mViewModel.signUp(instructor,password);
+            } else {
+                StudentSignUpFragment studentSignUpFragment = (StudentSignUpFragment) ((UserTypePagerAdapter) userTypePager.getAdapter()).getFragmentAt(1);
+                Student student = studentSignUpFragment.getStudent();
+                String password = studentSignUpFragment.getPassword();
+                mViewModel.signUp(student,password);
+            }
+        });
     }
 
     private void updateLiveData(int position) {
         int lightGrey = new ContextWrapper(getContext()).getColor(R.color.lightGrey);
         int blue = new ContextWrapper(getContext()).getColor(R.color.blue);
-        int[] attrs = new int[] { android.R.attr.colorBackground };
+        int[] attrs = new int[]{android.R.attr.colorBackground};
         TypedArray a = getContext().getTheme().obtainStyledAttributes(R.style.Widget_AppCompat_Light_ActionBar, attrs);
         int white = a.getColor(0, Color.RED);
 
         switch (position) {
 
             case 0:
+                mViewModel.getCurrentType().setValue(UserTypes.TYPE_INSTRUCTOR);
                 instructorTab.setBackgroundColor(blue);
                 instructorTab.setTextColor(lightGrey);
                 studentTab.setBackgroundColor(white);
