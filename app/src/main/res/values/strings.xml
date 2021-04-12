@@ -20,6 +20,9 @@
     <string name="next">Next</string>
     <string name="done">Done</string>
     <string name="back">Back</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="your_email_to_reset_password">Your Email to reset Password</string>
+    <string name="reset_password">Reset Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="instructor">Instructor</string>
     <string name="student">Student</string>
