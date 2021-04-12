@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.core.content.ContextCompat" />
+        <import type="com.graduationproject.zakerly.R" />
+
+        <variable
+            name="viewModel"
+            type="com.graduationproject.zakerly.authentication.signup.SignUpViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical"
+            tools:context=".authentication.signup.SignUpFragment">
+
+            <TextView
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:id="@+id/signUpTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:fontFamily="@font/roboto_bold_italic"
+                android:gravity="center_horizontal"
+                android:text="@string/sign_up"
+                android:textSize="@dimen/_30ssp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:scaleType="centerCrop"
+                android:id="@+id/welcomeImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/signup_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signUpTextView" />
+
+            <LinearLayout
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:id="@+id/container"
+                app:layout_constraintTop_toBottomOf="@id/welcomeImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:id="@+id/instructorButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/_13sdp"
+                    android:backgroundTint="@color/blue"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="@string/instructor"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_16sdp"
+                    app:cornerRadius="@dimen/_4sdp" />
+
+                <Button
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:elevation="0dp"
+                    android:id="@+id/studentButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:backgroundTint="#00000000"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingStart="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_20sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="@string/student"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lightGrey"
+                    android:textSize="@dimen/_16ssp"
+                    app:cornerRadius="@dimen/_4sdp" />
+            </LinearLayout>
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:layout_marginStart="@dimen/_26sdp"
+                android:layout_marginEnd="@dimen/_26sdp"
+                app:layout_constraintTop_toBottomOf="@id/container"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewPager"
+                android:id="@+id/signUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_60sdp"
+                android:backgroundTint="@color/lightPurple"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:text="@string/sign_up"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_18ssp"
+                app:cornerRadius="@dimen/_8sdp"  />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

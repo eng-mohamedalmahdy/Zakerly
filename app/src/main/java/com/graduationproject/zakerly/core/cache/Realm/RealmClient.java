@@ -1,6 +1,4 @@
-package com.graduationproject.zakerly.core.Realm;
-
-import com.graduationproject.zakerly.core.base.BaseApplication;
+package com.graduationproject.zakerly.core.cache.Realm;
 
 import io.realm.Realm;
 

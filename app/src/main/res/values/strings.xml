@@ -23,4 +23,17 @@
     <string name="forget_password">Forget Password</string>
     <string name="your_email_to_reset_password">Your Email to reset Password</string>
     <string name="reset_password">Reset Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="instructor">Instructor</string>
+    <string name="student">Student</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="specialization">Specialization</string>
+    <string name="egp_hour">EGP/Hour</string>
+    <string name="interests">Interests</string>
+    <string name="invalid_email">Invalid E-mail</string>
+    <string name="this_field_cannot_be_empty">This field can\'t be empty</string>
+    <string name="password_must_be_at_least_8">Password must be at least 8 characters</string>
+    <string name="user_created">User created sccessfully</string>
 </resources>
