@@ -28,12 +28,12 @@ public class SignUpViewModel extends ViewModel {
         studentColor = new MutableLiveData((R.color.white));
         studentTextColor = new MutableLiveData((R.color.lightGrey));
     }
-    public void signUp(Student student, String password) {
-            repository.signUp(student,password);
+    public void signUp(Student student, String password,Context context) {
+            repository.signUp(student,password,context);
     }
 
-    public void signUp(Instructor instructor, String password) {
-            repository.signUp(instructor,password);
+    public void signUp(Instructor instructor, String password,Context context) {
+            repository.signUp(instructor,password,context);
     }
 
 

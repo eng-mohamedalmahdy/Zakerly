@@ -15,5 +15,10 @@
     <string name="e_mail">E-mail</string>
     <string name="specialization">Specialization</string>
     <string name="egp_hour">EGP/Hour</string>
+    <string name="interests">Interests</string>
+    <string name="invalid_email">Invalid E-mail</string>
+    <string name="this_field_cannot_be_empty">This field can\'t be empty</string>
+    <string name="password_must_be_at_least_8">Password must be at least 8 characters</string>
+    <string name="user_created">User created sccessfully</string>
 
 </resources>

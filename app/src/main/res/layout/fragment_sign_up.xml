@@ -18,15 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
+
             android:orientation="vertical"
             tools:context=".authentication.signup.SignUpFragment">
 
             <TextView
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
                 android:id="@+id/signUpTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,6 +40,9 @@
 
 
             <ImageView
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:scaleType="centerCrop"
                 android:id="@+id/welcomeImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,9 +51,12 @@
                 app:layout_constraintTop_toBottomOf="@id/signUpTextView" />
 
             <LinearLayout
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:id="@+id/container"
+                app:layout_constraintTop_toBottomOf="@id/welcomeImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -92,6 +99,9 @@
 
 
             <androidx.viewpager2.widget.ViewPager2
+                android:layout_marginStart="@dimen/_26sdp"
+                android:layout_marginEnd="@dimen/_26sdp"
+                app:layout_constraintTop_toBottomOf="@id/container"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_marginBottom="@dimen/_30sdp"
                 android:id="@+id/viewPager"
@@ -99,6 +109,10 @@
                 android:layout_height="wrap_content"/>
 
             <Button
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewPager"
                 android:id="@+id/signUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,10 +122,10 @@
                 android:paddingTop="@dimen/_12sdp"
                 android:paddingBottom="@dimen/_12sdp"
                 android:text="@string/sign_up"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:textAllCaps="false"
                 android:textSize="@dimen/_18ssp"
-                app:cornerRadius="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </LinearLayout>
+                app:cornerRadius="@dimen/_8sdp"  />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

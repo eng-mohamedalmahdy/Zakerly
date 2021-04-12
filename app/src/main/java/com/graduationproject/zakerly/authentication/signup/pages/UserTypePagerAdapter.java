@@ -4,15 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.graduationproject.zakerly.core.base.BaseFragment;
+
 public class UserTypePagerAdapter extends FragmentStateAdapter {
     private static final int PAGES_COUNT = 2;
-    private Fragment instructorSignUpFragment;
-    private Fragment studentSignUpFragment;
+    private BaseFragment instructorSignUpFragment;
+    private BaseFragment studentSignUpFragment;
 
     public UserTypePagerAdapter(@NonNull Fragment fragment) {
         super(fragment);
-        instructorSignUpFragment = new InstructorSignUpFragment();
-        studentSignUpFragment = new StudentSignUpFragment();
     }
 
     @NonNull
@@ -20,11 +20,13 @@ public class UserTypePagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
+                instructorSignUpFragment = new InstructorSignUpFragment();
                 return instructorSignUpFragment;
             case 1:
-            default:
+                studentSignUpFragment = new StudentSignUpFragment();
                 return studentSignUpFragment;
         }
+        return null;
     }
 
 
@@ -33,7 +35,9 @@ public class UserTypePagerAdapter extends FragmentStateAdapter {
         return PAGES_COUNT;
     }
 
-    public Fragment getFragmentAt(int position) {
+
+
+    public BaseFragment getFragmentAt(int position) {
 
         switch (position) {
             case 0:

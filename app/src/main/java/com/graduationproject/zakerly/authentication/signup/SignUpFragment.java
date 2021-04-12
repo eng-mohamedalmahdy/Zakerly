@@ -8,12 +8,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.authentication.signup.pages.InstructorSignUpFragment;
@@ -46,7 +49,6 @@ public class SignUpFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         mViewModel = new SignUpViewModelFactory(new SignUpRepository()).create(SignUpViewModel.class);
 
         initViews();
@@ -71,6 +73,7 @@ public class SignUpFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 updateLiveData(position);
+
             }
         });
     }
@@ -81,21 +84,30 @@ public class SignUpFragment extends BaseFragment {
         signUp.setOnClickListener((v) -> {
             String type = mViewModel.getCurrentType().getValue();
             if (type.equals(UserTypes.TYPE_INSTRUCTOR)) {
+
                 InstructorSignUpFragment instructorSignUpFragment = (InstructorSignUpFragment) ((UserTypePagerAdapter) (userTypePager.getAdapter()))
                         .getFragmentAt(0);
-                Instructor instructor = instructorSignUpFragment.getInstructor();
-                String password = instructorSignUpFragment.getPassword();
-                mViewModel.signUp(instructor,password);
+                boolean valid = instructorSignUpFragment.validate();
+                if (valid) {
+                    Instructor instructor = instructorSignUpFragment.getInstructor();
+                    String password = instructorSignUpFragment.getPassword();
+                    mViewModel.signUp(instructor, password, getContext());
+                }
             } else {
-                StudentSignUpFragment studentSignUpFragment = (StudentSignUpFragment) ((UserTypePagerAdapter) userTypePager.getAdapter()).getFragmentAt(1);
-                Student student = studentSignUpFragment.getStudent();
-                String password = studentSignUpFragment.getPassword();
-                mViewModel.signUp(student,password);
+                StudentSignUpFragment studentSignUpFragment = (StudentSignUpFragment) ((UserTypePagerAdapter) userTypePager.getAdapter())
+                        .getFragmentAt(1);
+                boolean valid = studentSignUpFragment.validate();
+                if (valid) {
+                    Student student = studentSignUpFragment.getStudent();
+                    String password = studentSignUpFragment.getPassword();
+                    mViewModel.signUp(student, password, getContext());
+                }
             }
         });
     }
 
     private void updateLiveData(int position) {
+
         int lightGrey = new ContextWrapper(getContext()).getColor(R.color.lightGrey);
         int blue = new ContextWrapper(getContext()).getColor(R.color.blue);
         int[] attrs = new int[]{android.R.attr.colorBackground};
@@ -120,4 +132,5 @@ public class SignUpFragment extends BaseFragment {
                 break;
         }
     }
+
 }

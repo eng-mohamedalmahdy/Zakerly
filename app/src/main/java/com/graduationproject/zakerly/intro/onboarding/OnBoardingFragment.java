@@ -64,7 +64,7 @@ public class OnBoardingFragment extends BaseFragment {
         mNextBtn.setOnClickListener(v -> {
             if (mCurrentSlider == mDots.length - 1) {
                 DataStoreManger manger = DataStoreManger.getInstance(getContext());
-                Disposable isfFirstLaunchDisposable=manger.setIsFirstLaunch(true).subscribe();
+                Disposable isfFirstLaunchDisposable=manger.setIsFirstLaunch(false).subscribe();
                 disposables.add(isfFirstLaunchDisposable);
                 NavHostFragment.findNavController(OnBoardingFragment.this).navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToLogInFragment());
 
