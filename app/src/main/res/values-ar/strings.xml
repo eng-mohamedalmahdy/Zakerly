@@ -20,5 +20,7 @@
     <string name="this_field_cannot_be_empty">This field can\'t be empty</string>
     <string name="password_must_be_at_least_8">Password must be at least 8 characters</string>
     <string name="user_created">User created sccessfully</string>
+    <string name="select_specialisation">Select Specialisation</string>
+    <string name="select_interests">Select Interests</string>
 
 </resources>

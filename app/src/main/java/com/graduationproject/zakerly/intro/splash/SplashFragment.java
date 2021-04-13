@@ -37,7 +37,7 @@ public class SplashFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         splashRepository = new SplashRepository(getContext());
-        splashViewModel = new SplashViewModelFactory(splashRepository).create(SplashViewModel.class);
+        splashViewModel = new SplashViewModelFactory(splashRepository,this).create(SplashViewModel.class);
         binding.splashContainer.animate().setDuration(SPLASH_TIME).alpha(1f).withEndAction(() -> splashViewModel.navigateToNextDestination()).start();
 
     }
