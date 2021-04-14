@@ -32,6 +32,7 @@ public class SignUpFragment extends BaseFragment {
 
     private SignUpViewModel mViewModel;
     private FragmentSignUpBinding binding;
+
     private ViewPager2 userTypePager;
     private Button studentTab;
     private Button instructorTab;

@@ -53,12 +53,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/logInFragment"
-        android:name="com.graduationproject.zakerly.authentication.signIn.LogInFragment"
-        android:label="LogInFragment"
+        android:id="@+id/signInFragment"
+        android:name="com.graduationproject.zakerly.authentication.signIn.SignInFragment"
+        android:label="SignInFragment"
         app:launchSingleTop="true"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_signin" />
 
 
     <fragment
