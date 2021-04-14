@@ -13,7 +13,7 @@
     <string name="text_slider_description_one" >You can search about perfect instructors and make a good deal with him</string>
     <string name="text_slider_description_two" >You can find all majors and learn as if you were a college student</string>
     <string name="text_slider_description_three" >And now you can start your career</string>
-    <string name="log_in">Log In</string>
+    <string name="log_in">login</string>
     <string name="hint_your_email" >Your Email</string>
     <string name="hint_password" >password</string>
     <string name="sign_in" >Sign In</string>
@@ -31,11 +31,20 @@
     <string name="e_mail">E-mail</string>
     <string name="specialization">Specialization</string>
     <string name="egp_hour">EGP/Hour</string>
+    <string name="user_signin_success">User SignIn Successfully</string>
+    <string name="login_failure">Login Filure</string>
     <string name="interests">Interests</string>
     <string name="invalid_email">Invalid E-mail</string>
     <string name="this_field_cannot_be_empty">This field can\'t be empty</string>
     <string name="password_must_be_at_least_8">Password must be at least 8 characters</string>
     <string name="user_created">User created sccessfully</string>
+    <string name="btn_sigin">Sign in</string>
+    <string name="hint_your_password">Password</string>
+    <string name="forget_password_text">Forget Password ?</string>
+    <string name="sign_in_with_facebook">Sign In With facebook</string>
+    <string name="UserSignIn">user_signin_success</string>
+    <string name="sign_in_with_google">Sign In With Google</string>
+    <string name="or">Or</string>
     <string name="select_specialisation">Select Specialisations</string>
     <string name="select_interests">Select Interests</string>
 </resources>

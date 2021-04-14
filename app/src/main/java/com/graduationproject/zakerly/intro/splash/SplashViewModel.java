@@ -16,11 +16,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SplashViewModel extends ViewModel {
 
-
     private CompositeDisposable disposables;
-
     private String TAG = "SPLASH_TAG";
-    private SplashRepository splashRepository;
     private NavController navController;
 
     public SplashViewModel(SplashRepository splashRepository, SplashFragment splashFragment) {
