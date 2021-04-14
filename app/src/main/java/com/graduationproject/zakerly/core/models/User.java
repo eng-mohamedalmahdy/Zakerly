@@ -1,6 +1,7 @@
 package com.graduationproject.zakerly.core.models;
 
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Index;
 
@@ -12,17 +13,29 @@ public class User extends RealmObject {
     private String lName;
     private String email ;
     private String profileImg;
+    private RealmList<Specialisation> interests ;
+
 
     public User() {
     }
 
-    public User(String UID, String type, String fName, String lName, String email, String profileImg) {
+    public User(String UID, String type, String fName, String lName, String email,RealmList<Specialisation> interests, String profileImg) {
         this.UID = UID;
         this.type = type;
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.profileImg = profileImg;
+        this.interests = interests;
+
+    }
+
+    public RealmList<Specialisation> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(RealmList<Specialisation> interests) {
+        this.interests = interests;
     }
 
     public String getUID() {

@@ -34,6 +34,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+
                     android:backgroundTint="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +66,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+
                     android:backgroundTint="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -92,6 +96,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/roboto_regular"
+
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent" />
 
@@ -123,6 +129,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+
                     android:backgroundTint="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -137,34 +145,58 @@
             app:cardCornerRadius="@dimen/_8sdp"
             app:cardElevation="@dimen/_4sdp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/specialisationTextField"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/specialization"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/transparent" />
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:fontFamily="@font/roboto_regular"
 
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/select_specialisation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                    <Spinner
+                        android:fontFamily="@font/roboto_regular"
+
+                        android:spinnerMode="dialog"
+                        android:id="@+id/specialisationsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_4sdp" />
+                </LinearLayout>
+
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_margin="@dimen/_12sdp"
+                    android:id="@+id/selectedSpecialisations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:columnCount="4"
+                    android:animateLayoutChanges="true"/>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_12sdp"
             app:cardCornerRadius="@dimen/_8sdp"
             app:cardElevation="@dimen/_4sdp">
 
@@ -182,6 +214,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/roboto_regular"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:inputType="numberDecimal" />

@@ -1,19 +1,18 @@
 package com.graduationproject.zakerly.core.models;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 public class Instructor extends RealmObject {
 
     private User user;
-    private String specialization;
     private double pricePerHour;
 
     public Instructor() {
     }
 
-    public Instructor(User user, String specialization, double pricePerHour) {
+    public Instructor(User user, double pricePerHour) {
         this.user = user;
-        this.specialization = specialization;
         this.pricePerHour = pricePerHour;
     }
 
@@ -25,14 +24,6 @@ public class Instructor extends RealmObject {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
     }
 
     public double getPricePerHour() {

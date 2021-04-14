@@ -14,7 +14,6 @@ public class SplashViewModelFactory  implements ViewModelProvider.Factory{
     private SplashFragment splashFragment;
 
     public SplashViewModelFactory( SplashRepository splashRepository,SplashFragment splashFragment) {
-
         this.splashRepository=splashRepository;
         this.splashFragment = splashFragment;
     }

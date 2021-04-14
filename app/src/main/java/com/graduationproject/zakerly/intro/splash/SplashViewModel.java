@@ -16,12 +16,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SplashViewModel extends ViewModel {
 
-     private SplashRepository splashRepository ;
-     public SplashViewModel(SplashRepository splashRepository){
-       this.splashRepository = splashRepository ;
-   }
     private CompositeDisposable disposables;
-
     private String TAG = "SPLASH_TAG";
     private NavController navController;
 
@@ -54,6 +49,5 @@ public class SplashViewModel extends ViewModel {
         super.onCleared();
         disposables.dispose();
     }
-
 }
 

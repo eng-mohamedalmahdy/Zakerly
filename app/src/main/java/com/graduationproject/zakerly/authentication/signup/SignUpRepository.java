@@ -3,6 +3,8 @@ package com.graduationproject.zakerly.authentication.signup;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
@@ -36,5 +38,9 @@ public class SignUpRepository {
                     Toasty.success(context, context.getText(R.string.user_created)).show();
                 })
                 .addOnFailureListener(e -> Toasty.info(context, e.getLocalizedMessage()).show());
+    }
+
+    public Task<DataSnapshot> getSpecialisationsList(){
+        return FirebaseDataBaseClient.getInstance().getSpecialisations();
     }
 }
