@@ -68,5 +68,14 @@ public class SignInFragment extends BaseFragment {
 
     }
 
+    private void initViews() {
+        signinWithGoogle= binding.signinSignWithGoogleTextFeild;
+        signinWithFacebook = binding.signinSignWithFaceTextFeild;
+        emailEditText= binding.siginEmailEditText;
+        passwordEditText = binding.siginPasswordEditText;
+        forgetPasswordText = binding.signinTextForgetPassword;
+        signIn = binding.siginBtnSignin;
+        signUp= binding.siginBtnSignup;
+    }
 
 }
