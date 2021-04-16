@@ -32,12 +32,12 @@
     <string name="specialization">Specialization</string>
     <string name="egp_hour">EGP/Hour</string>
     <string name="user_signin_success">User SignIn Successfully</string>
-    <string name="login_failure">Login Filure</string>
+    <string name="login_failure">Login Failure</string>
     <string name="interests">Interests</string>
     <string name="invalid_email">Invalid E-mail</string>
     <string name="this_field_cannot_be_empty">This field can\'t be empty</string>
     <string name="password_must_be_at_least_8">Password must be at least 8 characters</string>
-    <string name="user_created">User created sccessfully</string>
+    <string name="user_created">User created successfully</string>
     <string name="btn_sigin">Sign in</string>
     <string name="hint_your_password">Password</string>
     <string name="forget_password_text">Forget Password ?</string>

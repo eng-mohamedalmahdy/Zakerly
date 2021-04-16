@@ -47,18 +47,16 @@ public class GoogleClient {
     public void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //here you should go to Main Activity
+                .addOnCompleteListener((Executor) this, task -> {
 
-                        } else {
-                            //if sign in fail
-                            Toast.makeText(activity.getApplicationContext(), "Sorry auth failed", Toast.LENGTH_SHORT).show();
-                        }
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        //here you should go to Main Activity
+
+                    } else {
+                        //if sign in fail
+                        Toast.makeText(activity.getApplicationContext(), "Sorry auth failed", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

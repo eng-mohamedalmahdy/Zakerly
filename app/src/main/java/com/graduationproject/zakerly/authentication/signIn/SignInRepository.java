@@ -28,16 +28,9 @@ public class SignInRepository {
 
         }
     }
-    public void signIn(String email , String password , Context context){
-        FireBaseAuthenticationClient.getInstance().signIn(email,password)
-                .addOnCompleteListener(task -> {
-                    if ((task.isSuccessful())){
-                        Toasty.success(context, context.getText(R.string.user_signin_success)).show();
-                    }
-                    else{
-                        Toasty.error(context,context.getText(R.string.login_failure)).show();
-                    }
-                });
+    public Task<AuthResult> signIn(String email , String password){
+    return     FireBaseAuthenticationClient.getInstance().signIn(email,password);
+
     }
 
 

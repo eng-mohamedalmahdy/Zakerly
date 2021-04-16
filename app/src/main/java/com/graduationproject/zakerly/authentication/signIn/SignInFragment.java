@@ -35,17 +35,18 @@ import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.network.GoogleClient;
 import com.graduationproject.zakerly.databinding.FragmentSignUpBinding;
 import com.graduationproject.zakerly.databinding.FragmentSigninBinding;
+
 public class SignInFragment extends BaseFragment {
 
     private FragmentSigninBinding binding;
-    private SignInViewModel mViewModel ;
+    private SignInViewModel mViewModel;
 
     TextInputLayout signinWithGoogle;
     TextInputLayout signinWithFacebook;
-    TextInputEditText emailEditText ;
-    EditText passwordEditText ;
-    TextView forgetPasswordText ;
-    Button signIn ;
+    TextInputEditText emailEditText;
+    EditText passwordEditText;
+    TextView forgetPasswordText;
+    Button signIn;
     Button signUp;
 
     @Nullable
@@ -58,24 +59,32 @@ public class SignInFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new SignInViewModelFactory(new SignInRepository()).create(SignInViewModel.class);
+        mViewModel = new SignInViewModelFactory(new SignInRepository(), this).create(SignInViewModel.class);
         initViews();
         initListener();
     }
 
     private void initListener() {
 
+        signIn.setOnClickListener(v -> mViewModel.signIn(emailEditText.getText().toString(),
+                passwordEditText.getText().toString(),
+                getContext()));
+        forgetPasswordText.setOnClickListener(v -> mViewModel.navigateToForgetPassword());
+        signUp.setOnClickListener(v -> mViewModel.navigateToSignUp());
+        signinWithGoogle.setOnClickListener(v -> mViewModel.signInWithGoogle(getActivity()));
+        signinWithFacebook.setOnClickListener(v -> mViewModel.signInWithFacebook(getActivity()));
+
 
     }
 
     private void initViews() {
-        signinWithGoogle= binding.signinSignWithGoogleTextFeild;
+        signinWithGoogle = binding.signinSignWithGoogleTextFeild;
         signinWithFacebook = binding.signinSignWithFaceTextFeild;
-        emailEditText= binding.siginEmailEditText;
+        emailEditText = binding.siginEmailEditText;
         passwordEditText = binding.siginPasswordEditText;
         forgetPasswordText = binding.signinTextForgetPassword;
         signIn = binding.siginBtnSignin;
-        signUp= binding.siginBtnSignup;
+        signUp = binding.siginBtnSignup;
     }
 
 }

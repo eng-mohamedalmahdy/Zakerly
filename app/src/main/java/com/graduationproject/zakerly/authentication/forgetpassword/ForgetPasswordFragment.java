@@ -30,5 +30,7 @@ private FragmentForgetPasswordBinding binding ;
         super.onViewCreated(view, savedInstanceState);
         binding.setViewModel(new ForgetPasswordViewModel(new ForgetPasswordRepository(getContext())));
         binding.executePendingBindings();
+
+        binding.icBackForgetpassword.setOnClickListener(v -> getActivity().onBackPressed());
     }
 }
