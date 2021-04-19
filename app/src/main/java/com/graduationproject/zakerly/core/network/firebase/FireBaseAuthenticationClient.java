@@ -33,8 +33,12 @@ public class FireBaseAuthenticationClient {
         return authInstance.sendPasswordResetEmail(email);
     }
 
-    public FirebaseUser getCurrentUser(){
+    public FirebaseUser getCurrentUser() {
         return authInstance.getCurrentUser();
+    }
+
+    public void signOut() {
+        authInstance.signOut();
     }
 
 

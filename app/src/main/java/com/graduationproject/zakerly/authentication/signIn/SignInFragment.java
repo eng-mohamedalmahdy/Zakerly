@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -19,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.authentication.signup.SignUpFragment;
 import com.graduationproject.zakerly.authentication.signup.SignUpRepository;
@@ -33,6 +35,7 @@ import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.network.GoogleClient;
+import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.databinding.FragmentSignUpBinding;
 import com.graduationproject.zakerly.databinding.FragmentSigninBinding;
 
@@ -41,8 +44,8 @@ public class SignInFragment extends BaseFragment {
     private FragmentSigninBinding binding;
     private SignInViewModel mViewModel;
 
-    TextInputLayout signinWithGoogle;
-    TextInputLayout signinWithFacebook;
+    LinearLayout signinWithGoogle;
+    LinearLayout signinWithFacebook;
     TextInputEditText emailEditText;
     EditText passwordEditText;
     TextView forgetPasswordText;
@@ -62,6 +65,7 @@ public class SignInFragment extends BaseFragment {
         mViewModel = new SignInViewModelFactory(new SignInRepository(), this).create(SignInViewModel.class);
         initViews();
         initListener();
+        mViewModel.signOut();
     }
 
     private void initListener() {
@@ -71,8 +75,8 @@ public class SignInFragment extends BaseFragment {
                 getContext()));
         forgetPasswordText.setOnClickListener(v -> mViewModel.navigateToForgetPassword());
         signUp.setOnClickListener(v -> mViewModel.navigateToSignUp());
-        signinWithGoogle.setOnClickListener(v -> mViewModel.signInWithGoogle(getActivity()));
-        signinWithFacebook.setOnClickListener(v -> mViewModel.signInWithFacebook(getActivity()));
+        signinWithGoogle.setOnClickListener(v -> mViewModel.signInWithGoogle((MainActivity) getActivity()));
+        signinWithFacebook.setOnClickListener(v -> mViewModel.signInWithFacebook((MainActivity) getActivity()));
 
 
     }

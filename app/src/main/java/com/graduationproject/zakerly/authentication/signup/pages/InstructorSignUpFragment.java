@@ -18,9 +18,11 @@ import androidx.annotation.Nullable;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.authentication.signup.SignUpFragment;
 import com.graduationproject.zakerly.authentication.signup.SignUpRepository;
 import com.graduationproject.zakerly.authentication.signup.SignUpViewModel;
 import com.graduationproject.zakerly.core.base.BaseFragment;
+import com.graduationproject.zakerly.core.constants.AuthTypes;
 import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Specialisation;
@@ -34,6 +36,8 @@ import io.realm.RealmList;
 
 public class InstructorSignUpFragment extends BaseFragment {
 
+    private SignUpFragment parent;
+
     private ViewInstructorSignUpBinding binding;
     private Spinner specialisationsSpinner;
     private SignUpViewModel viewModel;
@@ -42,6 +46,10 @@ public class InstructorSignUpFragment extends BaseFragment {
     private ArrayList<String> specialisationsNames;
     private RealmList<Specialisation> selectedSpecialisationsList;
     private boolean firstTime = true;
+
+    public InstructorSignUpFragment(SignUpFragment parent) {
+        this.parent = parent;
+    }
 
     @Nullable
     @Override
@@ -82,6 +90,19 @@ public class InstructorSignUpFragment extends BaseFragment {
             }
         });
 
+        setUpViews();
+
+    }
+
+    private void setUpViews() {
+        if (!parent.getArgs().getAuthType().equals(AuthTypes.AUTH_EMAIL)){
+            binding.emailTextField.setEnabled(false);
+            binding.passwordTextField.setEnabled(false);
+
+            binding.firstNameTextField.getEditText().setText(parent.getArgs().getFirstName());
+            binding.lastNameTextField.getEditText().setText(parent.getArgs().getLastName());
+            binding.emailTextField.getEditText().setText(parent.getArgs().getEmail());
+        }
     }
 
 
@@ -92,7 +113,8 @@ public class InstructorSignUpFragment extends BaseFragment {
                 binding.firstNameTextField.getEditText().getText().toString(),
                 binding.lastNameTextField.getEditText().getText().toString(),
                 binding.emailTextField.getEditText().getText().toString(),
-                selectedSpecialisationsList, ""),
+                parent.getAuthType(),"",
+                selectedSpecialisationsList),
                 Double.parseDouble(binding.priceTextField.getEditText().getText().toString()));
 
     }
@@ -109,34 +131,41 @@ public class InstructorSignUpFragment extends BaseFragment {
         String password = binding.passwordTextField.getEditText().getText().toString();
         String pricePerHour = binding.priceTextField.getEditText().getText().toString();
 
-        if (fName.isEmpty()) {
-            valid = false;
-            binding.firstNameTextField.setErrorEnabled(true);
-            binding.firstNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
-        }
-        if (lastName.isEmpty()) {
-            binding.lastNameTextField.setErrorEnabled(true);
-            binding.lastNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
+        if (parent.getArgs().getAuthType().equals(AuthTypes.AUTH_EMAIL)) {
+            if (fName.isEmpty()) {
+                valid = false;
+                binding.firstNameTextField.setErrorEnabled(true);
+                binding.firstNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
+            if (lastName.isEmpty()) {
+                valid = false;
+                binding.lastNameTextField.setErrorEnabled(true);
+                binding.lastNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
 
-        }
-        if (email.isEmpty()) {
-            binding.emailTextField.setErrorEnabled(true);
-            binding.emailTextField.setError(getText(R.string.this_field_cannot_be_empty));
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            valid = false;
-            binding.emailTextField.setErrorEnabled(true);
-            binding.emailTextField.setError(getText(R.string.invalid_email));
-        }
-        if (password.isEmpty()) {
-            binding.passwordTextField.setErrorEnabled(true);
-            binding.passwordTextField.setError(getText(R.string.this_field_cannot_be_empty));
-        }
-        if (password.length() < 8) {
-            binding.passwordTextField.setErrorEnabled(true);
-            binding.passwordTextField.setError(getText(R.string.password_must_be_at_least_8));
+            }
+            if (email.isEmpty()) {
+                valid = false;
+                binding.emailTextField.setErrorEnabled(true);
+                binding.emailTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                valid = false;
+                binding.emailTextField.setErrorEnabled(true);
+                binding.emailTextField.setError(getText(R.string.invalid_email));
+            }
+            if (password.isEmpty()) {
+                valid = false;
+                binding.passwordTextField.setErrorEnabled(true);
+                binding.passwordTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
+            if (password.length() < 8) {
+                valid = false;
+                binding.passwordTextField.setErrorEnabled(true);
+                binding.passwordTextField.setError(getText(R.string.password_must_be_at_least_8));
+            }
         }
         if (pricePerHour.isEmpty()) {
+            valid = false;
             binding.priceTextField.setErrorEnabled(true);
             binding.priceTextField.setError(getText(R.string.this_field_cannot_be_empty));
         }

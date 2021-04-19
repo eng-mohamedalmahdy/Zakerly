@@ -3,38 +3,51 @@ package com.graduationproject.zakerly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.facebook.CallbackManager;
+import com.facebook.login.LoginBehavior;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.graduationproject.zakerly.authentication.signIn.SignInFragmentDirections;
 import com.graduationproject.zakerly.core.base.BaseActivity;
+import com.graduationproject.zakerly.core.constants.AuthTypes;
+import com.graduationproject.zakerly.core.constants.UserTypes;
+import com.graduationproject.zakerly.core.models.Instructor;
+import com.graduationproject.zakerly.core.models.Student;
+import com.graduationproject.zakerly.core.models.User;
+import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.ActivityMainBinding;
 import com.graduationproject.zakerly.core.network.GoogleClient;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 
+import java.util.Arrays;
+
+import es.dmoral.toasty.Toasty;
+
 public class MainActivity extends BaseActivity {
 
+    private static final String TAG = "MAIN_ACTIVITY";
     private ActivityMainBinding binding;
     private ChipNavigationBar navigationBar;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    GoogleClient googleClient = new GoogleClient(MainActivity.this);
+    private GoogleClient googleClient;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private CallbackManager callbackManager;
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            // go to other activity
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +59,13 @@ public class MainActivity extends BaseActivity {
         setNavigationVisibility(false);
         navigationBar.setItemSelected(R.id.home, true);
 
+        googleClient = GoogleClient.getInstance();
+        googleClient.createRequest(this);
+
         //used for facebook sign in
         callbackManager = CallbackManager.Factory.create();
-        //you should define facebook login button in your xml then implement it here and call method registerCallback
+        LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
+
     }
 
 
@@ -86,7 +103,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void  onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // this line used in  facebook signIn
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -96,10 +113,40 @@ public class MainActivity extends BaseActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                googleClient.firebaseAuthWithGoogle(account.getIdToken());
+                String fName = account.getDisplayName();
+                String lName = account.getFamilyName();
+                String email = account.getEmail();
+                NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+                FirebaseDataBaseClient.getInstance().getUser(email).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Log.d(TAG, "onDataChange: " + snapshot.toString());
+                        if ((snapshot.getChildrenCount() > 0)) {
+                            Toasty.success(MainActivity.this, R.string.user_signin_success).show();
+                        } else {
+                            controller.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment(AuthTypes.AUTH_G_MAIL, account.getIdToken(), fName, lName, email));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d(TAG, "onCancelled: " + "CANCELD");
+                    }
+                });
+
             } catch (ApiException e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public GoogleClient getGoogleClient() {
+        return googleClient;
+    }
+
+    public CallbackManager getFacebookCallbackManager() {
+        return callbackManager;
     }
 }

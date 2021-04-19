@@ -12,24 +12,28 @@ import android.view.ViewGroup;
 import com.graduationproject.zakerly.core.base.BaseFragment;
 import com.graduationproject.zakerly.databinding.FragmentForgetPasswordBinding;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ForgetPasswordFragment extends BaseFragment {
 
 private FragmentForgetPasswordBinding binding ;
+private ForgetPasswordViewModel viewModel;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater
+    public View onCreateView(@NotNull LayoutInflater inflater
                               , ViewGroup container
                               , Bundle savedInstanceState) {
        binding = FragmentForgetPasswordBinding.inflate(inflater,container,false);
+        viewModel = new ForgetPasswordViewModel(new ForgetPasswordRepository(getContext()));
+        binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setViewModel(new ForgetPasswordViewModel(new ForgetPasswordRepository(getContext())));
-        binding.executePendingBindings();
 
         binding.icBackForgetpassword.setOnClickListener(v -> getActivity().onBackPressed());
     }

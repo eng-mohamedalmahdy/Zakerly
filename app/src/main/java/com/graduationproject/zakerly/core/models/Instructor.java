@@ -33,4 +33,12 @@ public class Instructor extends RealmObject {
     public void setPricePerHour(double pricePerHour) {
         this.pricePerHour = pricePerHour;
     }
+
+    @Override
+    public String toString() {
+        return "Instructor{" +
+                "user=" + user +
+                ", pricePerHour=" + pricePerHour +
+                '}';
+    }
 }

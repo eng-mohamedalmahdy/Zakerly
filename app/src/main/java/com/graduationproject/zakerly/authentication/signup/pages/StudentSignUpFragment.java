@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.authentication.signup.SignUpFragment;
 import com.graduationproject.zakerly.authentication.signup.SignUpRepository;
 import com.graduationproject.zakerly.authentication.signup.SignUpViewModel;
 import com.graduationproject.zakerly.core.base.BaseFragment;
@@ -31,6 +32,7 @@ import io.realm.RealmList;
 
 public class StudentSignUpFragment extends BaseFragment {
 
+    private SignUpFragment parent;
     private ViewStudentSignUpBinding binding;
     private Spinner specialisationsSpinner;
     private SignUpViewModel viewModel;
@@ -39,6 +41,10 @@ public class StudentSignUpFragment extends BaseFragment {
     private ArrayList<String> specialisationsNames;
     private RealmList<Specialisation> selectedSpecialisationsList;
     private boolean firstTime = true;
+
+    public StudentSignUpFragment(SignUpFragment parent) {
+        this.parent = parent;
+    }
 
     @Nullable
     @Override
@@ -83,6 +89,9 @@ public class StudentSignUpFragment extends BaseFragment {
 
             }
         });
+
+        setUpViews();
+
     }
 
     public Student getStudent() {
@@ -90,8 +99,8 @@ public class StudentSignUpFragment extends BaseFragment {
                 UserTypes.TYPE_INSTRUCTOR,
                 binding.firstNameTextField.getEditText().getText().toString(),
                 binding.lastNameTextField.getEditText().getText().toString(),
-                binding.emailTextField.getEditText().getText().toString(),
-                selectedSpecialisationsList, ""));
+                binding.emailTextField.getEditText().getText().toString(), parent.getAuthType(), "",
+                selectedSpecialisationsList));
     }
 
     public boolean validate() {
@@ -102,36 +111,38 @@ public class StudentSignUpFragment extends BaseFragment {
         String email = binding.emailTextField.getEditText().getText().toString();
         String password = binding.passwordTextField.getEditText().getText().toString();
 
-        if (fName.isEmpty()) {
-            valid = false;
-            binding.firstNameTextField.setErrorEnabled(true);
-            binding.firstNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
-        }
-        if (lastName.isEmpty()) {
-            valid = false;
-            binding.lastNameTextField.setErrorEnabled(true);
-            binding.lastNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
-        }
-        if (email.isEmpty()) {
-            valid = false;
-            binding.emailTextField.setErrorEnabled(true);
-            binding.emailTextField.setError(getText(R.string.this_field_cannot_be_empty));
-        }
+        if (parent.getArgs().getAuthType().equals("EMAIL")){
+            if (fName.isEmpty()) {
+                valid = false;
+                binding.firstNameTextField.setErrorEnabled(true);
+                binding.firstNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
+            if (lastName.isEmpty()) {
+                valid = false;
+                binding.lastNameTextField.setErrorEnabled(true);
+                binding.lastNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
+            if (email.isEmpty()) {
+                valid = false;
+                binding.emailTextField.setErrorEnabled(true);
+                binding.emailTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            valid = false;
-            binding.emailTextField.setErrorEnabled(true);
-            binding.emailTextField.setError(getText(R.string.invalid_email));
-        }
-        if (password.isEmpty()) {
-            valid = false;
-            binding.passwordTextField.setErrorEnabled(true);
-            binding.passwordTextField.setError(getText(R.string.this_field_cannot_be_empty));
-        }
-        if (password.length() < 8) {
-            valid = false;
-            binding.passwordTextField.setErrorEnabled(true);
-            binding.passwordTextField.setError(getText(R.string.password_must_be_at_least_8));
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                valid = false;
+                binding.emailTextField.setErrorEnabled(true);
+                binding.emailTextField.setError(getText(R.string.invalid_email));
+            }
+            if (password.isEmpty()) {
+                valid = false;
+                binding.passwordTextField.setErrorEnabled(true);
+                binding.passwordTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
+            if (password.length() < 8) {
+                valid = false;
+                binding.passwordTextField.setErrorEnabled(true);
+                binding.passwordTextField.setError(getText(R.string.password_must_be_at_least_8));
+            }
         }
 
         return valid;
@@ -159,6 +170,17 @@ public class StudentSignUpFragment extends BaseFragment {
             selectedSpecialisations.removeView(chip);
             selectedSpecialisationsList.remove(specialisation);
         });
+    }
+
+    private void setUpViews() {
+        if (!parent.getArgs().getAuthType().equals("EMAIL")){
+            binding.emailTextField.setEnabled(false);
+            binding.passwordTextField.setEnabled(false);
+
+            binding.firstNameTextField.getEditText().setText(parent.getArgs().getFirstName());
+            binding.lastNameTextField.getEditText().setText(parent.getArgs().getLastName());
+            binding.emailTextField.getEditText().setText(parent.getArgs().getEmail());
+        }
     }
 
 }

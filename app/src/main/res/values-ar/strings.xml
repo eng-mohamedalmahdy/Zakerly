@@ -22,5 +22,9 @@
     <string name="user_created">User created sccessfully</string>
     <string name="select_specialisation">Select Specialisation</string>
     <string name="select_interests">Select Interests</string>
+    <string name="reset_password_mail_sent">Reset Password E-mail Sent Successfully</string>
+    <string name="failed_to_send_reset_mail">Faield to send reset E-mail</string>
+    <string name="email_field_cannot_be_empty">Email field can\'t be empty</string>
+    <string name="failed_to_login">Failed to log in</string>
 
 </resources>

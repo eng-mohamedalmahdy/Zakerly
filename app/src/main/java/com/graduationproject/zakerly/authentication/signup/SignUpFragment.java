@@ -1,23 +1,16 @@
 package com.graduationproject.zakerly.authentication.signup;
 
 import android.content.ContextWrapper;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.authentication.signup.pages.InstructorSignUpFragment;
 import com.graduationproject.zakerly.authentication.signup.pages.StudentSignUpFragment;
@@ -28,15 +21,16 @@ import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.databinding.FragmentSignUpBinding;
 
+
 public class SignUpFragment extends BaseFragment {
 
     private SignUpViewModel mViewModel;
     private FragmentSignUpBinding binding;
-
     private ViewPager2 userTypePager;
     private Button studentTab;
     private Button instructorTab;
     private Button signUp;
+    private SignUpFragmentArgs args;
 
 
     @Override
@@ -50,6 +44,8 @@ public class SignUpFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        args = SignUpFragmentArgs.fromBundle(requireArguments());
+
         mViewModel = new SignUpViewModelFactory(new SignUpRepository()).create(SignUpViewModel.class);
 
         initViews();
@@ -57,6 +53,8 @@ public class SignUpFragment extends BaseFragment {
         initViewPager();
 
         initListeners();
+
+
     }
 
 
@@ -74,7 +72,6 @@ public class SignUpFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 updateLiveData(position);
-
             }
         });
     }
@@ -91,6 +88,7 @@ public class SignUpFragment extends BaseFragment {
                 boolean valid = instructorSignUpFragment.validate();
                 if (valid) {
                     Instructor instructor = instructorSignUpFragment.getInstructor();
+                    instructor.getUser().setUID(args.getUid());
                     String password = instructorSignUpFragment.getPassword();
                     mViewModel.signUp(instructor, password, getContext());
                 }
@@ -100,6 +98,7 @@ public class SignUpFragment extends BaseFragment {
                 boolean valid = studentSignUpFragment.validate();
                 if (valid) {
                     Student student = studentSignUpFragment.getStudent();
+                    student.getUser().setUID(args.getUid());
                     String password = studentSignUpFragment.getPassword();
                     mViewModel.signUp(student, password, getContext());
                 }
@@ -134,4 +133,11 @@ public class SignUpFragment extends BaseFragment {
         }
     }
 
+    public String getAuthType() {
+        return args.getAuthType();
+    }
+
+    public SignUpFragmentArgs getArgs() {
+        return args;
+    }
 }

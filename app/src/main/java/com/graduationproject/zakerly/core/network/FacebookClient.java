@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.login.LoginBehavior;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,35 +19,31 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 public class FacebookClient {
-    private static final String TAG ="FBAUTH" ;
+    private static FacebookClient instance;
+    private static final String TAG = "FBAUTH";
     private CallbackManager callbackManager;
-    private LoginButton loginButton;
-    private static final String Email="email";
-    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
-    public Activity activity;
-    public FacebookClient (Activity activity){
-        this.activity=activity;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    private FacebookClient() {
+
     }
 
-    public void handleFacebookAccessToken(AccessToken token) {
+    public static FacebookClient getInstance() {
+        if (instance == null) instance = new FacebookClient();
+        return instance;
+    }
+
+    public Task<AuthResult> handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener((Executor) this, task -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        //go to the other fragment from here
+        return mAuth.signInWithCredential(credential);
+    }
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(activity, "Error while Sign in with Facebook", Toast.LENGTH_SHORT).show();
-                    }
-                });
+    public void signOut() {
+        LoginManager.getInstance().logOut();
     }
 }

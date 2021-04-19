@@ -41,10 +41,15 @@
     <string name="btn_sigin">Sign in</string>
     <string name="hint_your_password">Password</string>
     <string name="forget_password_text">Forget Password ?</string>
-    <string name="sign_in_with_facebook">Sign In With facebook</string>
+    <string name="sign_in_with_facebook">Sign In With Facebook</string>
     <string name="UserSignIn">user_signin_success</string>
     <string name="sign_in_with_google">Sign In With Google</string>
     <string name="or">Or</string>
     <string name="select_specialisation">Select Specialisations</string>
     <string name="select_interests">Select Interests</string>
+    <string name="reset_password_mail_sent">Reset Password E-mail Sent Successfully</string>
+    <string name="failed_to_send_reset_mail">Faield to send reset E-mail</string>
+    <string name="email_field_cannot_be_empty">Email field can\'t be empty</string>
+    <string name="failed_to_login">Failed to log in</string>
+
 </resources>
