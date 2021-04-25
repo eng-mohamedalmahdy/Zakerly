@@ -10,13 +10,13 @@
     <string name="notification">Notification</string>
     <string name="facebook_app_id">259345919172555</string>
     <string name="fb_login_protocol_scheme">fb259345919172555</string>
-    <string name="text_slider_description_one" >You can search about perfect instructors and make a good deal with him</string>
-    <string name="text_slider_description_two" >You can find all majors and learn as if you were a college student</string>
-    <string name="text_slider_description_three" >And now you can start your career</string>
+    <string name="text_slider_description_one">You can search about perfect instructors and make a good deal with him</string>
+    <string name="text_slider_description_two">You can find all majors and learn as if you were a college student</string>
+    <string name="text_slider_description_three">And now you can start your career</string>
     <string name="log_in">login</string>
-    <string name="hint_your_email" >Your Email</string>
-    <string name="hint_password" >password</string>
-    <string name="sign_in" >Sign In</string>
+    <string name="hint_your_email">Your Email</string>
+    <string name="hint_password">password</string>
+    <string name="sign_in">Sign In</string>
     <string name="next">Next</string>
     <string name="done">Done</string>
     <string name="back">Back</string>
@@ -51,5 +51,7 @@
     <string name="failed_to_send_reset_mail">Faield to send reset E-mail</string>
     <string name="email_field_cannot_be_empty">Email field can\'t be empty</string>
     <string name="failed_to_login">Failed to log in</string>
+    <string name="my_teachers">My Teachers</string>
+    <string name="descriptionOfTeacher">I,am A Teacher Of Android and My HourPrice is 300$ because I,am Gamed Fashekh</string>
 
 </resources>

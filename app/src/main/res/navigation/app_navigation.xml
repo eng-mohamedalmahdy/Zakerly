@@ -18,7 +18,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_logInFragment"
-            app:destination="@id/signInFragment"
+            app:destination="@id/profileStudentFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/app_navigation"
             app:popUpToInclusive="true" />
@@ -51,6 +51,16 @@
             app:popUpTo="@+id/app_navigation"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/profileStudentFragment"
+        android:name="com.graduationproject.zakerly.authentication.profile.ProfileStudentFragment"
+        android:label="ProfileStudentFragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_profile_student">
+    </fragment>
+
 
     <fragment
         android:id="@+id/signInFragment"
