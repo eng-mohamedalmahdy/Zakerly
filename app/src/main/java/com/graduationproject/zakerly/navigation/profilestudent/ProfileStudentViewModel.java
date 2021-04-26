@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.authentication.profile;
+package com.graduationproject.zakerly.navigation.profilestudent;
 
 import androidx.lifecycle.ViewModel;
 

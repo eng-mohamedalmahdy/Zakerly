@@ -7,6 +7,7 @@ public class Instructor extends RealmObject {
 
     private User user;
     private double pricePerHour;
+    private double rate;
 
     public Instructor() {
     }
@@ -14,8 +15,8 @@ public class Instructor extends RealmObject {
     public Instructor(User user, double pricePerHour) {
         this.user = user;
         this.pricePerHour = pricePerHour;
+        this.rate = 5.0;
     }
-
 
 
     public User getUser() {
@@ -34,11 +35,20 @@ public class Instructor extends RealmObject {
         this.pricePerHour = pricePerHour;
     }
 
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
     @Override
     public String toString() {
         return "Instructor{" +
                 "user=" + user +
                 ", pricePerHour=" + pricePerHour +
+                ", rate=" + rate +
                 '}';
     }
 }

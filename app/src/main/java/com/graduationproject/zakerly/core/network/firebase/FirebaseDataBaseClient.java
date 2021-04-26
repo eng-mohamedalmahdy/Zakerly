@@ -51,6 +51,10 @@ public class FirebaseDataBaseClient {
         return usersReference.orderByChild("user/email").equalTo(email);
     }
 
+    public Task<Void> setCurrentUserProfilePicture(String imgUrl) {
+      return   usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).child("profile").setValue(imgUrl);
+    }
+
     public void doWithUserObject(String email,
                                  Function<Student, Boolean> studentAction,
                                  Function<Instructor, Boolean> instructorAction, Function<String, Boolean> errorAction) {

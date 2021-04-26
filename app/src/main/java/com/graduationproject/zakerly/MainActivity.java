@@ -75,7 +75,12 @@ public class MainActivity extends BaseActivity {
 
     private void initListeners() {
         navigationBar.setOnItemSelectedListener(i -> {
-            //TODO Add the navigation logic here
+            switch (i) {
+                case BottomNavigationConstants.ACCOUNT_PAGE: {
+
+                    break;
+                }
+            }
         });
     }
 

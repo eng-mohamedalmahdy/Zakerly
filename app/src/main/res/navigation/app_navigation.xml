@@ -18,10 +18,13 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_logInFragment"
-            app:destination="@id/profileStudentFragment"
+            app:destination="@id/signInFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/app_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeStudentFragment"
+            app:destination="@id/homeStudentFragment" />
 
     </fragment>
 
@@ -54,12 +57,11 @@
 
     <fragment
         android:id="@+id/profileStudentFragment"
-        android:name="com.graduationproject.zakerly.authentication.profile.ProfileStudentFragment"
+        android:name="com.graduationproject.zakerly.navigation.profilestudent.ProfileStudentFragment"
         android:label="ProfileStudentFragment"
         app:launchSingleTop="true"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_profile_student">
-    </fragment>
+        tools:layout="@layout/fragment_profile_student" />
 
 
     <fragment
@@ -75,6 +77,9 @@
         <action
             android:id="@+id/action_signInFragment_to_forgetPasswordFragment"
             app:destination="@id/forgetPasswordFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeStudentFragment"
+            app:destination="@id/homeStudentFragment" />
     </fragment>
 
 
@@ -104,6 +109,18 @@
             android:name="email"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_signUpFragment_to_homeStudentFragment"
+            app:destination="@id/homeStudentFragment" />
     </fragment>
+
+    <action
+        android:id="@+id/navigate_to_profile"
+        app:destination="@id/profileStudentFragment" />
+    <fragment
+        android:id="@+id/homeStudentFragment"
+        android:name="com.graduationproject.zakerly.navigation.homestudent.HomeStudentFragment"
+        android:label="fragment_home_student"
+        tools:layout="@layout/fragment_home_student" />
 
 </navigation>

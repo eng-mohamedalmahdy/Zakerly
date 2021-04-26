@@ -42,7 +42,6 @@ public class SignInRepository {
 
         if (FireBaseAuthenticationClient.getInstance().getCurrentUser() != null) {
             userLiveData.postValue(FireBaseAuthenticationClient.getInstance().getCurrentUser());
-
         }
     }
 

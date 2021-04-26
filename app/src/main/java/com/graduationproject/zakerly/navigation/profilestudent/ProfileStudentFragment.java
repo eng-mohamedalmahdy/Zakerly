@@ -1,12 +1,11 @@
 
-package com.graduationproject.zakerly.authentication.profile;
+package com.graduationproject.zakerly.navigation.profilestudent;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,20 +20,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.graduationproject.zakerly.MainActivity;
+import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
+import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentProfileStudentBinding;
 
 import java.io.IOException;
-import java.util.UUID;
 
 import es.dmoral.toasty.Toasty;
 
@@ -43,15 +40,11 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileStudentFragment extends Fragment {
 
 
-
     // note btn save to test , test only .  . (:-
     // my profile picture either is for test hhhhhhhhh
 
     private FragmentProfileStudentBinding binding;
     private ProfileStudentViewModel mViewModel;
-
-    private Uri uri;
-
     private static final int IMAGE_PICK_CODE = 100;
     private static final int PERMISSION_CODE = 101;
 
@@ -59,7 +52,6 @@ public class ProfileStudentFragment extends Fragment {
     AppCompatImageView profile, camera;
     TextView profileName;
     RecyclerView mRecyclerView;
-    Button saveBtn;
 
 
     @Override
@@ -67,6 +59,9 @@ public class ProfileStudentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentProfileStudentBinding.inflate(inflater, container, false);
+        mViewModel = new ProfileStudentViewModelFactory(new ProfileStudentRepository()).create(ProfileStudentViewModel.class);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        ((MainActivity) getActivity()).setSelectedPage(BottomNavigationConstants.ACCOUNT_PAGE);
         return binding.getRoot();
     }
 
@@ -75,13 +70,9 @@ public class ProfileStudentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         initListener();
-
-        // get the Firebase  storage reference
-        mViewModel = new ProfileStudentViewModelFactory(new ProfileStudentRepository()).create(ProfileStudentViewModel.class);
     }
 
     private void initViews() {
-        saveBtn =binding.saveBtn;
         action = binding.icAction;
         favorite = binding.favoriteIcon;
         videoCall = binding.videocallIcon;
@@ -94,34 +85,25 @@ public class ProfileStudentFragment extends Fragment {
     }
 
     private void initListener() {
-
         camera.setOnClickListener(view -> checkPermission());
-        saveBtn.setOnClickListener(view -> {
-            uploadImageToFireStore();
-        });
-
     }
 
     private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_DENIED) {
-                // permission not granted , request it .
-                String[] permission = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                //show popup for runTime Permission
-                requestPermissions(permission, PERMISSION_CODE);
-
-            } else {
-                // permission already granted
-                pickImageFromGallery();
-            }
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED) {
+            // permission not granted , request it .
+            String[] permission = {Manifest.permission.READ_EXTERNAL_STORAGE};
+            //show popup for runTime Permission
+            requestPermissions(permission, PERMISSION_CODE);
 
         } else {
-            // System os is less than 23 .
+            // permission already granted
             pickImageFromGallery();
         }
+
     }
+
 
     private void pickImageFromGallery() {
         // intent to pick ImageFrom Gallery.
@@ -130,6 +112,7 @@ public class ProfileStudentFragment extends Fragment {
         startActivityForResult(intent, IMAGE_PICK_CODE);
 
     }
+
 
     // handle result of run time Permission >>
     @Override
@@ -150,27 +133,28 @@ public class ProfileStudentFragment extends Fragment {
     // handle result of picked image >>
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE && data !=null) {
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE && data != null) {
             // set image in amageView.
-            uri = data.getData();
+            Uri uri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                 profile.setImageBitmap(bitmap);
+                uploadImageToFireStore(uri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void uploadImageToFireStore(){
-        if (uri !=null) {
-            String fillName = UUID.randomUUID().toString();
-            StorageReference ref = FirebaseStorage.getInstance().getReference("image.png" + fillName);
+    private void uploadImageToFireStore(Uri uri) {
+        if (uri != null) {
+            String userUid = FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid();
+            StorageReference ref = FirebaseStorage.getInstance().getReference("profiles/" + userUid);
             ref.putFile(uri).addOnSuccessListener(taskSnapshot -> {
-                Log.d("Profile Fragmeent ", "Successfully uploaded . . ");
+                Log.d("Profile Fragment ", "Successfully uploaded . . ");
 
-                ref.getDownloadUrl().addOnSuccessListener(uri -> {
-                    Log.d("Profile Fragmeent ", "File Location :" + uri);
+                ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {
+                    Log.d("Profile Fragment ", "File Location :" + downloadUri);
                     saveImageToFirebaseDatabase(uri.toString());
                 });
             });
@@ -179,14 +163,12 @@ public class ProfileStudentFragment extends Fragment {
     }
 
     private void saveImageToFirebaseDatabase(String imageProfileUri) {
-        String id = FirebaseAuth.getInstance().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(FireBaseAuthenticationClient.getInstance().getCurrentUser()
-        +"/"+profile+"/"+id);
-        ref.setValue(profile).addOnSuccessListener(aVoid -> {
-            Log.d("Profile Fragmeent " , "finally Image saved to firebase  . . . " );
-        });
 
-
+        FirebaseDataBaseClient.getInstance()
+                .setCurrentUserProfilePicture(imageProfileUri)
+                .addOnSuccessListener(task -> {
+                    Log.d("Profile Fragment ", "finally Image saved to firebase  . . . ");
+                });
     }
 
 

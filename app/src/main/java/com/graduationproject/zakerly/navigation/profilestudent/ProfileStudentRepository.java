@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.authentication.profile;
+package com.graduationproject.zakerly.navigation.profilestudent;
 
 public class ProfileStudentRepository {
 
