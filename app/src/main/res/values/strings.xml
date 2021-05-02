@@ -53,5 +53,6 @@
     <string name="failed_to_login">Failed to log in</string>
     <string name="my_teachers">My Teachers</string>
     <string name="descriptionOfTeacher">I,am A Teacher Of Android and My HourPrice is 300$ because I,am Gamed Fashekh</string>
+    <string name="favorites">Favorites</string>
 
 </resources>

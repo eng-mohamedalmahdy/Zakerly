@@ -117,10 +117,20 @@
     <action
         android:id="@+id/navigate_to_profile"
         app:destination="@id/profileStudentFragment" />
+
+    <action android:id="@+id/navigate_to_favorite"
+        app:destination="@id/favoriteFragment"/>
+
     <fragment
         android:id="@+id/homeStudentFragment"
         android:name="com.graduationproject.zakerly.navigation.homestudent.HomeStudentFragment"
         android:label="fragment_home_student"
         tools:layout="@layout/fragment_home_student" />
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.graduationproject.zakerly.navigation.favorites.FavoritesFragment"
+        android:label="favorite_fragment"
+        tools:layout="@layout/fragment_favorites" />
 
 </navigation>
