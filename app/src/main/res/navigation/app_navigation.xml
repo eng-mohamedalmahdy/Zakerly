@@ -115,8 +115,11 @@
     </fragment>
 
     <action
-        android:id="@+id/navigate_to_profile"
+        android:id="@+id/navigate_to_student_profile"
         app:destination="@id/profileStudentFragment" />
+    <action
+        android:id="@+id/navigate_to_student_home"
+        app:destination="@id/homeStudentFragment" />
     <fragment
         android:id="@+id/homeStudentFragment"
         android:name="com.graduationproject.zakerly.navigation.homestudent.HomeStudentFragment"

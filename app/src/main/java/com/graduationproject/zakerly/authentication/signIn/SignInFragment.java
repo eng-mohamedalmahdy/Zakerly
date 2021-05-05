@@ -72,7 +72,7 @@ public class SignInFragment extends BaseFragment {
 
         signIn.setOnClickListener(v -> mViewModel.signIn(emailEditText.getText().toString(),
                 passwordEditText.getText().toString(),
-                getContext()));
+                this));
         forgetPasswordText.setOnClickListener(v -> mViewModel.navigateToForgetPassword());
         signUp.setOnClickListener(v -> mViewModel.navigateToSignUp());
         signinWithGoogle.setOnClickListener(v -> mViewModel.signInWithGoogle((MainActivity) getActivity()));

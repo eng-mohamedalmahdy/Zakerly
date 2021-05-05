@@ -90,7 +90,7 @@ public class SignUpFragment extends BaseFragment {
                     Instructor instructor = instructorSignUpFragment.getInstructor();
                     instructor.getUser().setUID(args.getUid());
                     String password = instructorSignUpFragment.getPassword();
-                    mViewModel.signUp(instructor, password, getContext());
+                    mViewModel.signUp(instructor, password, this);
                 }
             } else {
                 StudentSignUpFragment studentSignUpFragment = (StudentSignUpFragment) ((UserTypePagerAdapter) userTypePager.getAdapter())
@@ -100,7 +100,7 @@ public class SignUpFragment extends BaseFragment {
                     Student student = studentSignUpFragment.getStudent();
                     student.getUser().setUID(args.getUid());
                     String password = studentSignUpFragment.getPassword();
-                    mViewModel.signUp(student, password, getContext());
+                    mViewModel.signUp(student, password,this);
                 }
             }
         });

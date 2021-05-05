@@ -40,14 +40,19 @@ public class SplashViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(/*OnNext*/isFirstLaunch -> {
                             FirebaseUser user = FireBaseAuthenticationClient.getInstance().getCurrentUser();
+                            User localUser = null;
+                            if (user!=null){
+                                localUser = new RealmQueries().getUser(user.getUid());
+                            }
+
                             if (isFirstLaunch) {
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment());
                                 return;
-                            } else if (user == null) {
+                            } else if (null == user ||localUser==null) {
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToLogInFragment());
                                 return;
                             }
-                            User localUser = new RealmQueries().getUser(user.getUid());
+
                             if (localUser.getType().equals(UserTypes.TYPE_STUDENT)) {
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToHomeStudentFragment());
                             } else {

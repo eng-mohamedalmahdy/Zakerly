@@ -40,8 +40,7 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileStudentFragment extends Fragment {
 
 
-    // note btn save to test , test only .  . (:-
-    // my profile picture either is for test hhhhhhhhh
+
 
     private FragmentProfileStudentBinding binding;
     private ProfileStudentViewModel mViewModel;
@@ -62,6 +61,7 @@ public class ProfileStudentFragment extends Fragment {
         mViewModel = new ProfileStudentViewModelFactory(new ProfileStudentRepository()).create(ProfileStudentViewModel.class);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         ((MainActivity) getActivity()).setSelectedPage(BottomNavigationConstants.ACCOUNT_PAGE);
+        ((MainActivity) getActivity()).setNavigationVisibility(true);
         return binding.getRoot();
     }
 

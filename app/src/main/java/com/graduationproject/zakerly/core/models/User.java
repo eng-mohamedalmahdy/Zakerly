@@ -1,6 +1,8 @@
 package com.graduationproject.zakerly.core.models;
 
 
+import java.util.ArrayList;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Index;
@@ -35,8 +37,10 @@ public class User extends RealmObject {
         return interests;
     }
 
-    public void setInterests(RealmList<Specialisation> interests) {
-        this.interests = interests;
+    public void setInterests(ArrayList<Specialisation> interests) {
+        RealmList<Specialisation> newInterests = new RealmList<>();
+        newInterests.addAll(interests);
+        this.interests = newInterests;
     }
 
     public String getUID() {

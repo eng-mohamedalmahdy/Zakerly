@@ -3,6 +3,10 @@ package com.graduationproject.zakerly.authentication.signup;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavHost;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.graduationproject.zakerly.R;
@@ -24,7 +28,7 @@ public class SignUpRepository {
         client = GoogleClient.getInstance();
     }
 
-    public void signUp(Student student, String password, Context context) {
+    public void signUp(Student student, String password, Fragment fragment) {
 
         switch (student.getUser().getAuthType()) {
             case AuthTypes.AUTH_EMAIL:
@@ -35,9 +39,11 @@ public class SignUpRepository {
                             FirebaseDataBaseClient.getInstance().addStudent(student);
                             RealmQueries queries = new RealmQueries();
                             queries.addStudent(student);
-                            Toasty.success(context, context.getText(R.string.user_created)).show();
+                            Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_homeStudentFragment);
+
                         })
-                        .addOnFailureListener(e -> Toasty.info(context, e.getLocalizedMessage()).show());
+                        .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
 
 
                 break;
@@ -49,9 +55,11 @@ public class SignUpRepository {
                             FirebaseDataBaseClient.getInstance().addStudent(student);
                             RealmQueries queries = new RealmQueries();
                             queries.addStudent(student);
-                            Toasty.success(context, context.getText(R.string.user_created)).show();
+                            Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_homeStudentFragment);
+
                         })
-                        .addOnFailureListener(e -> Toasty.info(context, e.getLocalizedMessage()).show());
+                        .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
 
             case AuthTypes.AUTH_FACEBOOK:
@@ -59,15 +67,17 @@ public class SignUpRepository {
                 {
                     RealmQueries queries = new RealmQueries();
                     queries.addStudent(student);
-                    Toasty.success(context, context.getText(R.string.user_created)).show();
+                    Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                    NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_homeStudentFragment);
+
 
                 })
-                        .addOnFailureListener(e -> Toasty.info(context, e.getLocalizedMessage()).show());
+                        .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
         }
     }
 
-    public void signUp(Instructor instructor, String password, Context context) {
+    public void signUp(Instructor instructor, String password, Fragment fragment) {
         switch (instructor.getUser().getAuthType()) {
             case AuthTypes.AUTH_EMAIL:
                 FireBaseAuthenticationClient.getInstance().signUp(instructor.getUser().getEmail(), password).
@@ -78,9 +88,9 @@ public class SignUpRepository {
                             FirebaseDataBaseClient.getInstance().addInstructor(instructor);
                             RealmQueries queries = new RealmQueries();
                             queries.addTeacher(instructor);
-                            Toasty.success(context, context.getText(R.string.user_created)).show();
+                            Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
                         })
-                        .addOnFailureListener(e -> Toasty.info(context, e.getLocalizedMessage()).show());
+                        .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
 
             case AuthTypes.AUTH_G_MAIL:
@@ -91,17 +101,17 @@ public class SignUpRepository {
                             FirebaseDataBaseClient.getInstance().addInstructor(instructor);
                             RealmQueries queries = new RealmQueries();
                             queries.addTeacher(instructor);
-                            Toasty.success(context, context.getText(R.string.user_created)).show();
+                            Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
                         })
-                        .addOnFailureListener(e -> Toasty.info(context, e.getLocalizedMessage()).show());
+                        .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
 
             case AuthTypes.AUTH_FACEBOOK:
                 FirebaseDataBaseClient.getInstance().addInstructor(instructor).addOnSuccessListener(aVoid -> {
-                    Toasty.success(context, context.getText(R.string.user_created)).show();
+                    Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
                     RealmQueries queries = new RealmQueries();
                     queries.addTeacher(instructor);
-                }).addOnFailureListener(e -> Toasty.info(context, e.getLocalizedMessage()).show());
+                }).addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
         }
     }

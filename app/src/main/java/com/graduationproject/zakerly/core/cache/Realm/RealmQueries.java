@@ -15,18 +15,25 @@ public class RealmQueries {
 
     public void addStudent(Student student) {    // add Student to Realm
         realm.beginTransaction();
-        realm.createObject(Student.class);
+        Student s = realm.createObject(Student.class);
+        realm.copyToRealm(student.getUser());
+        s.setUser(realm.copyToRealm(student.getUser()));
         realm.commitTransaction();
     }
 
-    public void addTeacher(Instructor teacher) {  // add Teacher to Realm
+    public void addTeacher(Instructor teacher) {
+        // add Teacher to Realm
         realm.beginTransaction();
-        realm.createObject(Student.class);
+        Instructor instructor = realm.createObject(Instructor.class);
+        instructor.setUser(realm.copyToRealm(teacher.getUser()));
+        instructor.setPricePerHour(teacher.getPricePerHour());
+        instructor.setRate(teacher.getRate());
+        realm.copyToRealm(teacher.getUser());
         realm.commitTransaction();
     }
 
     public User getUser(String uid) {
-        return realm.where(User.class).equalTo("uid", uid).findFirst();
+        return realm.where(User.class).equalTo("UID", uid).findFirst();
     }
 
 

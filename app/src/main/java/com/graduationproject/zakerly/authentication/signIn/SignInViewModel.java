@@ -4,6 +4,7 @@ package com.graduationproject.zakerly.authentication.signIn;
 import android.app.Activity;
 import android.content.Context;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
@@ -33,8 +34,8 @@ public class SignInViewModel extends ViewModel {
     }
 
 
-    public void signIn(String email, String password, Context context) {
-        repository.signIn(email, password,context);
+    public void signIn(String email, String password, Fragment fragment) {
+        repository.signIn(email, password,fragment);
     }
 
     public MutableLiveData<FirebaseUser> getUserLiveData() {

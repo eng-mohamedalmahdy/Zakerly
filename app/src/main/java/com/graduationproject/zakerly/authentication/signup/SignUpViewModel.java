@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -41,12 +42,12 @@ public class SignUpViewModel extends ViewModel {
         studentTextColor = new MutableLiveData((R.color.lightGrey));
     }
 
-    public void signUp(Student student, String password, Context context) {
-        repository.signUp(student, password, context);
+    public void signUp(Student student, String password, Fragment fragment) {
+        repository.signUp(student, password, fragment);
     }
 
-    public void signUp(Instructor instructor, String password, Context context) {
-        repository.signUp(instructor, password, context);
+    public void signUp(Instructor instructor, String password, Fragment fragment) {
+        repository.signUp(instructor, password, fragment);
     }
 
     public Task<DataSnapshot> getSpecialisations() {

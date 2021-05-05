@@ -1,5 +1,7 @@
 package com.graduationproject.zakerly.core.network.firebase;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Task;
@@ -58,12 +60,16 @@ public class FirebaseDataBaseClient {
     public void doWithUserObject(String email,
                                  Function<Student, Boolean> studentAction,
                                  Function<Instructor, Boolean> instructorAction, Function<String, Boolean> errorAction) {
+
         FirebaseDataBaseClient.getInstance().getUser(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("LOOPING", "onDataChange: "+snapshot.getChildrenCount());
+
                 String type = "";
                 for (DataSnapshot child : snapshot.getChildren()) {
                     type = child.child("user/type").getValue(String.class);
+                    Log.d("LOOPING", "onDataChange: "+type);
                     if (UserTypes.TYPE_INSTRUCTOR.equals(type)) {
                         Instructor instructor = child.getValue(Instructor.class);
                         instructorAction.apply(instructor);

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginBehavior;
@@ -25,11 +26,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.graduationproject.zakerly.authentication.signIn.SignInFragmentDirections;
 import com.graduationproject.zakerly.core.base.BaseActivity;
+import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.AuthTypes;
 import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.models.User;
+import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.ActivityMainBinding;
 import com.graduationproject.zakerly.core.network.GoogleClient;
@@ -39,6 +42,7 @@ import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import java.util.Arrays;
 
 import es.dmoral.toasty.Toasty;
+import io.realm.Realm;
 
 public class MainActivity extends BaseActivity {
 
@@ -46,16 +50,22 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private ChipNavigationBar navigationBar;
     private GoogleClient googleClient;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private CallbackManager callbackManager;
+    NavHostFragment navHostFragment;
+    NavController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Realm.init(getApplicationContext());
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        controller = navHostFragment.getNavController();
         initViews();
         initListeners();
+
         setNavigationVisibility(false);
         navigationBar.setItemSelected(R.id.home, true);
 
@@ -66,6 +76,8 @@ public class MainActivity extends BaseActivity {
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
 
+
+
     }
 
 
@@ -74,12 +86,28 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initListeners() {
-        navigationBar.setOnItemSelectedListener(i -> {
-            switch (i) {
-                case BottomNavigationConstants.ACCOUNT_PAGE: {
 
+        navigationBar.setOnItemSelectedListener(id -> {
+            User user = new RealmQueries().getUser(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid());
+            switch (id) {
+                case R.id.home: {
+                    if (user.getType().equals(UserTypes.TYPE_STUDENT))
+                        controller.navigate(R.id.navigate_to_student_home);
+                    else {
+                    }
+                    Log.d(TAG, "initListeners: navigating to profile");
                     break;
                 }
+
+                case R.id.profile: {
+                    if (user.getType().equals(UserTypes.TYPE_STUDENT))
+                        controller.navigate(R.id.navigate_to_student_profile);
+                    else {
+                    }
+                    Log.d(TAG, "initListeners: navigating to profile");
+                    break;
+                }
+
             }
         });
     }
@@ -89,6 +117,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setSelectedPage(int page) {
+
         switch (page) {
             case BottomNavigationConstants.HOME_PAGE:
                 navigationBar.setItemSelected(R.id.home, true);
@@ -100,7 +129,8 @@ public class MainActivity extends BaseActivity {
                 navigationBar.setItemSelected(R.id.favorite, true);
                 break;
             case BottomNavigationConstants.ACCOUNT_PAGE:
-                navigationBar.setItemSelected(R.id.account, true);
+                navigationBar.setItemSelected(R.id.profile, true);
+
                 break;
             case BottomNavigationConstants.NOTIFICATION_PAGE:
                 navigationBar.setItemSelected(R.id.notification, true);
@@ -121,7 +151,6 @@ public class MainActivity extends BaseActivity {
                 String fName = account.getDisplayName();
                 String lName = account.getFamilyName();
                 String email = account.getEmail();
-                NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
 
                 FirebaseDataBaseClient.getInstance().getUser(email).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -130,6 +159,20 @@ public class MainActivity extends BaseActivity {
                         Log.d(TAG, "onDataChange: " + snapshot.toString());
                         if ((snapshot.getChildrenCount() > 0)) {
                             Toasty.success(MainActivity.this, R.string.user_signin_success).show();
+                            RealmQueries queries = new RealmQueries();
+                            FirebaseDataBaseClient.getInstance().doWithUserObject(email, student -> {
+                                queries.addStudent(student);
+                                controller.navigate(R.id.action_signUpFragment_to_homeStudentFragment);
+                                return true;
+                            }, (instructor -> {
+                                queries.addTeacher(instructor);
+                                return true;
+                            }), s -> {
+                                Log.d("Sing in error", "signIn: " + s);
+                                return true;
+                            });
+
+
                         } else {
                             controller.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment(AuthTypes.AUTH_G_MAIL, account.getIdToken(), fName, lName, email));
                         }
