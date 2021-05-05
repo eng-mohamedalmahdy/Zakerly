@@ -81,7 +81,7 @@ public class ProfileStudentFragment extends Fragment {
         profile = binding.profileImage;
         camera = binding.camera;
         profileName = binding.textProfileName;
-        mRecyclerView = binding.recyclerView;
+        mRecyclerView = binding.recyclerViewMyteacher;
     }
 
     private void initListener() {
