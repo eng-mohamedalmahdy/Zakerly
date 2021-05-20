@@ -8,6 +8,7 @@ public class Instructor extends RealmObject {
     private User user;
     private double pricePerHour;
     private double rate;
+    private String bio;
 
     public Instructor() {
     }
@@ -16,6 +17,7 @@ public class Instructor extends RealmObject {
         this.user = user;
         this.pricePerHour = pricePerHour;
         this.rate = 5.0;
+        this.bio = "";
     }
 
 
@@ -41,6 +43,14 @@ public class Instructor extends RealmObject {
 
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     @Override

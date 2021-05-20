@@ -11,51 +11,65 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.core.models.Instructor;
+import com.graduationproject.zakerly.core.models.Specialisation;
 
 import java.util.ArrayList;
 
-public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
+import io.realm.RealmList;
 
-    Context context ;
-    ArrayList<FavoriteDataClass> list;
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
-    public FavoriteAdapter(Context context, ArrayList<FavoriteDataClass> list) {
-        this.context = context;
-        this.list = list;
+    ArrayList<Instructor> list;
+
+    public FavoriteAdapter() {
+        this.list = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_teacher_view,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_teacher_view, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FavoriteDataClass dataClass = list.get(position);
-        holder.teacherName.setText(dataClass.getTeacherName());
-        holder.teacherJob.setText(dataClass.getTeacherJob());
-        holder.teacherDesc.setText(dataClass.getTeacherDesc());
-        holder.teacherImage.setImageResource(dataClass.getImageUri());
+        Instructor dataClass = list.get(position);
+        String fullName = dataClass.getUser().getfName() + " " + dataClass.getUser().getlName();
+        RealmList<Specialisation> specialisations = dataClass.getUser().getInterests();
+        String jobName = specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
+        holder.teacherName.setText(fullName);
+        holder.teacherJob.setText(jobName);
+        holder.teacherDesc.setText(dataClass.getBio());
+        Glide.with(holder.itemView.getContext())
+                .load(dataClass.getUser().getProfileImg())
+                .placeholder(R.drawable.baseline_account_circle_24)
+                .into(holder.teacherImage);
 
-        if (onFavoriteClickListener!=null){
+        if (onFavoriteClickListener != null) {
             holder.teacherFavorite.setOnClickListener(view -> {
-                        onFavoriteClickListener.onItemClick(position);
+                onFavoriteClickListener.onItemClick(position);
             });
         }
 
     }
 
-   OnItemClockListener onFavoriteClickListener ;
+    OnItemClockListener onFavoriteClickListener;
 
     public void setOnFavoriteClickListener(OnItemClockListener onFavoriteClickListener) {
         this.onFavoriteClickListener = onFavoriteClickListener;
     }
 
-    interface OnItemClockListener{
-        void onItemClick(int postion);
+    interface OnItemClockListener {
+        void onItemClick(int position);
+    }
+
+    public void setList(ArrayList<Instructor> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -63,18 +77,18 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.ViewH
         return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView teacherImage , teacherFavorite ;
-        TextView teacherName , teacherJob , teacherDesc;
+        ImageView teacherImage, teacherFavorite;
+        TextView teacherName, teacherJob, teacherDesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             teacherImage = itemView.findViewById(R.id.image_teacher);
-            teacherName=itemView.findViewById(R.id.name_teacher);
-            teacherJob=itemView.findViewById(R.id.job_teacher);
-            teacherDesc=itemView.findViewById(R.id.desc_teacher);
-            teacherFavorite= itemView.findViewById(R.id.favorite_teacher);
+            teacherName = itemView.findViewById(R.id.name_teacher);
+            teacherJob = itemView.findViewById(R.id.job_teacher);
+            teacherDesc = itemView.findViewById(R.id.desc_teacher);
+            teacherFavorite = itemView.findViewById(R.id.favorite_teacher);
         }
     }
 }

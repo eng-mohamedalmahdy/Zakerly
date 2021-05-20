@@ -1,7 +1,7 @@
 package com.graduationproject.zakerly.core.base;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
-import com.graduationproject.zakerly.settings.SettingsRepository;
+import com.graduationproject.zakerly.navigation.settings.SettingsRepository;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;

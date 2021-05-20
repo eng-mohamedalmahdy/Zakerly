@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/student_app_navigation"
+    app:startDestination="@id/homeStudentFragment">
+
+
+    <fragment
+        android:id="@+id/homeStudentFragment"
+        android:name="com.graduationproject.zakerly.navigation.homestudent.HomeStudentFragment"
+        android:label="fragment_home_student"
+        tools:layout="@layout/fragment_home_student" />
+
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.graduationproject.zakerly.navigation.favorites.FavoritesFragment"
+        android:label="favorite_fragment"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.graduationproject.zakerly.navigation.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_auth_navigation"
+            app:destination="@id/auth_navigation" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/profileStudentFragment"
+        android:name="com.graduationproject.zakerly.navigation.profilestudent.ProfileStudentFragment"
+        android:label="ProfileStudentFragment"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_profile_student" />
+
+
+    <action
+        android:id="@+id/navigate_to_student_profile"
+        app:destination="@id/profileStudentFragment" />
+    <action
+        android:id="@+id/navigate_to_student_home"
+        app:destination="@id/homeStudentFragment" />
+
+    <action
+        android:id="@+id/navigate_to_favorite"
+        app:destination="@id/favoriteFragment" />
+
+    <action
+        android:id="@+id/navigate_to_settings"
+        app:destination="@+id/settingsFragment" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.graduationproject.zakerly.navigation.settings.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view">
+
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
+
+
+</navigation>

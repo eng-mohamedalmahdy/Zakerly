@@ -4,20 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.graduationproject.zakerly.navigation.profilestudent.ProfileStudentViewModel;
-
 public class FavoritesViewModelFacory implements ViewModelProvider.Factory {
 
-    private FavoriteRepoistory repoistory;
+    private FavoriteRepository repoistory;
 
-    public FavoritesViewModelFacory(FavoriteRepoistory repoistory) {
+    public FavoritesViewModelFacory(FavoriteRepository repoistory) {
         this.repoistory = repoistory;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(ProfileStudentViewModel.class)){
+        if (modelClass.isAssignableFrom(FavoritesViewModel.class)){
             return (T) new FavoritesViewModel(repoistory);
 
         }

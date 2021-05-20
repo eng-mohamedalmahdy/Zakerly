@@ -1,13 +1,15 @@
-package com.graduationproject.zakerly.settings;
+package com.graduationproject.zakerly.navigation.settings;
 
-import android.app.UiModeManager;
 import android.content.Context;
-import android.os.Build;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.graduationproject.zakerly.core.cache.DataStoreManger;
+import com.graduationproject.zakerly.core.network.FacebookClient;
+import com.graduationproject.zakerly.core.network.GoogleClient;
+import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
@@ -22,28 +24,15 @@ public class SettingsRepository {
 
     public void setDarkModeEnabled(boolean enabled) {
         DataStoreManger.getInstance(context).setIsDarkModeEnabled(enabled)
-                .subscribeOn(Schedulers.single())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((preferences, throwable) -> setNightMode(enabled));
+                .subscribe((preferences) -> setNightMode(enabled),
+                        throwable -> Log.d("SETT_REPO", "setDarkModeEnabled: " + throwable.getStackTrace()));
 
     }
 
     public Flowable<Boolean> getDarkModeEnabled() {
         return DataStoreManger.getInstance(context).getIsDarkModeEnabled();
-    }
-
-    public void setLanguage(String language, LocalizationActivity activity) {
-
-        DataStoreManger.getInstance(context).setLanguage(language)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.single())
-                .subscribe();
-        activity.setLanguage(language);
-
-    }
-
-    public Flowable<String> getLanguage(){
-        return DataStoreManger.getInstance(context).getLanguage();
     }
 
     private void setNightMode(boolean enabled) {
@@ -52,4 +41,9 @@ public class SettingsRepository {
     }
 
 
+    public void signOut() {
+        GoogleClient.getInstance().signOut();
+        FacebookClient.getInstance().signOut();
+        FireBaseAuthenticationClient.getInstance().signOut();
+    }
 }

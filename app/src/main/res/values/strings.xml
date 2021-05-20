@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">Zakerly</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Zakerly</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
@@ -54,5 +53,16 @@
     <string name="my_teachers">My Teachers</string>
     <string name="descriptionOfTeacher">I,am A Teacher Of Android and My HourPrice is 300$ because I,am Gamed Fashekh</string>
     <string name="favorites">Favorites</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="rate_us">Rate us</string>
+    <string name="about_zakerly">About Zakerly</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="sign_out">Sign out</string>
+    <string name="FAQ">FAQ</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

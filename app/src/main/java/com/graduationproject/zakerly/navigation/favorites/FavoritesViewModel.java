@@ -1,33 +1,24 @@
 package com.graduationproject.zakerly.navigation.favorites;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.graduationproject.zakerly.core.models.Instructor;
 
 import java.util.ArrayList;
 
-import es.dmoral.toasty.Toasty;
 
 public class FavoritesViewModel extends ViewModel {
 
-    private FavoriteRepoistory repoistory;
-    MutableLiveData<String> message ;
+    private FavoriteRepository repository;
+    MutableLiveData<String> message;
 
-    public FavoritesViewModel(FavoriteRepoistory repoistory) {
-        this.repoistory = repoistory;
+    public FavoritesViewModel(FavoriteRepository repository) {
+        this.repository = repository;
     }
 
-    private void getUserData(String userID){
-    repoistory.getUserData(userID, task -> {
-        if (task.isSuccessful()){
-               FavoriteDataClass dataClass =  task.getResult().toObject(FavoriteDataClass.class);
-        }else {
 
-        }
-    });
+    public void setUpFavoritesData(FavoriteAdapter adapter) {
+        repository.getFavoritesData(adapter);
     }
 }

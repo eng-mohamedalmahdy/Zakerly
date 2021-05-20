@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,9 +71,25 @@ public class SignInFragment extends BaseFragment {
 
     private void initListener() {
 
-        signIn.setOnClickListener(v -> mViewModel.signIn(emailEditText.getText().toString(),
-                passwordEditText.getText().toString(),
-                this));
+        signIn.setOnClickListener(v -> {
+
+            String email = emailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+
+            binding.signinEmailTextFeild.setErrorEnabled(false);
+            binding.signinPasswordTextFeild.setErrorEnabled(false);
+            if (password.isEmpty() || password.length() < 6) {
+                binding.signinPasswordTextFeild.setErrorEnabled(true);
+                passwordEditText.setError(getString(R.string.invalid_password));
+            } else if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.signinEmailTextFeild.setErrorEnabled(true);
+                emailEditText.setError(getString(R.string.invalid_email));
+            } else {
+                mViewModel.signIn(emailEditText.getText().toString(),
+                        passwordEditText.getText().toString(),
+                        this);
+            }
+        });
         forgetPasswordText.setOnClickListener(v -> mViewModel.navigateToForgetPassword());
         signUp.setOnClickListener(v -> mViewModel.navigateToSignUp());
         signinWithGoogle.setOnClickListener(v -> mViewModel.signInWithGoogle((MainActivity) getActivity()));

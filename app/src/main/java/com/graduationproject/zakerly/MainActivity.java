@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity {
         initViews();
         initListeners();
 
+        navigationBar.setMenuResource(R.menu.bottom_menu);
         setNavigationVisibility(false);
         navigationBar.setItemSelected(R.id.home, true);
 
@@ -75,7 +76,6 @@ public class MainActivity extends BaseActivity {
         //used for facebook sign in
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
-
 
 
     }
@@ -88,26 +88,39 @@ public class MainActivity extends BaseActivity {
     private void initListeners() {
 
         navigationBar.setOnItemSelectedListener(id -> {
-            User user = new RealmQueries().getUser(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid());
-            switch (id) {
-                case R.id.home: {
-                    if (user.getType().equals(UserTypes.TYPE_STUDENT))
-                        controller.navigate(R.id.navigate_to_student_home);
-                    else {
+            FirebaseUser firebaseUser = FireBaseAuthenticationClient.getInstance().getCurrentUser();
+            if (firebaseUser != null) {
+                String uid = firebaseUser.getUid();
+                User user = new RealmQueries().getUser(uid);
+                switch (id) {
+                    case R.id.home: {
+                        if (user.getType().equals(UserTypes.TYPE_STUDENT))
+                            controller.navigate(R.id.navigate_to_student_app);
+                        else {
+                        }
+                        Log.d(TAG, "initListeners: navigating to profile");
+                        break;
                     }
-                    Log.d(TAG, "initListeners: navigating to profile");
-                    break;
-                }
 
-                case R.id.profile: {
-                    if (user.getType().equals(UserTypes.TYPE_STUDENT))
-                        controller.navigate(R.id.navigate_to_student_profile);
-                    else {
+                    case R.id.profile: {
+                        if (user.getType().equals(UserTypes.TYPE_STUDENT))
+                            controller.navigate(R.id.navigate_to_student_profile);
+                        else {
+                        }
+                        Log.d(TAG, "initListeners: navigating to profile");
+                        break;
                     }
-                    Log.d(TAG, "initListeners: navigating to profile");
-                    break;
-                }
 
+                    case R.id.favorite: {
+                        controller.navigate(R.id.navigate_to_favorite);
+                        break;
+                    }
+
+                    case R.id.settings: {
+                        controller.navigate(R.id.navigate_to_settings);
+                    }
+
+                }
             }
         });
     }
@@ -122,9 +135,7 @@ public class MainActivity extends BaseActivity {
             case BottomNavigationConstants.HOME_PAGE:
                 navigationBar.setItemSelected(R.id.home, true);
                 break;
-            case BottomNavigationConstants.SEARCH_PAGE:
-                navigationBar.setItemSelected(R.id.search, true);
-                break;
+
             case BottomNavigationConstants.FAVORITE_PAGE:
                 navigationBar.setItemSelected(R.id.favorite, true);
                 break;
@@ -134,6 +145,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case BottomNavigationConstants.NOTIFICATION_PAGE:
                 navigationBar.setItemSelected(R.id.notification, true);
+            case BottomNavigationConstants.SETTINGS_PAGE:
+                navigationBar.setItemSelected(R.id.settings, true);
+                break;
         }
     }
 
@@ -162,7 +176,7 @@ public class MainActivity extends BaseActivity {
                             RealmQueries queries = new RealmQueries();
                             FirebaseDataBaseClient.getInstance().doWithUserObject(email, student -> {
                                 queries.addStudent(student);
-                                controller.navigate(R.id.action_signUpFragment_to_homeStudentFragment);
+                                controller.navigate(R.id.action_signUpFragment_to_student_app_navigation);
                                 return true;
                             }, (instructor -> {
                                 queries.addTeacher(instructor);

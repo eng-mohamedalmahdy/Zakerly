@@ -23,9 +23,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.graduationproject.zakerly.MainActivity;
+import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
@@ -40,12 +43,11 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileStudentFragment extends Fragment {
 
 
-
-
     private FragmentProfileStudentBinding binding;
     private ProfileStudentViewModel mViewModel;
     private static final int IMAGE_PICK_CODE = 100;
     private static final int PERMISSION_CODE = 101;
+    public static final String TAG = "PROFILE_F";
 
     ImageView action, favorite, videoCall, note, calender;
     AppCompatImageView profile, camera;
@@ -86,6 +88,20 @@ public class ProfileStudentFragment extends Fragment {
 
     private void initListener() {
         camera.setOnClickListener(view -> checkPermission());
+
+
+        FirebaseDataBaseClient.getInstance().getProfileImageUrl()
+                .addOnSuccessListener(snapshot ->
+                {
+                    Log.d(TAG, "initListener: Image Loaded");
+                    Glide.with(requireContext())
+                            .load(snapshot.getValue(String.class))
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .placeholder(R.drawable.baseline_account_circle_24)
+                            .into(profile);
+
+                })
+                .addOnFailureListener(e -> Log.d(TAG, "initListener: " + e.getMessage()));
     }
 
     private void checkPermission() {
@@ -151,13 +167,13 @@ public class ProfileStudentFragment extends Fragment {
             String userUid = FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid();
             StorageReference ref = FirebaseStorage.getInstance().getReference("profiles/" + userUid);
             ref.putFile(uri).addOnSuccessListener(taskSnapshot -> {
-                Log.d("Profile Fragment ", "Successfully uploaded . . ");
+                Log.d(TAG, "Successfully uploaded . . ");
 
                 ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {
-                    Log.d("Profile Fragment ", "File Location :" + downloadUri);
-                    saveImageToFirebaseDatabase(uri.toString());
+                    Log.d(TAG, "File Location :" + downloadUri);
+                    saveImageToFirebaseDatabase(downloadUri.toString());
                 });
-            });
+            }).addOnFailureListener(command -> Log.d(TAG, "uploadImageToFireStore: " + command.getMessage()));
 
         }
     }
@@ -166,9 +182,7 @@ public class ProfileStudentFragment extends Fragment {
 
         FirebaseDataBaseClient.getInstance()
                 .setCurrentUserProfilePicture(imageProfileUri)
-                .addOnSuccessListener(task -> {
-                    Log.d("Profile Fragment ", "finally Image saved to firebase  . . . ");
-                });
+                .addOnSuccessListener(task -> Log.d(TAG, "finally Image saved to firebase  . . . "));
     }
 
 

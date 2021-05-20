@@ -10,18 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.graduationproject.zakerly.R;
-import com.graduationproject.zakerly.navigation.favorites.FavoriteDataClass;
+import com.graduationproject.zakerly.core.models.Instructor;
+import com.graduationproject.zakerly.core.models.Specialisation;
 
 import java.util.ArrayList;
+
+import io.realm.RealmList;
 
 public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAdapter.ViewHolder> {
 
 
-    Context context ;
-    ArrayList<FavoriteDataClass> list;
+    Context context;
+    ArrayList<Instructor> list;
 
-    public ProfileStudentAdapter(Context context, ArrayList<FavoriteDataClass> list) {
+    public ProfileStudentAdapter(Context context, ArrayList<Instructor> list) {
         this.context = context;
         this.list = list;
     }
@@ -29,33 +33,40 @@ public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_teacher_view,parent,false);
-       return new ViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_teacher_view, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FavoriteDataClass dataClass = list.get(position);
-        holder.teacherName.setText(dataClass.getTeacherName());
-        holder.teacherJob.setText(dataClass.getTeacherJob());
-        holder.teacherDesc.setText(dataClass.getTeacherDesc());
-        holder.teacherImage.setImageResource(dataClass.getImageUri());
+        Instructor dataClass = list.get(position);
+        String fullName = dataClass.getUser().getfName() + " " + dataClass.getUser().getlName();
+        RealmList<Specialisation> specialisations = dataClass.getUser().getInterests();
+        String jobName = specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
+        holder.teacherName.setText(fullName);
+        holder.teacherJob.setText(jobName);
+        holder.teacherDesc.setText(dataClass.getBio());
+        Glide.with(holder.itemView.getContext())
+                .load(dataClass.getUser().getProfileImg())
+                .placeholder(R.drawable.baseline_account_circle_24)
+                .into(holder.teacherImage);
     }
 
     @Override
     public int getItemCount() {
-       return list.size();
+        return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView teacherImage ;
-        TextView teacherName , teacherJob , teacherDesc;
-     public ViewHolder(@NonNull View itemView) {
-         super(itemView);
-         teacherImage = itemView.findViewById(R.id.image_teacher);
-         teacherName=itemView.findViewById(R.id.name_teacher);
-         teacherJob=itemView.findViewById(R.id.job_teacher);
-         teacherDesc=itemView.findViewById(R.id.desc_teacher);
-     }
- }
+    class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView teacherImage;
+        TextView teacherName, teacherJob, teacherDesc;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            teacherImage = itemView.findViewById(R.id.image_teacher);
+            teacherName = itemView.findViewById(R.id.name_teacher);
+            teacherJob = itemView.findViewById(R.id.job_teacher);
+            teacherDesc = itemView.findViewById(R.id.desc_teacher);
+        }
+    }
 }

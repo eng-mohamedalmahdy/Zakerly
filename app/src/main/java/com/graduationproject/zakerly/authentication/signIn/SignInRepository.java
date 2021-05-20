@@ -62,7 +62,7 @@ public class SignInRepository {
                     Log.d("Sing in Complete", "signIn: " + student.toString());
 
                     queries.addStudent(student);
-                    NavHostFragment.findNavController(fragment).navigate(R.id.action_signInFragment_to_homeStudentFragment);
+                    NavHostFragment.findNavController(fragment).navigate(R.id.action_signInFragment_to_student_app_navigation);
                     return true;
                 }, (instructor -> {
                     Log.d("Sing in complete", "signIn: " + instructor.toString());
@@ -146,7 +146,7 @@ public class SignInRepository {
                                 RealmQueries queries = new RealmQueries();
                                 FirebaseDataBaseClient.getInstance().doWithUserObject(email_fb, student -> {
                                     queries.addStudent(student);
-                                    controller.navigate(R.id.action_signUpFragment_to_homeStudentFragment);
+                                    controller.navigate(R.id.action_signUpFragment_to_student_app_navigation);
                                     return true;
                                 }, (instructor -> {
                                     queries.addTeacher(instructor);

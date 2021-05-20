@@ -43,12 +43,6 @@ public class DataStoreManger {
         });
     }
 
-    public Flowable<String> getLanguage() {
-        return dataStore.data().map(prefs -> {
-            String res = prefs.get(StoreConstants.LANGUAGE);
-            return res == null ? "" : res;
-        });
-    }
 
     public Single<Preferences> setIsFirstLaunch(boolean isFirstLaunch) {
         return dataStore.updateDataAsync(prefsIn -> {
@@ -66,11 +60,4 @@ public class DataStoreManger {
         });
     }
 
-    public Single<Preferences> setLanguage(String language) {
-        return dataStore.updateDataAsync(prefsIn -> {
-            MutablePreferences mutablePreferences = prefsIn.toMutablePreferences();
-            mutablePreferences.set(StoreConstants.LANGUAGE, language);
-            return Single.just(mutablePreferences);
-        });
-    }
 }
