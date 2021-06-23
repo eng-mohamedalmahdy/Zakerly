@@ -9,10 +9,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/splashContainer"
-        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="0"
         android:background="@drawable/custome_splash_bg"
+        android:scaleX="0"
+        android:scaleY="0"
         tools:context="com.graduationproject.zakerly.intro.splash.SplashFragment">
 
         <ImageView

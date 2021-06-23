@@ -57,7 +57,7 @@ public class SignUpRepository {
                             queries.addStudent(student);
                             Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
                             NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_student_app_navigation);
-
+                            Log.d(TAG, "signUp: Student added" + student);
                         })
                         .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
@@ -69,7 +69,7 @@ public class SignUpRepository {
                     queries.addStudent(student);
                     Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
                     NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_student_app_navigation);
-
+                    Log.d(TAG, "signUp: Student added" + student);
 
                 })
                         .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());

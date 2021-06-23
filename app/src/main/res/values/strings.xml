@@ -64,5 +64,11 @@
     <string name="sign_out">Sign out</string>
     <string name="FAQ">FAQ</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="apply">Apply</string>
+    <string name="profile_image_updated">Profile Image updated successfully</string>
+    <string name="invalid_name" >Invalid name</string>
+    <string name="add_one_interest">Please add at lease one subject</string>
+    <string name="profile_updated_sucessfully">Profile updated successfully</string>
+    <string name="failed_to_update_profile">Error updating profile</string>
 
 </resources>

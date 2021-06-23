@@ -63,7 +63,7 @@ public class FirebaseDataBaseClient {
     }
 
     public Task<Void> setCurrentUserProfilePicture(String imgUrl) {
-        return usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).child("profile").setValue(imgUrl);
+        return usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).child("user").child("profileImg").setValue(imgUrl);
     }
 
     public void doWithUserObject(String email,
@@ -125,6 +125,10 @@ public class FirebaseDataBaseClient {
     }
 
     public Task<DataSnapshot> getProfileImageUrl() {
-        return usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).child("profile").get();
+        return usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).child("user").child("profileImg").get();
+    }
+
+    public Task<DataSnapshot> getCurrentUser() {
+        return usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).get();
     }
 }

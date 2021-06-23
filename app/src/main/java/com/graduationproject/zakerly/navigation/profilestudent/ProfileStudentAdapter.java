@@ -40,7 +40,7 @@ public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Instructor dataClass = list.get(position);
-        String fullName = dataClass.getUser().getfName() + " " + dataClass.getUser().getlName();
+        String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
         RealmList<Specialisation> specialisations = dataClass.getUser().getInterests();
         String jobName = specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
         holder.teacherName.setText(fullName);

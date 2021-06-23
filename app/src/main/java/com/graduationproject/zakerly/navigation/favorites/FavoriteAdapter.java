@@ -1,10 +1,8 @@
 package com.graduationproject.zakerly.navigation.favorites;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +36,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Instructor dataClass = list.get(position);
-        String fullName = dataClass.getUser().getfName() + " " + dataClass.getUser().getlName();
+        String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
         RealmList<Specialisation> specialisations = dataClass.getUser().getInterests();
         String jobName = specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
         holder.teacherName.setText(fullName);

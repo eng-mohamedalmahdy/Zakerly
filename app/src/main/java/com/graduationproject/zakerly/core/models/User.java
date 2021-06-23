@@ -1,6 +1,8 @@
 package com.graduationproject.zakerly.core.models;
 
 
+import com.google.firebase.database.PropertyName;
+
 import java.util.ArrayList;
 
 import io.realm.RealmList;
@@ -11,8 +13,9 @@ public class User extends RealmObject {
     @Index
     private String UID;
     private String type;
-    private String fName;
-    private String lName;
+
+    private String firstName;
+    private String lastName;
     private String email;
     private String authType;
     private String profileImg;
@@ -22,11 +25,11 @@ public class User extends RealmObject {
     public User() {
     }
 
-    public User(String UID, String type, String fName, String lName, String email, String authType, String profileImg, RealmList<Specialisation> interests) {
+    public User(String UID, String type, String firstName, String lastName, String email, String authType, String profileImg, RealmList<Specialisation> interests) {
         this.UID = UID;
         this.type = type;
-        this.fName = fName;
-        this.lName = lName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.authType = authType;
         this.profileImg = profileImg;
@@ -59,20 +62,20 @@ public class User extends RealmObject {
         this.type = type;
     }
 
-    public String getfName() {
-        return fName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getlName() {
-        return lName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -104,8 +107,8 @@ public class User extends RealmObject {
         return "User{" +
                 "UID='" + UID + '\'' +
                 ", type='" + type + '\'' +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", authType='" + authType + '\'' +
                 ", profileImg='" + profileImg + '\'' +

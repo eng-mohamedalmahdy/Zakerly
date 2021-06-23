@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
@@ -30,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
+import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentProfileStudentBinding;
@@ -49,10 +51,10 @@ public class ProfileStudentFragment extends Fragment {
     private static final int PERMISSION_CODE = 101;
     public static final String TAG = "PROFILE_F";
 
-    ImageView action, favorite, videoCall, note, calender;
-    AppCompatImageView profile, camera;
-    TextView profileName;
-    RecyclerView mRecyclerView;
+    private ImageView action, favorite, videoCall, note, calender;
+    private AppCompatImageView profile, camera;
+    private TextView profileName;
+    private RecyclerView mRecyclerView;
 
 
     @Override
@@ -102,6 +104,10 @@ public class ProfileStudentFragment extends Fragment {
 
                 })
                 .addOnFailureListener(e -> Log.d(TAG, "initListener: " + e.getMessage()));
+
+        binding.noteIcon.setOnClickListener((v) -> {
+            NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToEditProfileFragment(UserTypes.TYPE_STUDENT));
+        });
     }
 
     private void checkPermission() {

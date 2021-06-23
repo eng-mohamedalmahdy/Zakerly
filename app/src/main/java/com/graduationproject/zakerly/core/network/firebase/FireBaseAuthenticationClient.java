@@ -25,6 +25,8 @@ public class FireBaseAuthenticationClient {
         return authInstance.createUserWithEmailAndPassword(email, password);
     }
 
+
+
     public Task<AuthResult> signIn(String email, String password) {
         return authInstance.signInWithEmailAndPassword(email, password);
     }
@@ -40,6 +42,7 @@ public class FireBaseAuthenticationClient {
     public void signOut() {
         authInstance.signOut();
     }
+
 
 
 }

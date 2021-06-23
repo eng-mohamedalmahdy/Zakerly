@@ -64,7 +64,13 @@
     <string name="contact_us">تواصل معنا</string>
     <string name="sign_out">تسجيل الخروج</string>
     <string name="FAQ">الاسئلة الاكثر شيوعاً</string>
-    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_profile">تعديل الصفحة الشخصية</string>
+    <string name="apply">تطبيق</string>
+    <string name="profile_image_updated">تم تحديث الصورة الشخصية بنجاح</string>
+    <string name="invalid_name" >اسم غير صالح</string>
+    <string name="add_one_interest">الرجاء اختيار مادة واحدة على الاقل</string>
+    <string name="profile_updated_sucessfully">تم تحديث الصفحة الشخصية بنجاح</string>
+    <string name="failed_to_update_profile">خطأ تعديل الصفحة الشخصية</string>
 
 
 </resources>

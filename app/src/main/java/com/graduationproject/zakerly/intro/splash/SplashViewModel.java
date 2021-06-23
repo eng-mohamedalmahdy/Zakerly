@@ -7,11 +7,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.graduationproject.zakerly.MainActivity;
-import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.UserTypes;
-import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.User;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 
@@ -34,7 +31,6 @@ public class SplashViewModel extends ViewModel {
     }
 
     public void navigateToNextDestination() {
-
         Disposable isFirstLaunchDisposable = splashRepository.getIsFirstLaunch()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -44,6 +40,7 @@ public class SplashViewModel extends ViewModel {
                             if (user != null) {
                                 localUser = new RealmQueries().getUser(user.getUid());
                             }
+                            Log.d(TAG, "navigateToNextDestination: " + localUser);
 
                             if (isFirstLaunch) {
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment());
@@ -52,13 +49,13 @@ public class SplashViewModel extends ViewModel {
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToLogInFragment());
                                 return;
                             }
-
                             if (localUser.getType().equals(UserTypes.TYPE_STUDENT)) {
+                                Log.d(TAG, "navigateToNextDestination: Navigating to student");
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToStudentAppNavigation());
                             } else {
                             }
                         },
-                        /*OnError*/throwable -> Log.d(TAG, throwable.getLocalizedMessage()));
+                        /*OnError*/throwable -> Log.d(TAG, throwable.toString()));
 
         disposables.add(isFirstLaunchDisposable);
     }

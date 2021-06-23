@@ -19,6 +19,7 @@ import com.graduationproject.zakerly.authentication.signup.SignUpFragment;
 import com.graduationproject.zakerly.authentication.signup.SignUpRepository;
 import com.graduationproject.zakerly.authentication.signup.SignUpViewModel;
 import com.graduationproject.zakerly.core.base.BaseFragment;
+import com.graduationproject.zakerly.core.constants.AuthTypes;
 import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.Specialisation;
 import com.graduationproject.zakerly.core.models.Student;
@@ -96,7 +97,7 @@ public class StudentSignUpFragment extends BaseFragment {
 
     public Student getStudent() {
         return new Student(new User("",
-                UserTypes.TYPE_INSTRUCTOR,
+                UserTypes.TYPE_STUDENT,
                 binding.firstNameTextField.getEditText().getText().toString(),
                 binding.lastNameTextField.getEditText().getText().toString(),
                 binding.emailTextField.getEditText().getText().toString(), parent.getAuthType(), "",
@@ -111,7 +112,7 @@ public class StudentSignUpFragment extends BaseFragment {
         String email = binding.emailTextField.getEditText().getText().toString();
         String password = binding.passwordTextField.getEditText().getText().toString();
 
-        if (parent.getArgs().getAuthType().equals("EMAIL")){
+        if (parent.getArgs().getAuthType().equals(AuthTypes.AUTH_EMAIL)) {
             if (fName.isEmpty()) {
                 valid = false;
                 binding.firstNameTextField.setErrorEnabled(true);
@@ -121,6 +122,16 @@ public class StudentSignUpFragment extends BaseFragment {
                 valid = false;
                 binding.lastNameTextField.setErrorEnabled(true);
                 binding.lastNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
+            }
+            if (!fName.matches("^[A-Za-z]+$")) {
+                valid = false;
+                binding.firstNameTextField.setErrorEnabled(true);
+                binding.firstNameTextField.setError(getText(R.string.invalid_name));
+            }
+            if (!lastName.matches("^[A-Za-z]+$")) {
+                valid = false;
+                binding.lastNameTextField.setErrorEnabled(true);
+                binding.lastNameTextField.setError(getText(R.string.invalid_name));
             }
             if (email.isEmpty()) {
                 valid = false;
@@ -173,7 +184,7 @@ public class StudentSignUpFragment extends BaseFragment {
     }
 
     private void setUpViews() {
-        if (!parent.getArgs().getAuthType().equals("EMAIL")){
+        if (!parent.getArgs().getAuthType().equals("EMAIL")) {
             binding.emailTextField.setEnabled(false);
             binding.passwordTextField.setEnabled(false);
 
