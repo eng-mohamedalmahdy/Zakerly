@@ -22,8 +22,8 @@ import io.realm.RealmList;
 public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAdapter.ViewHolder> {
 
 
-    Context context;
-    ArrayList<Instructor> list;
+    private Context context;
+    private ArrayList<Instructor> list;
 
     public ProfileStudentAdapter(Context context, ArrayList<Instructor> list) {
         this.context = context;
