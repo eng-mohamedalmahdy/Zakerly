@@ -21,7 +21,6 @@ import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
-import com.graduationproject.zakerly.core.models.User;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentHomeStudentBinding;
 
