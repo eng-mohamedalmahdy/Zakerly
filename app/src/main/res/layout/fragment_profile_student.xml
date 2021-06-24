@@ -142,6 +142,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_7sdp"
             app:layout_constraintTop_toBottomOf="@id/myteachers"
-            tools:listitem="@layout/custome_teacher_view" />
+            tools:listitem="@layout/list_item_teacher_card" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,9 +3,7 @@ package com.graduationproject.zakerly.navigation.favorites;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.graduationproject.zakerly.core.models.Instructor;
-
-import java.util.ArrayList;
+import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 
 
 public class FavoritesViewModel extends ViewModel {
@@ -18,7 +16,7 @@ public class FavoritesViewModel extends ViewModel {
     }
 
 
-    public void setUpFavoritesData(FavoriteAdapter adapter) {
+    public void setUpFavoritesData(TeacherCardAdapter adapter) {
         repository.getFavoritesData(adapter);
     }
 }

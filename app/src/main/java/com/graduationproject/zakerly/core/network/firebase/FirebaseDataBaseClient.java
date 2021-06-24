@@ -13,16 +13,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.Instructor;
-import com.graduationproject.zakerly.core.models.Specialisation;
 import com.graduationproject.zakerly.core.models.Student;
-import com.graduationproject.zakerly.navigation.favorites.FavoriteAdapter;
+import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import io.realm.RealmList;
 
 
 public class FirebaseDataBaseClient {
@@ -60,6 +56,10 @@ public class FirebaseDataBaseClient {
 
     public Query getUser(String email) {
         return usersReference.orderByChild("user/email").equalTo(email);
+    }
+
+    public Query getAllInstructors() {
+        return usersReference.orderByChild("user/type").equalTo(UserTypes.TYPE_INSTRUCTOR);
     }
 
     public Task<Void> setCurrentUserProfilePicture(String imgUrl) {
@@ -100,7 +100,7 @@ public class FirebaseDataBaseClient {
         return favoritesReference.child(uid).get();
     }
 
-    private void getUsers(Task<DataSnapshot> uids, FavoriteAdapter adapter) {
+    private void getUsers(Task<DataSnapshot> uids, TeacherCardAdapter adapter) {
         ArrayList<Instructor> favorites = new ArrayList<>();
 
         uids.addOnSuccessListener(dataSnapshot ->
@@ -120,7 +120,7 @@ public class FirebaseDataBaseClient {
 
     }
 
-    public void setUpFavoritesWithAdapter(String uid, FavoriteAdapter adapter) {
+    public void setUpFavoritesWithAdapter(String uid, TeacherCardAdapter adapter) {
         getUsers(getUsersFavoritesUID(uid), adapter);
     }
 

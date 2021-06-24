@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.navigation.favorites;
+package com.graduationproject.zakerly.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,18 +18,24 @@ import java.util.ArrayList;
 
 import io.realm.RealmList;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
+public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.ViewHolder> {
 
     ArrayList<Instructor> list;
+    int layoutId;
 
-    public FavoriteAdapter() {
+    public TeacherCardAdapter() {
         this.list = new ArrayList<>();
+        this.layoutId = R.layout.list_item_teacher_card;
+    }
+
+    public TeacherCardAdapter(int layoutId) {
+        this.layoutId = layoutId;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_teacher_view, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
         return new ViewHolder(v);
     }
 
@@ -38,7 +44,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         Instructor dataClass = list.get(position);
         String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
         RealmList<Specialisation> specialisations = dataClass.getUser().getInterests();
-        String jobName = specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
+        String jobName = specialisations==null||specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
         holder.teacherName.setText(fullName);
         holder.teacherJob.setText(jobName);
         holder.teacherDesc.setText(dataClass.getBio());
@@ -48,20 +54,19 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 .into(holder.teacherImage);
 
         if (onFavoriteClickListener != null) {
-            holder.teacherFavorite.setOnClickListener(view -> {
-                onFavoriteClickListener.onItemClick(position);
-            });
+            holder.teacherFavorite.setOnClickListener(view ->
+                    onFavoriteClickListener.onItemClick(position));
         }
 
     }
 
-    OnItemClockListener onFavoriteClickListener;
+    public OnItemClickListener onFavoriteClickListener;
 
-    public void setOnFavoriteClickListener(OnItemClockListener onFavoriteClickListener) {
+    public void setOnFavoriteClickListener(OnItemClickListener onFavoriteClickListener) {
         this.onFavoriteClickListener = onFavoriteClickListener;
     }
 
-    interface OnItemClockListener {
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
@@ -72,7 +77,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

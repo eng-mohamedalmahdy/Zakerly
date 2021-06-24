@@ -71,6 +71,9 @@
     <string name="add_one_interest">الرجاء اختيار مادة واحدة على الاقل</string>
     <string name="profile_updated_sucessfully">تم تحديث الصفحة الشخصية بنجاح</string>
     <string name="failed_to_update_profile">خطأ تعديل الصفحة الشخصية</string>
+    <string name="recommended_for_you">Recommended for you</string>
+    <string name="top_instructors">Top Instructors</string>
+    <string name="discover">Discover</string>
 
 
 </resources>

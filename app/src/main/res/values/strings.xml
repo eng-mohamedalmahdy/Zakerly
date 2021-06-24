@@ -70,5 +70,8 @@
     <string name="add_one_interest">Please add at lease one subject</string>
     <string name="profile_updated_sucessfully">Profile updated successfully</string>
     <string name="failed_to_update_profile">Error updating profile</string>
+    <string name="recommended_for_you">Recommended for you</string>
+    <string name="top_instructors">Top Instructors</string>
+    <string name="discover">Discover</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.graduationproject.zakerly.core.models;
 
 
-import com.google.firebase.database.PropertyName;
 
 import java.util.ArrayList;
 
@@ -13,7 +12,6 @@ public class User extends RealmObject {
     @Index
     private String UID;
     private String type;
-
     private String firstName;
     private String lastName;
     private String email;
