@@ -44,7 +44,10 @@
 
     </fragment>
 
-
+<fragment
+    android:id="@+id/profileTeacherFragment"
+    android:name="com.graduationproject.zakerly.navigation.profileTeacher.ProfileTeacherFragment"
+    tools:layout="@layout/fragment_teacher_profile"/>
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.graduationproject.zakerly.intro.onboarding.OnBoardingFragment"

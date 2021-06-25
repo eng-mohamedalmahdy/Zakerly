@@ -64,6 +64,17 @@
     <string name="sign_out">Sign out</string>
     <string name="FAQ">FAQ</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="chat">Chat</string>
+    <string name="video">Video</string>
+    <string name="price">Price</string>
+    <string name="request">Request</string>
+    <string name="students">Students</string>
+    <string name="bio">Bio</string>
+    <string name="student_feedback">Student Feedback</string>
+    <string name="average_rate">Average Rate</string>
+    <string name="make_comment">Make Comment</string>
+    <string name="rate_instructor">Rate Instructor</string>
+    <string name="student_s_opinion">Student\'s Opinion</string>
     <string name="apply">Apply</string>
     <string name="profile_image_updated">Profile Image updated successfully</string>
     <string name="invalid_name" >Invalid name</string>
@@ -73,5 +84,4 @@
     <string name="recommended_for_you">Recommended for you</string>
     <string name="top_instructors">Top Instructors</string>
     <string name="discover">Discover</string>
-
 </resources>

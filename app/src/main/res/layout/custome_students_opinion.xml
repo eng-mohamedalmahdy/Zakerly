@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_25sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:elevation="@dimen/_8sdp"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#169A9999"
+            >
+            <RatingBar
+                android:id="@+id/students_opinion_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:rating="3"
+                android:stepSize=".5"
+                android:layout_marginTop="@dimen/_45sdp"
+                android:scaleY=".5"
+                android:scaleX=".5"
+                />
+            <TextView
+                android:id="@+id/students_opinion_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="4"
+                android:textSize="@dimen/_15sdp"
+                android:fontFamily="@font/roboto_regular"
+                android:padding="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:text="Mohamed Magdy Mohamed Magdy Mohamed Magdy v Mohamed Magdy Mohamed Magdy"
+                />
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/students_opinion_image"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_52sdp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/test_img"
+        android:elevation="@dimen/_10sdp"
+        app:civ_border_width="@dimen/_1sdp"
+        app:civ_border_color="@color/purple_500"
+        />
+
+    <TextView
+        android:id="@+id/students_opinion_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_15sdp"
+        android:text=""
+        android:elevation="@dimen/_10sdp"
+        android:textColor="@color/darkPurple"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_28sdp"
+        android:textStyle="bold|italic"
+        />
+
+</FrameLayout>
