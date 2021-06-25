@@ -95,7 +95,7 @@ public class InstructorSignUpFragment extends BaseFragment {
     }
 
     private void setUpViews() {
-        if (!parent.getArgs().getAuthType().equals(AuthTypes.AUTH_EMAIL)){
+        if (!parent.getArgs().getAuthType().equals(AuthTypes.AUTH_EMAIL)) {
             binding.emailTextField.setEnabled(false);
             binding.passwordTextField.setEnabled(false);
 
@@ -113,7 +113,7 @@ public class InstructorSignUpFragment extends BaseFragment {
                 binding.firstNameTextField.getEditText().getText().toString(),
                 binding.lastNameTextField.getEditText().getText().toString(),
                 binding.emailTextField.getEditText().getText().toString(),
-                parent.getAuthType(),"",
+                parent.getAuthType(), "",
                 selectedSpecialisationsList),
                 Double.parseDouble(binding.priceTextField.getEditText().getText().toString()));
 
@@ -142,6 +142,16 @@ public class InstructorSignUpFragment extends BaseFragment {
                 binding.lastNameTextField.setErrorEnabled(true);
                 binding.lastNameTextField.setError(getText(R.string.this_field_cannot_be_empty));
 
+            }
+            if (!fName.matches("^[A-Za-z]+$")) {
+                valid = false;
+                binding.firstNameTextField.setErrorEnabled(true);
+                binding.firstNameTextField.setError(getText(R.string.invalid_name));
+            }
+            if (!lastName.matches("^[A-Za-z]+$")) {
+                valid = false;
+                binding.lastNameTextField.setErrorEnabled(true);
+                binding.lastNameTextField.setError(getText(R.string.invalid_name));
             }
             if (email.isEmpty()) {
                 valid = false;
@@ -198,4 +208,6 @@ public class InstructorSignUpFragment extends BaseFragment {
         binding.passwordTextField.setErrorEnabled(false);
         binding.priceTextField.setErrorEnabled(false);
     }
+
+
 }

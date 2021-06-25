@@ -146,7 +146,7 @@ public class SignInRepository {
                                 RealmQueries queries = new RealmQueries();
                                 FirebaseDataBaseClient.getInstance().doWithUserObject(email_fb, student -> {
                                     queries.addStudent(student);
-                                    controller.navigate(R.id.action_signUpFragment_to_student_app_navigation);
+                                    controller.navigate(R.id.action_signInFragment_to_student_app_navigation);
                                     return true;
                                 }, (instructor -> {
                                     queries.addTeacher(instructor);

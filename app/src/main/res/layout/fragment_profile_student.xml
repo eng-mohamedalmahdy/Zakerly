@@ -35,11 +35,14 @@
             app:layout_constraintTop_toBottomOf="@id/ic_action">
 
             <androidx.cardview.widget.CardView
+
                 android:id="@+id/card_profile_image"
                 android:layout_width="@dimen/_110sdp"
                 android:layout_height="@dimen/_110sdp"
                 android:layout_gravity="center"
-                android:padding="@dimen/_2sdp">
+                android:padding="@dimen/_2sdp"
+                app:cardCornerRadius="@dimen/_60sdp"
+                app:cardElevation="0dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/profile_image"
@@ -47,8 +50,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/no_user"
-                    />
+                    android:src="@drawable/no_user" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -58,7 +60,7 @@
                 android:layout_gravity="center|end"
                 android:layout_marginTop="@dimen/_20sdp"
                 app:cardCornerRadius="@dimen/_40sdp"
-                app:cardElevation="@dimen/_5sdp">
+                app:cardElevation="0dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/camera"
@@ -140,6 +142,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_7sdp"
             app:layout_constraintTop_toBottomOf="@id/myteachers"
-            tools:listitem="@layout/custome_teacher_view" />
+            tools:listitem="@layout/list_item_teacher_card" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -89,13 +89,13 @@ public class MainActivity extends BaseActivity {
 
         navigationBar.setOnItemSelectedListener(id -> {
             FirebaseUser firebaseUser = FireBaseAuthenticationClient.getInstance().getCurrentUser();
-            if (firebaseUser != null) {
+            if (firebaseUser != null && controller.getCurrentDestination().getId() != R.id.splashFragment) {
                 String uid = firebaseUser.getUid();
                 User user = new RealmQueries().getUser(uid);
                 switch (id) {
                     case R.id.home: {
                         if (user.getType().equals(UserTypes.TYPE_STUDENT))
-                            controller.navigate(R.id.navigate_to_student_app);
+                            controller.navigate(R.id.navigate_to_student_home);
                         else {
                         }
                         Log.d(TAG, "initListeners: navigating to profile");
@@ -176,7 +176,7 @@ public class MainActivity extends BaseActivity {
                             RealmQueries queries = new RealmQueries();
                             FirebaseDataBaseClient.getInstance().doWithUserObject(email, student -> {
                                 queries.addStudent(student);
-                                controller.navigate(R.id.action_signUpFragment_to_student_app_navigation);
+                                controller.navigate(R.id.action_signInFragment_to_student_app_navigation);
                                 return true;
                             }, (instructor -> {
                                 queries.addTeacher(instructor);
@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Log.d(TAG, "onCancelled: " + "CANCELD");
+                        Log.d(TAG, "onCancelled: " + "CANCELED");
                     }
                 });
 

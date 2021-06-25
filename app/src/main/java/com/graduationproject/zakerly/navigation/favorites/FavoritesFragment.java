@@ -11,15 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 import com.graduationproject.zakerly.core.base.BaseFragment;
 import com.graduationproject.zakerly.core.models.Instructor;
-import com.graduationproject.zakerly.core.models.Specialisation;
 import com.graduationproject.zakerly.databinding.FragmentFavoritesBinding;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-
-import io.realm.RealmList;
 
 public class FavoritesFragment extends BaseFragment {
 
@@ -28,7 +25,7 @@ public class FavoritesFragment extends BaseFragment {
     private ArrayList<Instructor> favorites;
     TextView mFavorite;
     RecyclerView mRecyclerViewFavorite;
-    FavoriteAdapter adapter;
+    TeacherCardAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +52,7 @@ public class FavoritesFragment extends BaseFragment {
     private void initViews() {
         mFavorite = binding.textFavorites;
         mRecyclerViewFavorite = binding.recyclerviewFavorites;
-        adapter = new FavoriteAdapter();
+        adapter = new TeacherCardAdapter();
         mRecyclerViewFavorite.setAdapter(adapter);
     }
 

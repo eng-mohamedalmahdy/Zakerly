@@ -41,4 +41,31 @@ public class Specialisation extends RealmObject {
     public void setAr(String ar) {
         this.ar = ar;
     }
+
+
+    @Override
+    public String toString() {
+        return "Specialisation{" +
+                "id=" + id +
+                ", en='" + en + '\'' +
+                ", ar='" + ar + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Specialisation that = (Specialisation) o;
+        return id.equals(that.id)||ar.equals(that.ar)||en.equals(that.en);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + en.hashCode();
+        result = 31 * result + ar.hashCode();
+        return result;
+    }
 }

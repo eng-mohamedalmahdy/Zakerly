@@ -14,17 +14,20 @@
             android:id="@+id/action_splashFragment_to_onBoardingFragment"
             app:destination="@id/onBoardingFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@+id/student_app_navigation"
+            app:popUpTo="@+id/auth_navigation"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_logInFragment"
             app:destination="@id/signInFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@+id/student_app_navigation"
+            app:popUpTo="@+id/auth_navigation"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_student_app_navigation"
-            app:destination="@id/student_app_navigation" />
+            app:destination="@id/student_app_navigation"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/auth_navigation"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -54,7 +57,7 @@
             android:id="@+id/action_onBoardingFragment_to_logInFragment"
             app:destination="@id/signInFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@+id/student_app_navigation"
+            app:popUpTo="@+id/auth_navigation"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -111,8 +114,5 @@
 
     <include app:graph="@navigation/student_app_navigation" />
 
-    <action
-        android:id="@+id/navigate_to_student_app"
-        app:destination="@id/student_app_navigation" />
 
 </navigation>

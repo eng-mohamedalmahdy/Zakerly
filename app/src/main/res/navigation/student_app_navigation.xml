@@ -10,6 +10,8 @@
         android:id="@+id/homeStudentFragment"
         android:name="com.graduationproject.zakerly.navigation.homestudent.HomeStudentFragment"
         android:label="fragment_home_student"
+        app:launchSingleTop="true"
+        app:popUpToInclusive="true"
         tools:layout="@layout/fragment_home_student" />
 
 
@@ -40,7 +42,11 @@
         android:label="ProfileStudentFragment"
         app:launchSingleTop="true"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_profile_student" />
+        tools:layout="@layout/fragment_profile_student">
+        <action
+            android:id="@+id/action_profileStudentFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
 
 
     <action
@@ -48,7 +54,9 @@
         app:destination="@id/profileStudentFragment" />
     <action
         android:id="@+id/navigate_to_student_home"
-        app:destination="@id/homeStudentFragment" />
+        app:destination="@id/homeStudentFragment"
+        app:popUpTo="@id/auth_navigation"
+        app:popUpToInclusive="true" />
 
     <action
         android:id="@+id/navigate_to_favorite"
@@ -67,7 +75,16 @@
             android:name="url"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.graduationproject.zakerly.userutils.editprofile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile">
+        <argument
+            android:name="userType"
+            app:argType="string" />
 
+    </fragment>
 
 
 </navigation>
