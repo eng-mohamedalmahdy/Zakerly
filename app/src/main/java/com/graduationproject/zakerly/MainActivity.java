@@ -174,17 +174,28 @@ public class MainActivity extends BaseActivity {
                         if ((snapshot.getChildrenCount() > 0)) {
                             Toasty.success(MainActivity.this, R.string.user_signin_success).show();
                             RealmQueries queries = new RealmQueries();
-                            FirebaseDataBaseClient.getInstance().doWithUserObject(email, student -> {
-                                queries.addStudent(student);
-                                controller.navigate(R.id.action_signInFragment_to_student_app_navigation);
-                                return true;
-                            }, (instructor -> {
-                                queries.addTeacher(instructor);
-                                return true;
-                            }), s -> {
-                                Log.d("Sing in error", "signIn: " + s);
-                                return true;
-                            });
+                            GoogleClient.getInstance().firebaseAuthWithGoogle(account.getIdToken()).
+                                    addOnSuccessListener(authResult -> {
+                                        FirebaseDataBaseClient.getInstance().doWithUserObject(email, student -> {
+                                            FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+                                                String uid = authResult.getUser().getUid();
+                                                student.getUser().setUID(uid);
+                                                FirebaseDataBaseClient.getInstance().addStudent(student);
+                                                queries.addStudent(student);
+                                                Log.d(TAG, "onDataChange: firebase things " + firebaseAuth.getUid());
+                                                controller.navigate(R.id.action_signInFragment_to_student_app_navigation);
+                                            });
+                                            return true;
+                                        }, (instructor -> {
+                                            queries.addTeacher(instructor);
+                                            return true;
+                                        }), s -> {
+                                            Log.d("Sing in error", "signIn: " + s);
+                                            return true;
+                                        });
+                                    })
+                                    .addOnFailureListener(e -> Toasty.info(MainActivity.this, e.getLocalizedMessage()).show());
+
 
 
                         } else {

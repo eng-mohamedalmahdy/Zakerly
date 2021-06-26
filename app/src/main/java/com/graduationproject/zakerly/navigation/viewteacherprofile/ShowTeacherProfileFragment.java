@@ -1,11 +1,10 @@
-package com.graduationproject.zakerly.navigation.profileTeacher;
+package com.graduationproject.zakerly.navigation.viewteacherprofile;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,24 +16,19 @@ import android.widget.TextView;
 
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.models.OpinionModel;
-import com.graduationproject.zakerly.databinding.FragmentProfileStudentBinding;
-import com.graduationproject.zakerly.databinding.FragmentTeacherProfileBinding;
-import com.graduationproject.zakerly.navigation.profilestudent.ProfileStudentRepository;
-import com.graduationproject.zakerly.navigation.profilestudent.ProfileStudentViewModel;
-import com.graduationproject.zakerly.navigation.profilestudent.ProfileStudentViewModelFactory;
+import com.graduationproject.zakerly.databinding.FragmentShowTeacherProfileBinding;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ProfileTeacherFragment extends Fragment {
+public class ShowTeacherProfileFragment extends Fragment {
 
-    private FragmentTeacherProfileBinding binding;
-    private ProfileTeacherViewModel viewModel;
+    private FragmentShowTeacherProfileBinding binding;
+    private ShowTeacherProfileViewModel viewModel;
     RecyclerView mRecyclerView;
-    ProfileTeacherAdapter adapter;
+    ShowTeacherProfileAdapter adapter;
     ImageView imageBack, imageProfile, imageDisableFavorite, imageVideoCall, imagePrice, imageRequest, imageSend;
     TextView txtProfileName, txtProfileJob, txtNumOfStudents, txtDescriptionBio, txtPercentageOfRating;
     TextView txtRate5, txtRate4, txtRate3, txtRate2, txtRate1;
@@ -44,8 +38,8 @@ public class ProfileTeacherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentTeacherProfileBinding.inflate(inflater, container, false);
-        viewModel = new ProfileTeacherViewModelFactory(new ProfileTeacherRepository()).create(ProfileTeacherViewModel.class);
+        binding = FragmentShowTeacherProfileBinding.inflate(inflater, container, false);
+        viewModel = new ShowTeacherProfileViewModelFactory(new ShowTeacherProfileRepository()).create(ShowTeacherProfileViewModel.class);
         binding.setLifecycleOwner(getViewLifecycleOwner());
         return binding.getRoot();
 
@@ -55,7 +49,7 @@ public class ProfileTeacherFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        adapter= new ProfileTeacherAdapter(getActivity(),fillRecyclerView());
+        adapter= new ShowTeacherProfileAdapter(getActivity(),fillRecyclerView());
         mRecyclerView.setAdapter(adapter);
     }
 

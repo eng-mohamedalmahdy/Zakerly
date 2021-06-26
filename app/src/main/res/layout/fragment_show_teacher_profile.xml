@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="instructor"
+            type="com.graduationproject.zakerly.core.models.Instructor" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".navigation.viewteacherprofile.ShowTeacherProfileFragment">
+
+
+            <ImageView
+                android:id="@+id/teacher_profile_ic_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_20sdp"
+                android:src="@drawable/ic_back_forgetpassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/teacher_profile_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/yetla3okambelmasry"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_ic_back" />
+
+            <TextView
+                android:id="@+id/teacher_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/roboto_black"
+                android:padding="@dimen/_2sdp"
+                android:text="@{instructor.user.firstName+` `+ instructor.user.lastName}"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_image" />
+
+            <TextView
+                android:id="@+id/teacher_profile_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/roboto_regular"
+                android:padding="@dimen/_2sdp"
+                android:text="@{instructor.title}"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_name" />
+
+            <ImageView
+                android:id="@+id/teacher_profile_ic_disable_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/disable_favorite"
+                app:layout_constraintStart_toEndOf="@id/teacher_profile_ic_back"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_job" />
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/chat"
+                app:layout_constraintEnd_toEndOf="@id/teacher_profile_ic_disable_favorite"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_ic_disable_favorite"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_ic_disable_favorite" />
+
+            <FrameLayout
+                android:id="@+id/teacher_profile_frame_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintStart_toEndOf="@id/teacher_profile_ic_disable_favorite"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_job">
+
+                <ImageView
+                    android:id="@+id/teacher_profile_image_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_price" />
+
+                <TextView
+                    android:id="@+id/teacher_profile_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{instructor.pricePerHour+`$`}"
+                    android:textSize="@dimen/_15sdp" />
+            </FrameLayout>
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/price"
+                app:layout_constraintEnd_toEndOf="@id/teacher_profile_frame_price"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_frame_price"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_frame_price" />
+
+            <ImageView
+                android:id="@+id/teacher_profile_ic_disable_videocall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/disable_video_call"
+                app:layout_constraintStart_toEndOf="@id/teacher_profile_frame_price"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_job" />
+
+            <TextView
+
+                style="@style/textStyle"
+                android:text="@string/video"
+                app:layout_constraintEnd_toEndOf="@+id/teacher_profile_ic_disable_videocall"
+                app:layout_constraintStart_toStartOf="@+id/teacher_profile_ic_disable_videocall"
+                app:layout_constraintTop_toBottomOf="@+id/teacher_profile_ic_disable_videocall" />
+
+            <ImageView
+                android:id="@+id/teacher_profile_ic_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/add"
+                app:layout_constraintStart_toEndOf="@id/teacher_profile_ic_disable_videocall"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_job" />
+
+            <TextView
+                style="@style/textStyle"
+                android:text="@string/request"
+                app:layout_constraintEnd_toEndOf="@id/teacher_profile_ic_add"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_ic_add"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_ic_add" />
+
+
+            <TextView
+                android:id="@+id/teacher_profile_num_of_student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:fontFamily="@font/roboto_black"
+                android:text="@{instructor.numberOfStudents}"
+                android:textSize="@dimen/_80sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_ic_disable_favorite" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/students"
+                android:textSize="@dimen/_30sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/teacher_profile_num_of_student"
+                app:layout_constraintStart_toEndOf="@+id/teacher_profile_num_of_student"
+                app:layout_constraintTop_toTopOf="@+id/teacher_profile_num_of_student" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/bio"
+                android:textSize="@dimen/_32sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_num_of_student" />
+
+            <TextView
+                android:id="@+id/teacher_profile_description_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:lineSpacingExtra="@dimen/_10sdp"
+                android:lines="5"
+                android:padding="@dimen/_10sdp"
+                android:text="@{instructor.bio}"
+                android:textAllCaps="false"
+                android:textColor="#B99A9999"
+                android:textSize="@dimen/_18sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_txt_bio"
+
+                />
+
+            <ImageView
+                android:id="@+id/teacher_profile_feedback_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/positive_vote"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_description_bio" />
+
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_stedent_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/student_feedback"
+                android:textSize="@dimen/_30sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_feedback_image" />
+
+            <TextView
+                android:id="@+id/teacher_profile_average_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_black"
+                android:text="@{instructor.averageRate}"
+                android:textSize="@dimen/_60sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_txt_stedent_feedback"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_txt_stedent_feedback" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_average_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/average_rate"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/_25sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/teacher_profile_average_rate"
+                app:layout_constraintStart_toEndOf="@+id/teacher_profile_average_rate"
+                app:layout_constraintTop_toTopOf="@+id/teacher_profile_average_rate" />
+
+            <RatingBar
+                android:id="@+id/teacher_profile_rate5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:rating="5"
+                android:scaleX=".6"
+                android:scaleY=".6"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_average_rate"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_average_rate" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_rate5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:text="@{instructor.fiveStarCount + `%`}"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/teacher_profile_rate5"
+                app:layout_constraintStart_toEndOf="@id/teacher_profile_rate5"
+                app:layout_constraintTop_toTopOf="@id/teacher_profile_rate5" />
+
+            <RatingBar
+                android:id="@+id/teacher_profile_rate4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="4"
+                android:scaleX=".6"
+                android:scaleY=".6"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_rate5"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_rate5" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_rate4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{instructor.fourStarCount + `%`}"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/teacher_profile_rate4"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_txt_rate5"
+                app:layout_constraintTop_toTopOf="@id/teacher_profile_rate4" />
+
+            <RatingBar
+                android:id="@+id/teacher_profile_rate3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="3"
+                android:scaleX=".6"
+                android:scaleY=".6"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_rate4"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_rate4" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_rate3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{instructor.threeStarCount + `%`}"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/teacher_profile_rate3"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_txt_rate4"
+                app:layout_constraintTop_toTopOf="@id/teacher_profile_rate3" />
+
+            <RatingBar
+                android:id="@+id/teacher_profile_rate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="2"
+                android:scaleX=".6"
+                android:scaleY=".6"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_rate3"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_rate3" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_rate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{instructor.twoStarCount + `%`}"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/teacher_profile_rate2"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_txt_rate3"
+                app:layout_constraintTop_toTopOf="@id/teacher_profile_rate2" />
+
+            <RatingBar
+                android:id="@+id/teacher_profile_rate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="1"
+                android:scaleX=".6"
+                android:scaleY=".6"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_rate2"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_rate2" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_rate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{instructor.oneStarCount + `%`}"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/teacher_profile_rate1"
+                app:layout_constraintStart_toStartOf="@id/teacher_profile_txt_rate2"
+                app:layout_constraintTop_toTopOf="@id/teacher_profile_rate1" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/teacher_profile_card_makecomment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                app:cardCornerRadius="@dimen/_30sdp"
+                app:cardElevation="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="@id/teacher_profile_txt_rate1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_rate1"
+                app:layout_constraintWidth_percent=".6">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/make_comment"
+                    android:padding="@dimen/_12sdp"
+                    android:textColorHint="@color/lightGrey" />
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/teacher_profile_ic_send"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:src="@drawable/send_message"
+                app:layout_constraintBottom_toBottomOf="@id/teacher_profile_card_makecomment"
+                app:layout_constraintStart_toEndOf="@id/teacher_profile_card_makecomment"
+                app:layout_constraintTop_toTopOf="@id/teacher_profile_card_makecomment" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_rate_instructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/rate_instructor"
+                android:textSize="@dimen/_22sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_card_makecomment" />
+
+            <RatingBar
+                android:id="@+id/teacher_profile_rate_instructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                app:layout_constraintEnd_toEndOf="@+id/teacher_profile_txt_rate_instructor"
+                app:layout_constraintStart_toStartOf="@+id/teacher_profile_txt_rate_instructor"
+                app:layout_constraintTop_toBottomOf="@+id/teacher_profile_txt_rate_instructor" />
+
+            <ImageView
+                android:id="@+id/teacher_profile_commentLove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/favourite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_rate_instructor" />
+
+            <TextView
+                android:id="@+id/teacher_profile_txt_students_opinion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/student_s_opinion"
+                android:textSize="@dimen/_22sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_commentLove" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/teacher_profile_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_15sdp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/teacher_profile_txt_students_opinion" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

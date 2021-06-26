@@ -1,4 +1,4 @@
-package com.graduationproject.zakerly.navigation.profileTeacher;
+package com.graduationproject.zakerly.navigation.viewteacherprofile;
 
 import android.content.Context;
 
@@ -17,12 +17,12 @@ import com.graduationproject.zakerly.core.models.OpinionModel;
 import java.util.ArrayList;
 
 
-public class ProfileTeacherAdapter extends RecyclerView.Adapter<ProfileTeacherAdapter.ViewHolder> {
+public class ShowTeacherProfileAdapter extends RecyclerView.Adapter<ShowTeacherProfileAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<OpinionModel> listOfOpinion;
 
-    public ProfileTeacherAdapter(Context context, ArrayList<OpinionModel> listOfOpinion) {
+    public ShowTeacherProfileAdapter(Context context, ArrayList<OpinionModel> listOfOpinion) {
         this.context = context;
         this.listOfOpinion = listOfOpinion;
     }

@@ -12,14 +12,22 @@
         android:label="fragment_home_student"
         app:launchSingleTop="true"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_home_student" />
+        tools:layout="@layout/fragment_home_student" >
+        <action
+            android:id="@+id/action_homeStudentFragment_to_showTeacherProfileFragment"
+            app:destination="@id/showTeacherProfileFragment" />
+    </fragment>
 
 
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.graduationproject.zakerly.navigation.favorites.FavoritesFragment"
         android:label="favorite_fragment"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_showTeacherProfileFragment"
+            app:destination="@id/showTeacherProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.graduationproject.zakerly.navigation.settings.SettingsFragment"
@@ -46,6 +54,9 @@
         <action
             android:id="@+id/action_profileStudentFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileStudentFragment_to_showTeacherProfileFragment"
+            app:destination="@id/showTeacherProfileFragment" />
     </fragment>
 
 
@@ -85,6 +96,11 @@
             app:argType="string" />
 
     </fragment>
+    <fragment
+        android:id="@+id/showTeacherProfileFragment"
+        android:name="com.graduationproject.zakerly.navigation.viewteacherprofile.ShowTeacherProfileFragment"
+        android:label="ShowTeacherProfileFragment"
+        tools:layout="@layout/fragment_show_teacher_profile" />
 
 
 </navigation>
