@@ -182,4 +182,19 @@ public class Instructor extends RealmObject implements Parcelable {
         dest.writeInt(twoStarCount);
         dest.writeInt(oneStarCount);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Instructor)) return false;
+
+        Instructor that = (Instructor) o;
+
+        return user.equals(that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return user.hashCode();
+    }
 }

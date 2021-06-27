@@ -110,9 +110,12 @@ public class FirebaseDataBaseClient {
         {
             for (DataSnapshot child : dataSnapshot.getChildren()) {
                 usersReference.child(Objects.requireNonNull(child.getKey())).get().addOnSuccessListener(dataSnapshot1 -> {
-                    Instructor i = dataSnapshot1.getValue(Instructor.class);
-                    Log.d(TAG, "onSuccess: " + i);
-                    favorites.add(i);
+                    Boolean b = child.getValue(Boolean.class);
+                    if (b) {
+                        Instructor i = dataSnapshot1.getValue(Instructor.class);
+                        Log.d(TAG, "onSuccess: " + i);
+                        favorites.add(i);
+                    }
                 }).addOnCompleteListener(task -> {
                     Log.d(TAG, "onSuccess: " + favorites);
                     adapter.setInstructors(favorites);
@@ -139,4 +142,39 @@ public class FirebaseDataBaseClient {
         return opinionsReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).get();
 
     }
+
+    public Task<Void> setFavorite(String studentUid, String teacherUid, boolean favoriteStatus) {
+        return favoritesReference.child(studentUid).child(teacherUid).setValue(favoriteStatus);
+    }
+
+    public Task<DataSnapshot> getFavorites(String uid) {
+        return favoritesReference.child(uid).get();
+    }
+
+    public Task<DataSnapshot> getUserByUid(String uid) {
+        return usersReference.child(uid).get();
+    }
+
+
+    public void doWithUserObjectByUid(String uid,
+                                      Function<Student, Boolean> studentAction,
+                                      Function<Instructor, Boolean> instructorAction, Function<String, Boolean> errorAction) {
+
+        FirebaseDataBaseClient.getInstance().getUserByUid(uid).addOnSuccessListener(snapshot -> {
+            Log.d("LOOPING", "onDataChange: " + snapshot.getChildrenCount());
+            String type = "";
+            for (DataSnapshot child : snapshot.getChildren()) {
+                type = child.child("user/type").getValue(String.class);
+                Log.d("LOOPING", "onDataChange: " + type);
+                if (UserTypes.TYPE_INSTRUCTOR.equals(type)) {
+                    Instructor instructor = child.getValue(Instructor.class);
+                    instructorAction.apply(instructor);
+                } else if (UserTypes.TYPE_STUDENT.equals(type)) {
+                    Student student = child.getValue(Student.class);
+                    studentAction.apply(student);
+                }
+            }
+        });
+    }
+
 }

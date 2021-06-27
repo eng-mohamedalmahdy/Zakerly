@@ -113,4 +113,19 @@ public class User extends RealmObject {
                 ", interests=" + interests +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        return UID.equals(user.UID);
+    }
+
+    @Override
+    public int hashCode() {
+        return UID.hashCode();
+    }
 }

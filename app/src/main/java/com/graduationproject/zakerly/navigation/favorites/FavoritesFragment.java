@@ -22,7 +22,6 @@ public class FavoritesFragment extends BaseFragment {
 
     private FragmentFavoritesBinding binding;
     private FavoritesViewModel viewModel;
-    private ArrayList<Instructor> favorites;
     TextView mFavorite;
     RecyclerView mRecyclerViewFavorite;
     TeacherCardAdapter adapter;
@@ -43,10 +42,7 @@ public class FavoritesFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        initListeners();
         viewModel.setUpFavoritesData(adapter);
-
-
     }
 
     private void initViews() {
@@ -54,12 +50,6 @@ public class FavoritesFragment extends BaseFragment {
         mRecyclerViewFavorite = binding.recyclerviewFavorites;
         adapter = new TeacherCardAdapter(this);
         mRecyclerViewFavorite.setAdapter(adapter);
-    }
-
-    private void initListeners() {
-        adapter.onFavoriteClickListener = position -> {
-
-        };
     }
 
 }

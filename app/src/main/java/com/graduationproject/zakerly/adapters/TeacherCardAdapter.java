@@ -1,5 +1,6 @@
 package com.graduationproject.zakerly.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,14 +18,19 @@ import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.StudentAppNavigationDirections;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Specialisation;
+import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
+import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import io.realm.RealmList;
 
 public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.ViewHolder> {
 
     ArrayList<Instructor> instructors;
+    ArrayList<String> favoritesUid;
+    ArrayList<Boolean> favoritesResults;
     int layoutId;
     Fragment currentFragment;
 
@@ -31,11 +38,16 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
         this.instructors = new ArrayList<>();
         this.layoutId = R.layout.list_item_teacher_card;
         this.currentFragment = currentFragment;
+        this.favoritesUid = new ArrayList<>();
+
     }
 
     public TeacherCardAdapter(Fragment currentFragment, int layoutId) {
         this.layoutId = layoutId;
         this.currentFragment = currentFragment;
+        this.instructors = new ArrayList<>();
+        this.favoritesUid = new ArrayList<>();
+
 
     }
 
@@ -54,37 +66,41 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
         holder.teacherName.setText(fullName);
         holder.teacherJob.setText(jobName);
         holder.teacherDesc.setText(dataClass.getBio());
+        holder.teacherFavorite.setImageResource(favoritesResults.get(position) ? R.drawable.ic_stargreen : R.drawable.ic_star);
         Glide.with(holder.itemView.getContext())
                 .load(dataClass.getUser().getProfileImg())
                 .placeholder(R.drawable.baseline_account_circle_24)
                 .into(holder.teacherImage);
-        holder.itemView.setOnClickListener(v ->
+        holder.container.setOnClickListener(v ->
                 NavHostFragment.findNavController(currentFragment).
                         navigate(StudentAppNavigationDirections
                                 .navigateToShowTeacherProfile(instructors
                                         .get(position))));
 
-        if (onFavoriteClickListener != null) {
-            holder.teacherFavorite.setOnClickListener(view ->
-                    onFavoriteClickListener.onItemClick(position));
-        }
+        holder.teacherFavorite.setOnClickListener(view -> {
+            FirebaseDataBaseClient.getInstance().setFavorite(
+                    FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
+                    instructors.get(position).getUser().getUID(), !favoritesResults.get(position)).addOnSuccessListener(command -> Toasty.success(view.getContext(), R.string.done).show());
+            favoritesResults.set(position, !favoritesResults.get(position));
+            notifyDataSetChanged();
+        });
 
     }
 
-    public OnItemClickListener onFavoriteClickListener;
-
-    public void setOnFavoriteClickListener(OnItemClickListener onFavoriteClickListener) {
-        this.onFavoriteClickListener = onFavoriteClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
 
     public void setInstructors(ArrayList<Instructor> instructors) {
         this.instructors = instructors;
-        notifyDataSetChanged();
+        FirebaseDataBaseClient.getInstance().getFavorites(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid())
+                .addOnSuccessListener(snapshot -> {
+                    snapshot.getChildren().forEach(snapshot1 -> {
+                        if (snapshot1.getValue(Boolean.class)) favoritesUid.add(snapshot1.getKey());
+                    });
+                    favoritesResults = favoriteMatches(instructors, favoritesUid);
+                    notifyDataSetChanged();
+                    Log.d("TAG", "setInstructors: " + favoritesResults);
+                });
     }
+
 
     @Override
     public int getItemCount() {
@@ -95,6 +111,7 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
 
         ImageView teacherImage, teacherFavorite;
         TextView teacherName, teacherJob, teacherDesc;
+        ConstraintLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,7 +120,18 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
             teacherJob = itemView.findViewById(R.id.job_teacher);
             teacherDesc = itemView.findViewById(R.id.desc_teacher);
             teacherFavorite = itemView.findViewById(R.id.favorite_teacher);
+            container = itemView.findViewById(R.id.contact_container);
         }
+    }
+
+    ArrayList<Boolean> favoriteMatches(ArrayList<Instructor> originalList, ArrayList<String> favorites) {
+        ArrayList<Boolean> results = new ArrayList<>();
+        originalList.forEach(instructor -> {
+            results.add(favorites.contains(instructor.getUser().getUID()));
+            Log.d("TAG", "favoriteMatches: FAV " + favorites);
+            Log.d("TAG", "favoriteMatches: UID " + instructor.getUser().getUID());
+        });
+        return results;
     }
 }
 

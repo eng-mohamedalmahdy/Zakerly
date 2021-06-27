@@ -21,6 +21,7 @@ import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
+import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentHomeStudentBinding;
 
@@ -69,6 +70,7 @@ public class HomeStudentFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Instructor> allInstructors = new ArrayList<>();
                 ArrayList<Instructor> recommendedInstructors = new ArrayList<>();
+
 
                 snapshot.getChildren().forEach(instructor -> allInstructors.add(instructor.getValue(Instructor.class)));
                 Collections.shuffle(allInstructors);
