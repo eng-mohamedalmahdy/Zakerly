@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.models.OpinionModel;
 import com.graduationproject.zakerly.databinding.FragmentShowTeacherProfileBinding;
@@ -22,10 +25,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ShowTeacherProfileFragment extends Fragment {
 
     private FragmentShowTeacherProfileBinding binding;
+    private ShowTeacherProfileFragmentArgs args;
     private ShowTeacherProfileViewModel viewModel;
     RecyclerView mRecyclerView;
     ShowTeacherProfileAdapter adapter;
@@ -39,8 +46,10 @@ public class ShowTeacherProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentShowTeacherProfileBinding.inflate(inflater, container, false);
+        args = ShowTeacherProfileFragmentArgs.fromBundle(requireArguments());
         viewModel = new ShowTeacherProfileViewModelFactory(new ShowTeacherProfileRepository()).create(ShowTeacherProfileViewModel.class);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
+        binding.setInstructor(args.getInstructor());
+        ((MainActivity) requireActivity()).setNavigationVisibility(false);
         return binding.getRoot();
 
     }
@@ -49,8 +58,15 @@ public class ShowTeacherProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        adapter= new ShowTeacherProfileAdapter(getActivity(),fillRecyclerView());
-        mRecyclerView.setAdapter(adapter);
+        setUpViews();
+        viewModel.getOpinions().addOnSuccessListener(snapshot -> {
+            GenericTypeIndicator<HashMap<String, OpinionModel>> objectsGTypeInd = new GenericTypeIndicator<HashMap<String, OpinionModel>>() {
+            };
+            Map<String, OpinionModel> objectHashMap = snapshot.getValue(objectsGTypeInd);
+            if (objectHashMap == null) return;
+            ArrayList<OpinionModel> objectArrayList = new ArrayList<>(objectHashMap.values());
+            mRecyclerView.setAdapter(new ShowTeacherProfileAdapter(requireContext(), objectArrayList));
+        });
     }
 
     // this method to init all views in XML
@@ -81,20 +97,13 @@ public class ShowTeacherProfileFragment extends Fragment {
         rateInstructor = binding.teacherProfileRateInstructor;
     }
 
-    // thi method for test recyclerView  . . .
-    private ArrayList<OpinionModel> fillRecyclerView(){
-        ArrayList<OpinionModel> opinions= new ArrayList<>();
-        Date todayDate = Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String todayString = formatter.format(todayDate);
-
-        for (int i =0 ;i<11;i++){
-            OpinionModel opinionModel = new OpinionModel("Hi I Am Mohamed And I Love You And I Want To Attend With You "
-            ,3,R.drawable.test_img,todayString);
-            opinions.add(opinionModel);
-        }
-        return opinions;
+    private void setUpViews() {
+        Glide.with(requireContext())
+                .load(args.getInstructor().getUser().getProfileImg())
+                .placeholder(R.drawable.baseline_account_circle_24)
+                .into(imageProfile);
     }
+
 }
 
 

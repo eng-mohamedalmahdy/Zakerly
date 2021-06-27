@@ -2,6 +2,7 @@ package com.graduationproject.zakerly.core.models;
 
 public class OpinionModel {
 
+    private String id;
     private String imageStudent;
     private String opinion;
     private float numStarRating;
@@ -11,24 +12,21 @@ public class OpinionModel {
     public OpinionModel() {
     }
 
-    public OpinionModel(String opinion, float numStarRating, int imageStudentInt) {
-        this.opinion = opinion;
-        this.numStarRating = numStarRating;
-        this.imageStudentInt = imageStudentInt;
-    }
 
-    public OpinionModel(String imageStudent, String opinion, float numStarRating, String date) {
+    public OpinionModel(String imageStudent, String opinion, float numStarRating, int imageStudentInt, String date) {
         this.imageStudent = imageStudent;
         this.opinion = opinion;
         this.numStarRating = numStarRating;
+        this.imageStudentInt = imageStudentInt;
         this.date = date;
     }
 
-    public OpinionModel(String opinion, float numStarRating, int imageStudentInt, String date) {
-        this.opinion = opinion;
-        this.numStarRating = numStarRating;
-        this.imageStudentInt = imageStudentInt;
-        this.date = date;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDate() {

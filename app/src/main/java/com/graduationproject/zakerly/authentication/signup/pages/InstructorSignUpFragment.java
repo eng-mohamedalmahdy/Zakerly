@@ -107,8 +107,7 @@ public class InstructorSignUpFragment extends BaseFragment {
 
 
     public Instructor getInstructor() {
-
-        return new Instructor(new User("",
+        Instructor i = new Instructor(new User("",
                 UserTypes.TYPE_INSTRUCTOR,
                 binding.firstNameTextField.getEditText().getText().toString(),
                 binding.lastNameTextField.getEditText().getText().toString(),
@@ -116,6 +115,8 @@ public class InstructorSignUpFragment extends BaseFragment {
                 parent.getAuthType(), "",
                 selectedSpecialisationsList),
                 Double.parseDouble(binding.priceTextField.getEditText().getText().toString()));
+        i.setTitle(binding.titleTextField.getEditText().getText().toString());
+        return i;
 
     }
 

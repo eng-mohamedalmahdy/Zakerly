@@ -86,4 +86,6 @@
     <string name="make_comment">Make Comment</string>
     <string name="rate_instructor">Rate Instructor</string>
     <string name="student_s_opinion">Student\'s Opinion</string>
+    <string name="title">Title</string>
+    <string name="job_title">Job Title</string>
 </resources>

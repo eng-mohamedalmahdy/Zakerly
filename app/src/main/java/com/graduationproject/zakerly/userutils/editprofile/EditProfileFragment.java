@@ -43,6 +43,7 @@ import com.graduationproject.zakerly.databinding.FragmentEditProfileBinding;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -238,8 +239,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     public Instructor getInstructor() {
-
-        return new Instructor(new User(viewModel.getUserMutableLiveData().getValue().getUID(),
+        Instructor i = new Instructor(new User(viewModel.getUserMutableLiveData().getValue().getUID(),
                 UserTypes.TYPE_INSTRUCTOR,
                 binding.firstNameTextField.getEditText().getText().toString(),
                 binding.lastNameTextField.getEditText().getText().toString(),
@@ -248,6 +248,8 @@ public class EditProfileFragment extends Fragment {
                 viewModel.getUserMutableLiveData().getValue().getProfileImg(),
                 selectedSpecialisationsList),
                 Double.parseDouble(binding.priceTextField.getEditText().getText().toString()));
+        i.setTitle(binding.titleTextField.getEditText().getText().toString());
+        return i;
 
     }
 
@@ -321,18 +323,22 @@ public class EditProfileFragment extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                 binding.profileImage.setImageBitmap(bitmap);
-                uploadImageToFireStore(uri);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                //here you can choose quality factor in third parameter(ex. i choosen 25)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+                byte[] fileInBytes = baos.toByteArray();
+                uploadImageToFireStore(fileInBytes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void uploadImageToFireStore(Uri uri) {
-        if (uri != null) {
+    private void uploadImageToFireStore(byte[] img) {
+        if (img != null) {
             String userUid = FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid();
             StorageReference ref = FirebaseStorage.getInstance().getReference("profiles/" + userUid);
-            ref.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+            ref.putBytes(img).addOnSuccessListener(taskSnapshot -> {
                 Log.d(TAG, "Successfully uploaded . . ");
                 Toasty.success(requireContext(), R.string.profile_image_updated).show();
                 ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {

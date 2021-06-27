@@ -15,7 +15,7 @@ public class ShowTeacherProfileViewModelFactory implements ViewModelProvider.Fac
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(ShowTeacherProfileViewModel.class)){
-            return (T) new ShowTeacherProfileViewModel(repository);
+            return (T) new ShowTeacherProfileViewModel();
 
         }
         throw new IllegalArgumentException("Unable to construct viewmodel");

@@ -36,6 +36,7 @@ import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticatio
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentProfileStudentBinding;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import es.dmoral.toasty.Toasty;
@@ -161,18 +162,22 @@ public class ProfileStudentFragment extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                 profile.setImageBitmap(bitmap);
-                uploadImageToFireStore(uri);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                //here you can choose quality factor in third parameter(ex. i choosen 25)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+                byte[] fileInBytes = baos.toByteArray();
+                uploadImageToFireStore(fileInBytes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void uploadImageToFireStore(Uri uri) {
-        if (uri != null) {
+    private void uploadImageToFireStore(byte[]img) {
+        if (img != null) {
             String userUid = FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid();
             StorageReference ref = FirebaseStorage.getInstance().getReference("profiles/" + userUid);
-            ref.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+            ref.putBytes(img).addOnSuccessListener(taskSnapshot -> {
                 Log.d(TAG, "Successfully uploaded . . ");
 
                 ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {

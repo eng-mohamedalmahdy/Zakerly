@@ -52,7 +52,7 @@ public class FavoritesFragment extends BaseFragment {
     private void initViews() {
         mFavorite = binding.textFavorites;
         mRecyclerViewFavorite = binding.recyclerviewFavorites;
-        adapter = new TeacherCardAdapter();
+        adapter = new TeacherCardAdapter(this);
         mRecyclerViewFavorite.setAdapter(adapter);
     }
 

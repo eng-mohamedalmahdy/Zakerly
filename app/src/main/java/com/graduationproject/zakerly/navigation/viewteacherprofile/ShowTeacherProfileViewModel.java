@@ -2,11 +2,15 @@ package com.graduationproject.zakerly.navigation.viewteacherprofile;
 
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+
 public class ShowTeacherProfileViewModel extends ViewModel {
 
-    private ShowTeacherProfileRepository repository;
 
-    public ShowTeacherProfileViewModel(ShowTeacherProfileRepository repository) {
-        this.repository = repository;
+    public ShowTeacherProfileViewModel() {
+    }
+    public Task<DataSnapshot> getOpinions(){
+        return  ShowTeacherProfileRepository.getOpinions();
     }
 }

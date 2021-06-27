@@ -47,9 +47,9 @@ public class HomeStudentFragment extends Fragment {
         ((MainActivity) requireActivity()).setSelectedPage(BottomNavigationConstants.HOME_PAGE);
         ((MainActivity) requireActivity()).setNavigationVisibility(true);
         viewModel = new ViewModelProvider(this).get(HomeStudentPageViewModel.class);
-        recommendedListAdapter = new TeacherCardAdapter(R.layout.list_item_teacher_card_small);
-        topListAdapter = new TeacherCardAdapter(R.layout.list_item_teacher_card_small);
-        discoverListAdapter = new TeacherCardAdapter();
+        recommendedListAdapter = new TeacherCardAdapter(this, R.layout.list_item_teacher_card_small);
+        topListAdapter = new TeacherCardAdapter(this, R.layout.list_item_teacher_card_small);
+        discoverListAdapter = new TeacherCardAdapter(this);
         return binding.getRoot();
     }
 
@@ -82,11 +82,11 @@ public class HomeStudentFragment extends Fragment {
                                             instructor.getUser().getInterests().contains(specialisation))
                                     .collect(Collectors.toCollection(ArrayList::new))));
 
-                    recommendedListAdapter.setList(recommendedInstructors);
+                    recommendedListAdapter.setInstructors(recommendedInstructors);
                 });
-                discoverListAdapter.setList(allInstructors);
+                discoverListAdapter.setInstructors(allInstructors);
                 Log.d(TAG, "initListsData: " + allInstructors);
-                topListAdapter.setList(allInstructors.stream()
+                topListAdapter.setInstructors(allInstructors.stream()
                         .sorted((i1, i2) -> Double.compare(i1.getRate(), i2.getRate()))
                         .collect(Collectors.toCollection(ArrayList::new)));
             }

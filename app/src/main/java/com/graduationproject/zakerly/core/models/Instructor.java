@@ -1,9 +1,12 @@
 package com.graduationproject.zakerly.core.models;
 
-import io.realm.RealmList;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import io.realm.RealmObject;
 
-public class Instructor extends RealmObject {
+
+public class Instructor extends RealmObject implements Parcelable {
 
     private User user;
     private double pricePerHour;
@@ -28,6 +31,32 @@ public class Instructor extends RealmObject {
         this.bio = "";
     }
 
+
+    protected Instructor(Parcel in) {
+        pricePerHour = in.readDouble();
+        rate = in.readDouble();
+        bio = in.readString();
+        title = in.readString();
+        numberOfStudents = in.readInt();
+        averageRate = in.readInt();
+        fiveStarCount = in.readInt();
+        fourStarCount = in.readInt();
+        threeStarCount = in.readInt();
+        twoStarCount = in.readInt();
+        oneStarCount = in.readInt();
+    }
+
+    public static final Creator<Instructor> CREATOR = new Creator<Instructor>() {
+        @Override
+        public Instructor createFromParcel(Parcel in) {
+            return new Instructor(in);
+        }
+
+        @Override
+        public Instructor[] newArray(int size) {
+            return new Instructor[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -132,5 +161,25 @@ public class Instructor extends RealmObject {
                 ", pricePerHour=" + pricePerHour +
                 ", rate=" + rate +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(pricePerHour);
+        dest.writeDouble(rate);
+        dest.writeString(bio);
+        dest.writeString(title);
+        dest.writeInt(numberOfStudents);
+        dest.writeInt(averageRate);
+        dest.writeInt(fiveStarCount);
+        dest.writeInt(fourStarCount);
+        dest.writeInt(threeStarCount);
+        dest.writeInt(twoStarCount);
+        dest.writeInt(oneStarCount);
     }
 }

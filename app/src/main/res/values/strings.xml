@@ -84,4 +84,6 @@
     <string name="recommended_for_you">Recommended for you</string>
     <string name="top_instructors">Top Instructors</string>
     <string name="discover">Discover</string>
+    <string name="title">Title</string>
+    <string name="job_title">Job Title</string>
 </resources>

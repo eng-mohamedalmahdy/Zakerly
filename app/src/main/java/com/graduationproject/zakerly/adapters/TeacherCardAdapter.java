@@ -7,10 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.StudentAppNavigationDirections;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Specialisation;
 
@@ -20,16 +23,20 @@ import io.realm.RealmList;
 
 public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.ViewHolder> {
 
-    ArrayList<Instructor> list;
+    ArrayList<Instructor> instructors;
     int layoutId;
+    Fragment currentFragment;
 
-    public TeacherCardAdapter() {
-        this.list = new ArrayList<>();
+    public TeacherCardAdapter(Fragment currentFragment) {
+        this.instructors = new ArrayList<>();
         this.layoutId = R.layout.list_item_teacher_card;
+        this.currentFragment = currentFragment;
     }
 
-    public TeacherCardAdapter(int layoutId) {
+    public TeacherCardAdapter(Fragment currentFragment, int layoutId) {
         this.layoutId = layoutId;
+        this.currentFragment = currentFragment;
+
     }
 
     @NonNull
@@ -41,10 +48,9 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Instructor dataClass = list.get(position);
+        Instructor dataClass = instructors.get(position);
         String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
-        RealmList<Specialisation> specialisations = dataClass.getUser().getInterests();
-        String jobName = specialisations==null||specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
+        String jobName = dataClass.getTitle();
         holder.teacherName.setText(fullName);
         holder.teacherJob.setText(jobName);
         holder.teacherDesc.setText(dataClass.getBio());
@@ -52,6 +58,11 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
                 .load(dataClass.getUser().getProfileImg())
                 .placeholder(R.drawable.baseline_account_circle_24)
                 .into(holder.teacherImage);
+        holder.itemView.setOnClickListener(v ->
+                NavHostFragment.findNavController(currentFragment).
+                        navigate(StudentAppNavigationDirections
+                                .navigateToShowTeacherProfile(instructors
+                                        .get(position))));
 
         if (onFavoriteClickListener != null) {
             holder.teacherFavorite.setOnClickListener(view ->
@@ -70,14 +81,14 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
         void onItemClick(int position);
     }
 
-    public void setList(ArrayList<Instructor> list) {
-        this.list = list;
+    public void setInstructors(ArrayList<Instructor> instructors) {
+        this.instructors = instructors;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return instructors == null ? 0 : instructors.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

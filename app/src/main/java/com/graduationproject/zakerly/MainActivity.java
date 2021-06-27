@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.graduationproject.zakerly.authentication.signIn.SignInFragmentDirections;
 import com.graduationproject.zakerly.core.base.BaseActivity;
@@ -76,6 +77,8 @@ public class MainActivity extends BaseActivity {
         //used for facebook sign in
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
 
     }

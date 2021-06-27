@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Task;
+import com.google.common.net.InternetDomainName;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,7 @@ public class FirebaseDataBaseClient {
     private static DatabaseReference usersReference;
     private static DatabaseReference specialisationsReference;
     private static DatabaseReference favoritesReference;
+    private static DatabaseReference opinionsReference;
 
 
     private FirebaseDataBaseClient() {
@@ -35,6 +37,7 @@ public class FirebaseDataBaseClient {
         usersReference = database.getReference("users");
         specialisationsReference = database.getReference("specialisations");
         favoritesReference = database.getReference("favorites");
+        opinionsReference = database.getReference("opinions");
     }
 
     public static FirebaseDataBaseClient getInstance() {
@@ -112,7 +115,7 @@ public class FirebaseDataBaseClient {
                     favorites.add(i);
                 }).addOnCompleteListener(task -> {
                     Log.d(TAG, "onSuccess: " + favorites);
-                    adapter.setList(favorites);
+                    adapter.setInstructors(favorites);
                 });
             }
         });
@@ -130,5 +133,10 @@ public class FirebaseDataBaseClient {
 
     public Task<DataSnapshot> getCurrentUser() {
         return usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).get();
+    }
+
+    public Task<DataSnapshot> getOpinions() {
+        return opinionsReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).get();
+
     }
 }
