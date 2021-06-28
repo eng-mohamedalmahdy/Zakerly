@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"
+        app:cnb_iconColor="@color/blue" />
+
+    <item
+        android:id="@+id/seclude"
+        android:icon="@drawable/calender_icon"
+        android:title="@string/favorite"
+        app:cnb_iconColor="@color/milkyColor" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="@string/account"
+        app:cnb_iconColor="@color/yellow" />
+    <item
+        android:id="@+id/notification"
+        android:icon="@drawable/ic_notification"
+        android:title="@string/notification"
+        app:cnb_iconColor="@color/blue" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/settings"
+        app:cnb_iconColor="@color/green" />
+</menu>

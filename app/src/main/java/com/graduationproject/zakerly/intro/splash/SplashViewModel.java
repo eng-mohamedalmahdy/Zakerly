@@ -7,6 +7,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.graduationproject.zakerly.MainActivity;
+import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.User;
@@ -30,7 +32,7 @@ public class SplashViewModel extends ViewModel {
         disposables = new CompositeDisposable();
     }
 
-    public void navigateToNextDestination() {
+    public void navigateToNextDestination(MainActivity activity) {
         Disposable isFirstLaunchDisposable = splashRepository.getIsFirstLaunch()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,12 +50,21 @@ public class SplashViewModel extends ViewModel {
                             } else if (null == user || localUser == null) {
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToLogInFragment());
                                 return;
+
                             }
-                            if (localUser.getType().equals(UserTypes.TYPE_STUDENT)) {
+                           else if (localUser.getType().equals(UserTypes.TYPE_STUDENT)) {
                                 Log.d(TAG, "navigateToNextDestination: Navigating to student");
                                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToStudentAppNavigation());
+                               activity.setMenu(R.menu.student_bottom_menu);
+
                             } else {
+                                Log.d(TAG, "navigateToNextDestination: Navigating to instructor");
+                                navController.navigate(SplashFragmentDirections.actionSplashFragmentToInstructorAppNavigation());
+                                activity.setMenu(R.menu.instructor_bottom_menu);
+
                             }
+
+
                         },
                         /*OnError*/throwable -> Log.d(TAG, throwable.toString()));
 

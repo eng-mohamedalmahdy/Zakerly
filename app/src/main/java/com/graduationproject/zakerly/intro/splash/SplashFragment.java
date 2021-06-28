@@ -12,8 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
+import com.graduationproject.zakerly.core.constants.UserTypes;
+import com.graduationproject.zakerly.core.models.User;
+import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.databinding.FragmentSplashBinding;
 
 
@@ -38,7 +43,14 @@ public class SplashFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         splashRepository = new SplashRepository(getContext());
         splashViewModel = new SplashViewModelFactory(splashRepository, this).create(SplashViewModel.class);
-        binding.splashContainer.animate().setDuration(SPLASH_TIME).scaleX(1).scaleY(1).alpha(1f).withEndAction(() -> splashViewModel.navigateToNextDestination()).start();
+        binding.splashContainer
+                .animate()
+                .setDuration(SPLASH_TIME)
+                .scaleX(1)
+                .scaleY(1)
+                .alpha(1f)
+                .withEndAction(() -> splashViewModel.navigateToNextDestination((MainActivity) getActivity()))
+                .start();
 
     }
 

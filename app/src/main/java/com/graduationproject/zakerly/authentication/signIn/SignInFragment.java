@@ -93,7 +93,7 @@ public class SignInFragment extends BaseFragment {
         forgetPasswordText.setOnClickListener(v -> mViewModel.navigateToForgetPassword());
         signUp.setOnClickListener(v -> mViewModel.navigateToSignUp());
         signinWithGoogle.setOnClickListener(v -> mViewModel.signInWithGoogle((MainActivity) getActivity()));
-        signinWithFacebook.setOnClickListener(v -> mViewModel.signInWithFacebook((MainActivity) getActivity()));
+        signinWithFacebook.setOnClickListener(v -> mViewModel.signInWithFacebook((MainActivity) getActivity(), this));
 
 
     }

@@ -88,4 +88,7 @@
     <string name="student_s_opinion">Student\'s Opinion</string>
     <string name="title">Title</string>
     <string name="job_title">Job Title</string>
+    <string name="incoming_lessons">Incoming Lessons</string>
+    <string name="completed_lessons">Completed Lessons</string>
+    <string name="number_of_hours">Number Of Hours</string>
 </resources>

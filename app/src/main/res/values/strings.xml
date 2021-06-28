@@ -77,7 +77,7 @@
     <string name="student_s_opinion">Student\'s Opinion</string>
     <string name="apply">Apply</string>
     <string name="profile_image_updated">Profile Image updated successfully</string>
-    <string name="invalid_name" >Invalid name</string>
+    <string name="invalid_name">Invalid name</string>
     <string name="add_one_interest">Please add at lease one subject</string>
     <string name="profile_updated_sucessfully">Profile updated successfully</string>
     <string name="failed_to_update_profile">Error updating profile</string>
@@ -86,4 +86,7 @@
     <string name="discover">Discover</string>
     <string name="title">Title</string>
     <string name="job_title">Job Title</string>
+    <string name="incoming_lessons">Incoming Lessons</string>
+    <string name="completed_lessons">Completed Lessons</string>
+    <string name="number_of_hours">Number Of Hours</string>
 </resources>

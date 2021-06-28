@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/instructor_app_navigation"
+    app:startDestination="@id/teacherHomeFragment">
+
+
+    <fragment
+        android:id="@+id/teacherHomeFragment"
+        android:name="com.graduationproject.zakerly.navigation.homeinstructor.InstructorHomeFragment"
+        android:label="ShowTeacherProfileFragment"
+        tools:layout="@layout/fragment_instructor_home" />
+
+    <action
+        android:id="@+id/action_to_teacherHomeFragment"
+        app:destination="@id/teacherHomeFragment"/>
+</navigation>

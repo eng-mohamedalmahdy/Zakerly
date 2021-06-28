@@ -89,6 +89,8 @@ public class SignUpRepository {
                             RealmQueries queries = new RealmQueries();
                             queries.addTeacher(instructor);
                             Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            NavHostFragment.findNavController(fragment).navigate(SignUpFragmentDirections.actionSignUpFragmentToInstructorAppNavigation());
+
                         })
                         .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
@@ -102,6 +104,8 @@ public class SignUpRepository {
                             RealmQueries queries = new RealmQueries();
                             queries.addTeacher(instructor);
                             Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            NavHostFragment.findNavController(fragment).navigate(SignUpFragmentDirections.actionSignUpFragmentToInstructorAppNavigation());
+
                         })
                         .addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
                 break;
@@ -111,7 +115,9 @@ public class SignUpRepository {
                     Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
                     RealmQueries queries = new RealmQueries();
                     queries.addTeacher(instructor);
+                    NavHostFragment.findNavController(fragment).navigate(SignUpFragmentDirections.actionSignUpFragmentToInstructorAppNavigation());
                 }).addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
+
                 break;
         }
     }

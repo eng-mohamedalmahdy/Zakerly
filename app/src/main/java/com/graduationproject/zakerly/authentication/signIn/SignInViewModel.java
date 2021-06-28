@@ -57,8 +57,8 @@ public class SignInViewModel extends ViewModel {
 
     }
 
-    public void signInWithFacebook(MainActivity activity) {
-        repository.signInWithFacebook(activity);
+    public void signInWithFacebook(MainActivity activity,Fragment fragment) {
+        repository.signInWithFacebook(activity,fragment);
     }
 
     public void signOut() {

@@ -103,6 +103,7 @@
         tools:layout="@layout/fragment_show_teacher_profile">
 
         <argument
+            app:nullable="true"
             android:name="instructor"
             app:argType="com.graduationproject.zakerly.core.models.Instructor" />
     </fragment>
