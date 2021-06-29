@@ -35,7 +35,6 @@ public class ShowTeacherProfileFragment extends Fragment {
     private ShowTeacherProfileFragmentArgs args;
     private ShowTeacherProfileViewModel viewModel;
     RecyclerView mRecyclerView;
-    ShowTeacherProfileAdapter adapter;
     ImageView imageBack, imageProfile, imageDisableFavorite, imageVideoCall, imagePrice, imageRequest, imageSend;
     TextView txtProfileName, txtProfileJob, txtNumOfStudents, txtDescriptionBio, txtPercentageOfRating;
     TextView txtRate5, txtRate4, txtRate3, txtRate2, txtRate1;

@@ -48,6 +48,8 @@ public class ShowTeacherProfileAdapter extends RecyclerView.Adapter<ShowTeacherP
         holder.textStudentOpinion.setText(opinion);
         holder.dateStudentOpinion.setText(date);
 
+
+
     }
 
     @Override

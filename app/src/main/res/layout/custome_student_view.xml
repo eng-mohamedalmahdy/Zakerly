@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_3sdp"
+        app:cardElevation="@dimen/_8sdp"
+        android:layout_margin="@dimen/_10sdp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_8sdp"
+            android:background="@color/card_opinion_bg"
+            >
+
+            <TextView
+                android:id="@+id/custome_student_txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Name : "
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:textSize="@dimen/_22sdp"
+                android:fontFamily="@font/roboto_black"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/custome_student_txt_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/custome_student_txt_name"
+                android:text="Class :"
+                android:layout_margin="@dimen/_5sdp"
+                android:textSize="@dimen/_22sdp"
+                android:fontFamily="@font/roboto_black"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/custome_student_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/custome_student_txt_name"
+                android:text="Mohammed Ali"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:textSize="@dimen/_22sdp"
+                android:fontFamily="@font/roboto_black"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/custome_student_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/custome_student_name"
+                app:layout_constraintStart_toEndOf="@id/custome_student_txt_class"
+                android:layout_margin="@dimen/_5sdp"
+                android:textSize="@dimen/_22sdp"
+                android:fontFamily="@font/roboto_black"
+                android:text="Android Dev"
+                />
+            <ImageView
+                android:id="@+id/custome_student_ic_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_remove"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/custome_student_image"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/test_img"
+        android:elevation="@dimen/_12sdp"
+        />
+
+</FrameLayout>
