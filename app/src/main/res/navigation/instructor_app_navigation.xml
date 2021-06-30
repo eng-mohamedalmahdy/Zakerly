@@ -14,5 +14,35 @@
 
     <action
         android:id="@+id/action_to_teacherHomeFragment"
-        app:destination="@id/teacherHomeFragment"/>
+        app:destination="@id/teacherHomeFragment" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.graduationproject.zakerly.navigation.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settingsFragment_to_auth_navigation"
+            app:destination="@id/auth_navigation" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.graduationproject.zakerly.navigation.settings.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view">
+
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
+    <action
+        android:id="@+id/navigate_to_settings"
+        app:destination="@id/settingsFragment" />
 </navigation>

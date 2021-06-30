@@ -9,14 +9,17 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.AuthTypes;
+import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.network.GoogleClient;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
+import com.graduationproject.zakerly.intro.splash.SplashFragmentDirections;
 
 import es.dmoral.toasty.Toasty;
 
@@ -40,6 +43,7 @@ public class SignUpRepository {
                             RealmQueries queries = new RealmQueries();
                             queries.addStudent(student);
                             Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            ((MainActivity) fragment.getActivity()).setMenu(R.menu.student_bottom_menu);
                             NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_student_app_navigation);
 
                         })
@@ -56,6 +60,7 @@ public class SignUpRepository {
                             RealmQueries queries = new RealmQueries();
                             queries.addStudent(student);
                             Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            ((MainActivity) fragment.getActivity()).setMenu(R.menu.student_bottom_menu);
                             NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_student_app_navigation);
                             Log.d(TAG, "signUp: Student added" + student);
                         })
@@ -68,6 +73,7 @@ public class SignUpRepository {
                     RealmQueries queries = new RealmQueries();
                     queries.addStudent(student);
                     Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                    ((MainActivity) fragment.getActivity()).setMenu(R.menu.student_bottom_menu);
                     NavHostFragment.findNavController(fragment).navigate(R.id.action_signUpFragment_to_student_app_navigation);
                     Log.d(TAG, "signUp: Student added" + student);
 
@@ -89,6 +95,7 @@ public class SignUpRepository {
                             RealmQueries queries = new RealmQueries();
                             queries.addTeacher(instructor);
                             Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            ((MainActivity) fragment.getActivity()).setMenu(R.menu.instructor_bottom_menu);
                             NavHostFragment.findNavController(fragment).navigate(SignUpFragmentDirections.actionSignUpFragmentToInstructorAppNavigation());
 
                         })
@@ -104,6 +111,7 @@ public class SignUpRepository {
                             RealmQueries queries = new RealmQueries();
                             queries.addTeacher(instructor);
                             Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
+                            ((MainActivity) fragment.getActivity()).setMenu(R.menu.instructor_bottom_menu);
                             NavHostFragment.findNavController(fragment).navigate(SignUpFragmentDirections.actionSignUpFragmentToInstructorAppNavigation());
 
                         })
@@ -115,6 +123,7 @@ public class SignUpRepository {
                     Toasty.success(fragment.getContext(), fragment.getText(R.string.user_created)).show();
                     RealmQueries queries = new RealmQueries();
                     queries.addTeacher(instructor);
+                    ((MainActivity) fragment.getActivity()).setMenu(R.menu.instructor_bottom_menu);
                     NavHostFragment.findNavController(fragment).navigate(SignUpFragmentDirections.actionSignUpFragmentToInstructorAppNavigation());
                 }).addOnFailureListener(e -> Toasty.info(fragment.getContext(), e.getLocalizedMessage()).show());
 

@@ -7,5 +7,6 @@ public class StoreConstants {
     public static final Preferences.Key<Boolean> IS_FIRST_LAUNCH = PreferencesKeys.booleanKey("IS_FIRST_LAUNCH");
     public static final Preferences.Key<Boolean> IS_DARK_MODE_ENABLED = PreferencesKeys.booleanKey("IS_DARK_MODE_ENABLED");
     public static final Preferences.Key<String> LANGUAGE = PreferencesKeys.stringKey("LANGUAGE");
+    public static final Preferences.Key<String> TOKEN = PreferencesKeys.stringKey("TOKEN");
 
 }

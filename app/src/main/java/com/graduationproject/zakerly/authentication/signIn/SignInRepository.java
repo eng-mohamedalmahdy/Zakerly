@@ -60,10 +60,12 @@ public class SignInRepository {
                 RealmQueries queries = new RealmQueries();
                 FirebaseDataBaseClient.getInstance().doWithUserObject(email, student -> {
                     queries.addStudent(student);
+                    ((MainActivity) fragment.getActivity()).setMenu(R.menu.student_bottom_menu);
                     NavHostFragment.findNavController(fragment).navigate(R.id.action_signInFragment_to_student_app_navigation);
                     return true;
                 }, (instructor -> {
                     Log.d("Sing in complete", "signIn: " + instructor.toString());
+                    ((MainActivity) fragment.getActivity()).setMenu(R.menu.instructor_bottom_menu);
                     NavHostFragment.findNavController(fragment)
                             .navigate(SignInFragmentDirections.actionSignInFragmentToInstructorAppNavigation());
                     queries.addTeacher(instructor);
@@ -148,9 +150,11 @@ public class SignInRepository {
                                 RealmQueries queries = new RealmQueries();
                                 FirebaseDataBaseClient.getInstance().doWithUserObject(email_fb, student -> {
                                     queries.addStudent(student);
+                                    activity.setMenu(R.menu.student_bottom_menu);
                                     controller.navigate(R.id.action_signInFragment_to_student_app_navigation);
                                     return true;
                                 }, (instructor -> {
+                                    activity.setMenu(R.menu.instructor_bottom_menu);
                                     NavHostFragment.findNavController(fragment)
                                             .navigate(SignInFragmentDirections.actionSignInFragmentToInstructorAppNavigation());
                                     queries.addTeacher(instructor);

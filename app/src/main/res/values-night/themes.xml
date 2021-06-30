@@ -14,4 +14,10 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
+
+    <style name="dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- We do not want to change the status bar color -->
+        <item name="colorPrimaryDark">@color/transparent</item>
+    </style>
 </resources>

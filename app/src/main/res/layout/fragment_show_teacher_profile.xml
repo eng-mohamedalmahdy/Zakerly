@@ -125,7 +125,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="@{instructor.pricePerHour+`$`}"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_10sdp" />
                     </FrameLayout>
 
                     <TextView

@@ -43,6 +43,13 @@ public class DataStoreManger {
         });
     }
 
+    public Flowable<String> getToken() {
+        return dataStore.data().map(prefs -> {
+            String res = prefs.get(StoreConstants.TOKEN);
+            return res == null ? "" : res;
+        });
+    }
+
 
     public Single<Preferences> setIsFirstLaunch(boolean isFirstLaunch) {
         return dataStore.updateDataAsync(prefsIn -> {
@@ -60,4 +67,11 @@ public class DataStoreManger {
         });
     }
 
+    public Single<Preferences> setToken(String token) {
+        return dataStore.updateDataAsync(preferences -> {
+            MutablePreferences mutablePreferences = preferences.toMutablePreferences();
+            mutablePreferences.set(StoreConstants.TOKEN, token);
+            return Single.just(mutablePreferences);
+        });
+    }
 }

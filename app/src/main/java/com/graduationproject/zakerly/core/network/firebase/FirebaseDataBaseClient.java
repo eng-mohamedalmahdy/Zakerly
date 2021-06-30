@@ -53,6 +53,16 @@ public class FirebaseDataBaseClient {
         return usersReference.child(instructor.getUser().getUID()).setValue(instructor);
     }
 
+    public Task<Void> setToken(String token) {
+        return usersReference
+                .child(FireBaseAuthenticationClient
+                        .getInstance()
+                        .getCurrentUser()
+                        .getUid())
+                .child("user")
+                .child("token").setValue(token);
+    }
+
     public Task<DataSnapshot> getSpecialisations() {
         return specialisationsReference.get();
     }

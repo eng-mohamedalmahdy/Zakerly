@@ -23,7 +23,6 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.jfrog.org/libs-snapshot" }
         maven { url "https://jitpack.io" }
-        maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 
     }
 }

@@ -13,10 +13,7 @@ import android.widget.TextView;
 
 import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 import com.graduationproject.zakerly.core.base.BaseFragment;
-import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.databinding.FragmentFavoritesBinding;
-
-import java.util.ArrayList;
 
 public class FavoritesFragment extends BaseFragment {
 
@@ -30,7 +27,7 @@ public class FavoritesFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        viewModel = new FavoritesViewModelFacory(new FavoriteRepository()).create(FavoritesViewModel.class);
+        viewModel = new FavoritesViewModelFactory(new FavoriteRepository()).create(FavoritesViewModel.class);
         binding = FragmentFavoritesBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());

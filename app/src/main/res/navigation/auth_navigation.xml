@@ -82,6 +82,7 @@
             android:id="@+id/action_signInFragment_to_student_app_navigation"
             app:destination="@id/student_app_navigation" />
 
+
         <action
             android:id="@+id/action_signInFragment_to_instructor_app_navigation"
             app:destination="@id/instructor_app_navigation" />
@@ -126,5 +127,7 @@
     <include app:graph="@navigation/student_app_navigation" />
     <include app:graph="@navigation/instructor_app_navigation" />
 
-
+    <action
+        android:id="@+id/action_instructor_app_navigation"
+        app:destination="@id/instructor_app_navigation" />
 </navigation>

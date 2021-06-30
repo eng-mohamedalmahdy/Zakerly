@@ -76,15 +76,15 @@
 
         <TextView
             android:id="@+id/text_profileName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_7sdp"
             android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
             android:textSize="@dimen/_25sdp"
             app:layout_constraintEnd_toEndOf="@+id/frame_profile_image"
             app:layout_constraintStart_toStartOf="@+id/frame_profile_image"
-            app:layout_constraintTop_toBottomOf="@id/frame_profile_image"
-            tools:text="Khalid Saeed" />
+            app:layout_constraintTop_toBottomOf="@id/frame_profile_image" />
 
         <LinearLayout
             android:id="@+id/layout_horizontal"

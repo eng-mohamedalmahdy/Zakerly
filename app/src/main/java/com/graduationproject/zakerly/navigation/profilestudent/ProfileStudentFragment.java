@@ -32,6 +32,7 @@ import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import com.graduationproject.zakerly.core.constants.UserTypes;
+import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentProfileStudentBinding;
@@ -109,6 +110,11 @@ public class ProfileStudentFragment extends Fragment {
         binding.noteIcon.setOnClickListener((v) -> {
             NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToEditProfileFragment(UserTypes.TYPE_STUDENT));
         });
+
+        FirebaseDataBaseClient.getInstance().getCurrentUser().addOnSuccessListener(snapshot -> {
+            Student currentStudent = snapshot.getValue(Student.class);
+            binding.textProfileName.setText((currentStudent.getUser().getFirstName() + " " + currentStudent.getUser().getLastName()));
+        });
     }
 
     private void checkPermission() {
@@ -173,7 +179,7 @@ public class ProfileStudentFragment extends Fragment {
         }
     }
 
-    private void uploadImageToFireStore(byte[]img) {
+    private void uploadImageToFireStore(byte[] img) {
         if (img != null) {
             String userUid = FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid();
             StorageReference ref = FirebaseStorage.getInstance().getReference("profiles/" + userUid);
