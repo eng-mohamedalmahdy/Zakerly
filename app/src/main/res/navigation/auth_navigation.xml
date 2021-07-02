@@ -38,6 +38,7 @@
 
     </fragment>
 
+
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.graduationproject.zakerly.authentication.forgetpassword.ForgetPasswordFragment"

@@ -20,5 +20,7 @@
     <color name="lightGrey">#9A9999</color>
     <color name="colorWhite">#fff</color>
     <color name="darkPurple">#6159E6</color>
+    <color name="light_red">#F3440D</color>
+    <color name="card_opinion_bg">#169A9999</color>
     <color name="transparent">#00000000</color>
 </resources>

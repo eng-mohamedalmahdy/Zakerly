@@ -5,6 +5,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 
 public class ShowTeacherProfileRepository {
+
     public static Task<DataSnapshot> getOpinions() {
         return FirebaseDataBaseClient.getInstance().getOpinions();
     }

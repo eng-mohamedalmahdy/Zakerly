@@ -86,6 +86,7 @@
     <string name="discover">Discover</string>
     <string name="title">Title</string>
     <string name="job_title">Job Title</string>
+    <string name="my_students">My Students</string>
     <string name="incoming_lessons">Incoming Lessons</string>
     <string name="completed_lessons">Completed Lessons</string>
     <string name="number_of_hours">Number Of Hours</string>
