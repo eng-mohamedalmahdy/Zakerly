@@ -42,7 +42,37 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.graduationproject.zakerly.navigation.notifications.NotificationsFragment"
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_acceptNotificationsDialog"
+            app:destination="@id/acceptNotificationsDialog" />
+    </fragment>
+
     <action
         android:id="@+id/navigate_to_settings"
         app:destination="@id/settingsFragment" />
+
+    <action
+        android:id="@+id/navigate_to_notifications"
+        app:destination="@id/notificationsFragment" />
+    <dialog
+        android:id="@+id/acceptNotificationsDialog"
+        android:name="com.graduationproject.zakerly.navigation.notifications.AcceptNotificationDialog"
+        android:label="AcceptNotificationsDialog" >
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+        <argument
+            android:name="connection"
+            app:argType="com.graduationproject.zakerly.core.models.ConnectionModel"
+            app:nullable="true" />
+    </dialog>
+
 </navigation>

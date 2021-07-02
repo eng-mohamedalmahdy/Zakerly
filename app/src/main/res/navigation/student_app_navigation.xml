@@ -124,6 +124,26 @@
             android:name="instructor"
             app:argType="com.graduationproject.zakerly.core.models.Instructor"
             app:nullable="true" />
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+        <argument
+            android:name="connection"
+            app:argType="com.graduationproject.zakerly.core.models.ConnectionModel"
+            app:nullable="true" />
     </dialog>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.graduationproject.zakerly.navigation.notifications.NotificationsFragment"
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fragment_notifications" >
+    </fragment>
+
+    <action
+        android:id="@+id/navigate_to_notifications"
+        app:destination="@id/notificationsFragment" />
 
 </navigation>

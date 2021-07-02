@@ -69,7 +69,9 @@ public class MainActivity extends BaseActivity {
                             return;
                         }
                         String token = task.getResult();
-                        FirebaseDataBaseClient.getInstance().setToken(token);
+                        FirebaseDataBaseClient.getInstance()
+                                .setToken(token)
+                                .addOnCompleteListener(command -> Log.d(TAG, "onCreate: " + command.isSuccessful()));
                         DataStoreManger.getInstance(this).setToken(token);
                     });
 
@@ -132,9 +134,6 @@ public class MainActivity extends BaseActivity {
 
                         if (user.getType().equals(UserTypes.TYPE_STUDENT))
                             controller.navigate(R.id.navigate_to_favorite);
-                        else {
-                            //controller.navigate(InstructorAppNavigationDirections);
-                        }
                         break;
                     }
 
@@ -144,7 +143,7 @@ public class MainActivity extends BaseActivity {
                     }
 
                     case R.id.notification: {
-
+                        controller.navigate(R.id.navigate_to_notifications);
                         break;
                     }
 
@@ -203,7 +202,6 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Log.d(TAG, "onDataChange: " + snapshot.toString());
                         if ((snapshot.getChildrenCount() > 0)) {
                             Toasty.success(MainActivity.this, R.string.user_signin_success).show();
                             RealmQueries queries = new RealmQueries();

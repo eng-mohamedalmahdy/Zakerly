@@ -61,29 +61,31 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Instructor dataClass = instructors.get(position);
-        String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
-        String jobName = dataClass.getTitle();
-        holder.teacherName.setText(fullName);
-        holder.teacherJob.setText(jobName);
-        holder.teacherDesc.setText(dataClass.getBio());
-        holder.teacherFavorite.setImageResource(favoritesResults.get(position) ? R.drawable.ic_stargreen : R.drawable.ic_star);
-        Glide.with(holder.itemView.getContext())
-                .load(dataClass.getUser().getProfileImg())
-                .placeholder(R.drawable.baseline_account_circle_24)
-                .into(holder.teacherImage);
-        holder.container.setOnClickListener(v ->
-                NavHostFragment.findNavController(currentFragment).
-                        navigate(StudentAppNavigationDirections
-                                .navigateToShowTeacherProfile(instructors
-                                        .get(position))));
+        if (dataClass!=null&&dataClass.getUser()!=null){
+            String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
+            String jobName = dataClass.getTitle();
+            holder.teacherName.setText(fullName);
+            holder.teacherJob.setText(jobName);
+            holder.teacherDesc.setText(dataClass.getBio());
+            holder.teacherFavorite.setImageResource(favoritesResults.get(position) ? R.drawable.ic_stargreen : R.drawable.ic_star);
+            Glide.with(holder.itemView.getContext())
+                    .load(dataClass.getUser().getProfileImg())
+                    .placeholder(R.drawable.baseline_account_circle_24)
+                    .into(holder.teacherImage);
+            holder.container.setOnClickListener(v ->
+                    NavHostFragment.findNavController(currentFragment).
+                            navigate(StudentAppNavigationDirections
+                                    .navigateToShowTeacherProfile(instructors
+                                            .get(position))));
 
-        holder.teacherFavorite.setOnClickListener(view -> {
-            FirebaseDataBaseClient.getInstance().setFavorite(
-                    FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
-                    instructors.get(position).getUser().getUID(), !favoritesResults.get(position)).addOnSuccessListener(command -> Toasty.success(view.getContext(), R.string.done).show());
-            favoritesResults.set(position, !favoritesResults.get(position));
-            notifyDataSetChanged();
-        });
+            holder.teacherFavorite.setOnClickListener(view -> {
+                FirebaseDataBaseClient.getInstance().setFavorite(
+                        FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
+                        instructors.get(position).getUser().getUID(), !favoritesResults.get(position)).addOnSuccessListener(command -> Toasty.success(view.getContext(), R.string.done).show());
+                favoritesResults.set(position, !favoritesResults.get(position));
+                notifyDataSetChanged();
+            });
+        }
 
     }
 
@@ -127,9 +129,9 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
     ArrayList<Boolean> favoriteMatches(ArrayList<Instructor> originalList, ArrayList<String> favorites) {
         ArrayList<Boolean> results = new ArrayList<>();
         originalList.forEach(instructor -> {
-            results.add(favorites.contains(instructor.getUser().getUID()));
-            Log.d("TAG", "favoriteMatches: FAV " + favorites);
-            Log.d("TAG", "favoriteMatches: UID " + instructor.getUser().getUID());
+            if (instructor!=null&&instructor.getUser() != null)
+                results.add(favorites.contains(instructor.getUser().getUID()));
+
         });
         return results;
     }

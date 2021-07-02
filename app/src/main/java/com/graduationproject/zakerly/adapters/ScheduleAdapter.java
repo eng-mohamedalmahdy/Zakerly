@@ -28,6 +28,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     public void setSchedules(ArrayList<Schedule> schedules) {
         this.schedules = schedules;
+        notifyDataSetChanged();
     }
 
     @NonNull

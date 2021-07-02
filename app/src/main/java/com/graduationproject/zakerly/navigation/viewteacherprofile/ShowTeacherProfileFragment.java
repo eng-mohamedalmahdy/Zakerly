@@ -20,7 +20,10 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.core.models.ConnectionModel;
+import com.graduationproject.zakerly.core.models.NotificationData;
 import com.graduationproject.zakerly.core.models.OpinionModel;
+import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentShowTeacherProfileBinding;
 
 import org.jetbrains.annotations.NotNull;
@@ -103,10 +106,27 @@ public class ShowTeacherProfileFragment extends Fragment {
     }
 
     private void initListeners() {
-        imageRequest.setOnClickListener(v -> NavHostFragment.
-                findNavController(this)
-                .navigate(ShowTeacherProfileFragmentDirections
-                        .actionProfileStudentFragmentToSendRequestDialog(args.getInstructor())));
+        imageRequest.setOnClickListener(v -> FirebaseDataBaseClient.getInstance()
+                .getConnectionData(args.getInstructor().getUser().getUID())
+                .addOnSuccessListener(connection -> {
+                    ConnectionModel connectionModel = connection.getValue(ConnectionModel.class);
+                    if (connectionModel != null) {
+                        FirebaseDataBaseClient
+                                .getInstance()
+                                .getNotification(args.getInstructor().getUser().getUID(), connectionModel.getLatestRequestUid())
+                                .addOnSuccessListener(notification -> NavHostFragment.
+                                        findNavController(this)
+                                        .navigate(ShowTeacherProfileFragmentDirections
+                                                .actionProfileStudentFragmentToSendRequestDialog(args.getInstructor(),
+                                                        notification.getValue(NotificationData.class), connectionModel)));
+                    }
+                    else {
+                        NavHostFragment.
+                                findNavController(this)
+                                .navigate(ShowTeacherProfileFragmentDirections
+                                        .actionProfileStudentFragmentToSendRequestDialog(args.getInstructor(),null, null));
+                    }
+                }));
     }
 
     private void setUpViews() {

@@ -1,8 +1,11 @@
 package com.graduationproject.zakerly.core.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.graduationproject.zakerly.core.constants.NotificationType;
 
-public class NotificationData {
+public class NotificationData implements Parcelable {
     private long notificationTime;
     private String notificationId;
     private String title;
@@ -11,6 +14,7 @@ public class NotificationData {
     private String senderName;
     private String senderUid;
     private String receiverUid;
+    private String senderImageUrl;
     private int neededHours;
 
     public NotificationData(long notificationTime, String notificationId, String title, String body, NotificationType notificationType, String senderName, String senderUid, String receiverUid, int neededHours) {
@@ -24,6 +28,40 @@ public class NotificationData {
         this.receiverUid = receiverUid;
         this.neededHours = neededHours;
     }
+
+    public NotificationData() {
+    }
+
+    protected NotificationData(Parcel in) {
+        notificationTime = in.readLong();
+        notificationId = in.readString();
+        title = in.readString();
+        body = in.readString();
+        senderName = in.readString();
+        senderUid = in.readString();
+        receiverUid = in.readString();
+        neededHours = in.readInt();
+    }
+
+    public String getSenderImageUrl() {
+        return senderImageUrl;
+    }
+
+    public void setSenderImageUrl(String senderImageUrl) {
+        this.senderImageUrl = senderImageUrl;
+    }
+
+    public static final Creator<NotificationData> CREATOR = new Creator<NotificationData>() {
+        @Override
+        public NotificationData createFromParcel(Parcel in) {
+            return new NotificationData(in);
+        }
+
+        @Override
+        public NotificationData[] newArray(int size) {
+            return new NotificationData[size];
+        }
+    };
 
     public long getNotificationTime() {
         return notificationTime;
@@ -110,5 +148,22 @@ public class NotificationData {
                 ", receiverUid='" + receiverUid + '\'' +
                 ", neededHours=" + neededHours +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(notificationTime);
+        dest.writeString(notificationId);
+        dest.writeString(title);
+        dest.writeString(body);
+        dest.writeString(senderName);
+        dest.writeString(senderUid);
+        dest.writeString(receiverUid);
+        dest.writeInt(neededHours);
     }
 }

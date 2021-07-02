@@ -9,6 +9,9 @@ public class PushNotification {
         this.to = to;
     }
 
+    public PushNotification() {
+    }
+
     public NotificationData getData() {
         return data;
     }
