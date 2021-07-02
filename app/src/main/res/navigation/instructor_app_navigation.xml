@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/instructor_app_navigation"
+    app:startDestination="@id/teacherHomeFragment">
+
+
+    <fragment
+        android:id="@+id/teacherHomeFragment"
+        android:name="com.graduationproject.zakerly.navigation.homeinstructor.InstructorHomeFragment"
+        android:label="ShowTeacherProfileFragment"
+        tools:layout="@layout/fragment_instructor_home" />
+
+    <action
+        android:id="@+id/action_to_teacherHomeFragment"
+        app:destination="@id/teacherHomeFragment" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.graduationproject.zakerly.navigation.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settingsFragment_to_auth_navigation"
+            app:destination="@id/auth_navigation" />
+
+        <action
+            android:id="@+id/action_settingsFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.graduationproject.zakerly.navigation.settings.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view">
+
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.graduationproject.zakerly.navigation.notifications.NotificationsFragment"
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_acceptNotificationsDialog"
+            app:destination="@id/acceptNotificationsDialog" />
+    </fragment>
+
+    <action
+        android:id="@+id/navigate_to_settings"
+        app:destination="@id/settingsFragment" />
+
+    <action
+        android:id="@+id/navigate_to_notifications"
+        app:destination="@id/notificationsFragment" />
+    <dialog
+        android:id="@+id/acceptNotificationsDialog"
+        android:name="com.graduationproject.zakerly.navigation.notifications.AcceptNotificationDialog"
+        android:label="AcceptNotificationsDialog" >
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+        <argument
+            android:name="connection"
+            app:argType="com.graduationproject.zakerly.core.models.ConnectionModel"
+            app:nullable="true" />
+    </dialog>
+
+</navigation>

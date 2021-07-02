@@ -13,6 +13,7 @@
     <color name="milkyColor">#1E88FF</color>
     <color name="blue">#0F00FF</color>
     <color name="green">#089A38</color>
+    <color name="dark_green">#28DB63</color>
     <color name="yellow">#EFD13A</color>
     <color name="lightPurple">#918BF2</color>
     <color name="red">#F80303</color>
@@ -21,4 +22,5 @@
     <color name="darkPurple">#6159E6</color>
     <color name="light_red">#F3440D</color>
     <color name="card_opinion_bg">#169A9999</color>
+    <color name="transparent">#00000000</color>
 </resources>

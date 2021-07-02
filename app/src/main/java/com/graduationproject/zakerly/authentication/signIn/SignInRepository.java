@@ -59,14 +59,15 @@ public class SignInRepository {
                 this.userLiveData.setValue(task.getResult().getUser());
                 RealmQueries queries = new RealmQueries();
                 FirebaseDataBaseClient.getInstance().doWithUserObject(email, student -> {
-                    Log.d("Sing in Complete", "signIn: " + student.toString());
-
                     queries.addStudent(student);
+                    ((MainActivity) fragment.getActivity()).setMenu(R.menu.student_bottom_menu);
                     NavHostFragment.findNavController(fragment).navigate(R.id.action_signInFragment_to_student_app_navigation);
                     return true;
                 }, (instructor -> {
                     Log.d("Sing in complete", "signIn: " + instructor.toString());
-
+                    ((MainActivity) fragment.getActivity()).setMenu(R.menu.instructor_bottom_menu);
+                    NavHostFragment.findNavController(fragment)
+                            .navigate(SignInFragmentDirections.actionSignInFragmentToInstructorAppNavigation());
                     queries.addTeacher(instructor);
                     return true;
                 }), s -> {
@@ -93,7 +94,7 @@ public class SignInRepository {
         activity.getGoogleClient().signIn(activity);
     }
 
-    public void signInWithFacebook(MainActivity activity) {
+    public void signInWithFacebook(MainActivity activity, Fragment fragment) {
         CallbackManager callbackManager = activity.getFacebookCallbackManager();
         LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"));
         FacebookClient client = FacebookClient.getInstance();
@@ -105,7 +106,10 @@ public class SignInRepository {
                         client.handleFacebookAccessToken(loginResult.getAccessToken())
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
-                                        getFbDetails(task.getResult().getUser().getUid(), loginResult.getAccessToken(), activity);
+                                        getFbDetails(task.getResult().getUser().getUid(),
+                                                loginResult.getAccessToken(),
+                                                activity,
+                                                fragment);
                                     } else {
                                         Log.d("FB_Details", "onSuccess: " + task.getException().toString());
                                         Toasty.error(activity, R.string.failed_to_login).show();
@@ -128,7 +132,7 @@ public class SignInRepository {
                 });
     }
 
-    private void getFbDetails(String uid, final AccessToken accessToken, MainActivity activity) {
+    private void getFbDetails(String uid, final AccessToken accessToken, MainActivity activity, Fragment fragment) {
         GraphRequest request = GraphRequest.newMeRequest(accessToken,
                 (object, response) -> {
                     Log.v("FB_Details", object.toString());
@@ -146,10 +150,15 @@ public class SignInRepository {
                                 RealmQueries queries = new RealmQueries();
                                 FirebaseDataBaseClient.getInstance().doWithUserObject(email_fb, student -> {
                                     queries.addStudent(student);
+                                    activity.setMenu(R.menu.student_bottom_menu);
                                     controller.navigate(R.id.action_signInFragment_to_student_app_navigation);
                                     return true;
                                 }, (instructor -> {
+                                    activity.setMenu(R.menu.instructor_bottom_menu);
+                                    NavHostFragment.findNavController(fragment)
+                                            .navigate(SignInFragmentDirections.actionSignInFragmentToInstructorAppNavigation());
                                     queries.addTeacher(instructor);
+
                                     return true;
                                 }), s -> {
                                     Log.d("Sing in error", "signIn: " + s);

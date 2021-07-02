@@ -38,6 +38,7 @@ public class SettingsRepository {
     private void setNightMode(boolean enabled) {
         int mode = enabled ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
         AppCompatDelegate.setDefaultNightMode(mode);
+
     }
 
 

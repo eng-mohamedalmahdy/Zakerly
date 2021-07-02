@@ -17,6 +17,7 @@ import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import com.graduationproject.zakerly.core.constants.SiteURLs;
 import com.graduationproject.zakerly.databinding.FragmentSettingsBinding;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -71,9 +72,11 @@ public class SettingsFragment extends Fragment {
             viewModel.signOut();
             ((MainActivity) getActivity()).setNavigationVisibility(false);
             NavHostFragment.findNavController(this).navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthNavigation());
-
+            ProcessPhoenix.triggerRebirth(getContext());
         });
-        binding.darkMode.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.setNightModeEnabled(isChecked));
+        binding.darkMode.setOnClickListener(v -> {
+            viewModel.setNightModeEnabled(binding.darkMode.isChecked());
+        });
 
         binding.languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

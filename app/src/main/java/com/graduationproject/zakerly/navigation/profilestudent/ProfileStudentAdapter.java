@@ -22,12 +22,10 @@ import io.realm.RealmList;
 public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAdapter.ViewHolder> {
 
 
-    private Context context;
     private ArrayList<Instructor> list;
 
-    public ProfileStudentAdapter(Context context, ArrayList<Instructor> list) {
-        this.context = context;
-        this.list = list;
+    public ProfileStudentAdapter() {
+
     }
 
     @NonNull
@@ -40,6 +38,7 @@ public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Instructor dataClass = list.get(position);
+        if (dataClass == null || dataClass.getUser() == null) return;
         String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
         RealmList<Specialisation> specialisations = dataClass.getUser().getInterests();
         String jobName = specialisations.isEmpty() ? "" : specialisations.get(0).getAr();
@@ -52,9 +51,14 @@ public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAd
                 .into(holder.teacherImage);
     }
 
+    public void setList(ArrayList<Instructor> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

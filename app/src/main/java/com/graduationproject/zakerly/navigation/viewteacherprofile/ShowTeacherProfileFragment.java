@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,13 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.core.models.ConnectionModel;
+import com.graduationproject.zakerly.core.models.NotificationData;
 import com.graduationproject.zakerly.core.models.OpinionModel;
+import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentShowTeacherProfileBinding;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +48,7 @@ public class ShowTeacherProfileFragment extends Fragment {
     RatingBar rate5, rate4, rate3, rate2, rate1, rateInstructor;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentShowTeacherProfileBinding.inflate(inflater, container, false);
@@ -58,6 +65,7 @@ public class ShowTeacherProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         setUpViews();
+        initListeners();
         viewModel.getOpinions().addOnSuccessListener(snapshot -> {
             GenericTypeIndicator<HashMap<String, OpinionModel>> objectsGTypeInd = new GenericTypeIndicator<HashMap<String, OpinionModel>>() {
             };
@@ -94,6 +102,30 @@ public class ShowTeacherProfileFragment extends Fragment {
         rate2 = binding.teacherProfileRate2;
         rate1 = binding.teacherProfileRate1;
         rateInstructor = binding.teacherProfileRateInstructor;
+    }
+
+    private void initListeners() {
+        imageRequest.setOnClickListener(v -> FirebaseDataBaseClient.getInstance()
+                .getConnectionData(args.getInstructor().getUser().getUID())
+                .addOnSuccessListener(connection -> {
+                    ConnectionModel connectionModel = connection.getValue(ConnectionModel.class);
+                    if (connectionModel != null) {
+                        FirebaseDataBaseClient
+                                .getInstance()
+                                .getNotification(args.getInstructor().getUser().getUID(), connectionModel.getLatestRequestUid())
+                                .addOnSuccessListener(notification -> NavHostFragment.
+                                        findNavController(this)
+                                        .navigate(ShowTeacherProfileFragmentDirections
+                                                .actionProfileStudentFragmentToSendRequestDialog(args.getInstructor(),
+                                                        notification.getValue(NotificationData.class), connectionModel)));
+                    }
+                    else {
+                        NavHostFragment.
+                                findNavController(this)
+                                .navigate(ShowTeacherProfileFragmentDirections
+                                        .actionProfileStudentFragmentToSendRequestDialog(args.getInstructor(),null, null));
+                    }
+                }));
     }
 
     private void setUpViews() {

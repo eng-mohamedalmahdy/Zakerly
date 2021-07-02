@@ -13,7 +13,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.graduationproject.zakerly.core.constants.UserTypes;
+import com.graduationproject.zakerly.core.models.ConnectionModel;
 import com.graduationproject.zakerly.core.models.Instructor;
+import com.graduationproject.zakerly.core.models.NotificationData;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 
@@ -30,6 +32,8 @@ public class FirebaseDataBaseClient {
     private static DatabaseReference specialisationsReference;
     private static DatabaseReference favoritesReference;
     private static DatabaseReference opinionsReference;
+    private static DatabaseReference notificationsReference;
+    private static DatabaseReference connectionsReference;
 
 
     private FirebaseDataBaseClient() {
@@ -38,6 +42,8 @@ public class FirebaseDataBaseClient {
         specialisationsReference = database.getReference("specialisations");
         favoritesReference = database.getReference("favorites");
         opinionsReference = database.getReference("opinions");
+        notificationsReference = database.getReference("notifications");
+        connectionsReference = database.getReference("connections");
     }
 
     public static FirebaseDataBaseClient getInstance() {
@@ -51,6 +57,16 @@ public class FirebaseDataBaseClient {
 
     public Task<Void> addInstructor(Instructor instructor) {
         return usersReference.child(instructor.getUser().getUID()).setValue(instructor);
+    }
+
+    public Task<Void> setToken(String token) {
+        return usersReference
+                .child(FireBaseAuthenticationClient
+                        .getInstance()
+                        .getCurrentUser()
+                        .getUid())
+                .child("user")
+                .child("notificationToken").setValue(token);
     }
 
     public Task<DataSnapshot> getSpecialisations() {
@@ -177,4 +193,41 @@ public class FirebaseDataBaseClient {
         });
     }
 
+    public Task<Void> addNotification(String uid, NotificationData data) {
+        return notificationsReference.child(uid).child(data.getNotificationId()).setValue(data);
+    }
+
+    public Task<DataSnapshot> getConnectionData(String uid) {
+        return connectionsReference
+                .child(FireBaseAuthenticationClient
+                        .getInstance()
+                        .getCurrentUser()
+                        .getUid())
+                .child(uid).get();
+    }
+
+    public Task<DataSnapshot> getNotification(String userUid, String notificationId) {
+        return notificationsReference.child(userUid).child(notificationId).get();
+    }
+
+    public Task<Void> setConnection(ConnectionModel c) {
+        connectionsReference.child(c.getFromUid()).child(c.getToUid()).setValue(c);
+        return connectionsReference.child(c.getToUid()).child(c.getFromUid()).setValue(c.swapped());
+    }
+
+    public Task<DataSnapshot> getAllNotifications() {
+        return notificationsReference
+                .child(FireBaseAuthenticationClient
+                        .getInstance()
+                        .getCurrentUser()
+                        .getUid()).get();
+    }
+
+    public Task<DataSnapshot> getConnectionsForCurrentUser() {
+        return connectionsReference
+                .child(FireBaseAuthenticationClient
+                        .getInstance()
+                        .getCurrentUser()
+                        .getUid()).get();
+    }
 }

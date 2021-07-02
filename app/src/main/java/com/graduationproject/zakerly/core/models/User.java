@@ -2,6 +2,8 @@ package com.graduationproject.zakerly.core.models;
 
 
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 
 import io.realm.RealmList;
@@ -18,6 +20,7 @@ public class User extends RealmObject {
     private String authType;
     private String profileImg;
     private RealmList<Specialisation> interests;
+    private String notificationToken;
 
 
     public User() {
@@ -36,6 +39,14 @@ public class User extends RealmObject {
 
     public RealmList<Specialisation> getInterests() {
         return interests;
+    }
+
+    public String getNotificationToken() {
+        return notificationToken;
+    }
+
+    public void setNotificationToken(String notificationToken) {
+        this.notificationToken = notificationToken;
     }
 
     public void setInterests(ArrayList<Specialisation> interests) {

@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class FavoritesViewModelFacory implements ViewModelProvider.Factory {
+public class FavoritesViewModelFactory implements ViewModelProvider.Factory {
 
     private FavoriteRepository repoistory;
 
-    public FavoritesViewModelFacory(FavoriteRepository repoistory) {
+    public FavoritesViewModelFactory(FavoriteRepository repoistory) {
         this.repoistory = repoistory;
     }
 

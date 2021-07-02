@@ -87,4 +87,25 @@
     <string name="title">Title</string>
     <string name="job_title">Job Title</string>
     <string name="my_students">My Students</string>
+    <string name="incoming_lessons">Incoming Lessons</string>
+    <string name="completed_lessons">Completed Lessons</string>
+    <string name="number_of_hours">Number Of Hours</string>
+    <string name="your_students_per_year">Your Students per Year</string>
+    <string name="your_hours_per_year">Your Hours per Year</string>
+    <string name="no_students_data_yet">No Students data yet</string>
+    <string name="hours">Hours</string>
+    <string name="no_hours_data_yet" />
+    <string name="date">Date: </string>
+    <string name="time">Time:</string>
+    <string name="lesson">Lesson:</string>
+    <string name="student_column">Student: </string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="send_request">Send Request</string>
+    <string name="seclude">Seclude</string>
+    <string name="what_do_you_need_to_learn">What do you need to learn ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    <string name="request_sent">Request sent</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
 </resources>

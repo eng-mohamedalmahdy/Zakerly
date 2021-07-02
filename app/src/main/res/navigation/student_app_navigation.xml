@@ -41,7 +41,6 @@
         <action
             android:id="@+id/action_settingsFragment_to_auth_navigation"
             app:destination="@id/auth_navigation" />
-
     </fragment>
 
 
@@ -58,6 +57,7 @@
         <action
             android:id="@+id/action_profileStudentFragment_to_showTeacherProfileFragment"
             app:destination="@id/showTeacherProfileFragment" />
+
     </fragment>
 
 
@@ -105,11 +105,46 @@
 
         <argument
             android:name="instructor"
-            app:argType="com.graduationproject.zakerly.core.models.Instructor" />
+            app:argType="com.graduationproject.zakerly.core.models.Instructor"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_profileStudentFragment_to_sendRequestDialog"
+            app:destination="@id/sendRequestDialog" />
     </fragment>
 
     <action
         android:id="@+id/navigate_to_show_teacher_profile"
         app:destination="@id/showTeacherProfileFragment" />
+    <dialog
+        android:id="@+id/sendRequestDialog"
+        android:name="com.graduationproject.zakerly.navigation.viewteacherprofile.SendRequestDialog"
+        android:label="SendRequestDialog"
+        tools:layout="@layout/dialog_send_request">
+
+        <argument
+            android:name="instructor"
+            app:argType="com.graduationproject.zakerly.core.models.Instructor"
+            app:nullable="true" />
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+        <argument
+            android:name="connection"
+            app:argType="com.graduationproject.zakerly.core.models.ConnectionModel"
+            app:nullable="true" />
+    </dialog>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.graduationproject.zakerly.navigation.notifications.NotificationsFragment"
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fragment_notifications" >
+    </fragment>
+
+    <action
+        android:id="@+id/navigate_to_notifications"
+        app:destination="@id/notificationsFragment" />
 
 </navigation>

@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.facebook.CallbackManager;
@@ -18,6 +17,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,22 +25,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.graduationproject.zakerly.authentication.signIn.SignInFragment;
 import com.graduationproject.zakerly.authentication.signIn.SignInFragmentDirections;
 import com.graduationproject.zakerly.core.base.BaseActivity;
+import com.graduationproject.zakerly.core.cache.DataStoreManger;
 import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.AuthTypes;
 import com.graduationproject.zakerly.core.constants.UserTypes;
-import com.graduationproject.zakerly.core.models.Instructor;
-import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.models.User;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
+import com.graduationproject.zakerly.core.services.FirebaseNotificationService;
 import com.graduationproject.zakerly.databinding.ActivityMainBinding;
 import com.graduationproject.zakerly.core.network.GoogleClient;
+import com.graduationproject.zakerly.intro.splash.SplashFragmentDirections;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
-
-import java.util.Arrays;
 
 import es.dmoral.toasty.Toasty;
 import io.realm.Realm;
@@ -59,7 +61,21 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Realm.init(getApplicationContext());
+        if (FireBaseAuthenticationClient.getInstance().getCurrentUser() != null) {
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult();
+                        FirebaseDataBaseClient.getInstance()
+                                .setToken(token)
+                                .addOnCompleteListener(command -> Log.d(TAG, "onCreate: " + command.isSuccessful()));
+                        DataStoreManger.getInstance(this).setToken(token);
+                    });
 
+        }
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -67,7 +83,7 @@ public class MainActivity extends BaseActivity {
         initViews();
         initListeners();
 
-        navigationBar.setMenuResource(R.menu.bottom_menu);
+        navigationBar.setMenuResource(R.menu.student_bottom_menu);
         setNavigationVisibility(false);
         navigationBar.setItemSelected(R.id.home, true);
 
@@ -78,14 +94,15 @@ public class MainActivity extends BaseActivity {
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
 
     }
 
-
     private void initViews() {
         navigationBar = binding.bottomNavigation;
+    }
+
+    public void setMenu(int menuId) {
+        navigationBar.setMenuResource(menuId);
     }
 
     private void initListeners() {
@@ -100,8 +117,8 @@ public class MainActivity extends BaseActivity {
                         if (user.getType().equals(UserTypes.TYPE_STUDENT))
                             controller.navigate(R.id.navigate_to_student_home);
                         else {
+                            controller.navigate(InstructorAppNavigationDirections.actionToTeacherHomeFragment());
                         }
-                        Log.d(TAG, "initListeners: navigating to profile");
                         break;
                     }
 
@@ -110,17 +127,29 @@ public class MainActivity extends BaseActivity {
                             controller.navigate(R.id.navigate_to_student_profile);
                         else {
                         }
-                        Log.d(TAG, "initListeners: navigating to profile");
                         break;
                     }
 
                     case R.id.favorite: {
-                        controller.navigate(R.id.navigate_to_favorite);
+
+                        if (user.getType().equals(UserTypes.TYPE_STUDENT))
+                            controller.navigate(R.id.navigate_to_favorite);
                         break;
                     }
 
                     case R.id.settings: {
                         controller.navigate(R.id.navigate_to_settings);
+                        break;
+                    }
+
+                    case R.id.notification: {
+                        controller.navigate(R.id.navigate_to_notifications);
+                        break;
+                    }
+
+                    case R.id.seclude: {
+
+                        break;
                     }
 
                 }
@@ -173,7 +202,6 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Log.d(TAG, "onDataChange: " + snapshot.toString());
                         if ((snapshot.getChildrenCount() > 0)) {
                             Toasty.success(MainActivity.this, R.string.user_signin_success).show();
                             RealmQueries queries = new RealmQueries();
@@ -185,12 +213,19 @@ public class MainActivity extends BaseActivity {
                                                 student.getUser().setUID(uid);
                                                 FirebaseDataBaseClient.getInstance().addStudent(student);
                                                 queries.addStudent(student);
-                                                Log.d(TAG, "onDataChange: firebase things " + firebaseAuth.getUid());
+                                                setMenu(R.menu.student_bottom_menu);
                                                 controller.navigate(R.id.action_signInFragment_to_student_app_navigation);
                                             });
                                             return true;
                                         }, (instructor -> {
-                                            queries.addTeacher(instructor);
+                                            FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+                                                String uid = authResult.getUser().getUid();
+                                                instructor.getUser().setUID(uid);
+                                                FirebaseDataBaseClient.getInstance().addInstructor(instructor);
+                                                queries.addTeacher(instructor);
+                                                setMenu(R.menu.instructor_bottom_menu);
+                                                controller.navigate(R.id.action_instructor_app_navigation);
+                                            });
                                             return true;
                                         }), s -> {
                                             Log.d("Sing in error", "signIn: " + s);
@@ -198,9 +233,6 @@ public class MainActivity extends BaseActivity {
                                         });
                                     })
                                     .addOnFailureListener(e -> Toasty.info(MainActivity.this, e.getLocalizedMessage()).show());
-
-
-
                         } else {
                             controller.navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment(AuthTypes.AUTH_G_MAIL, account.getIdToken(), fName, lName, email));
                         }

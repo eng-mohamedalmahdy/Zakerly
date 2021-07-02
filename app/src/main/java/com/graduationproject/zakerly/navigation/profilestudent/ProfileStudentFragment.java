@@ -32,12 +32,16 @@ import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 import com.graduationproject.zakerly.core.constants.UserTypes;
+import com.graduationproject.zakerly.core.models.ConnectionModel;
+import com.graduationproject.zakerly.core.models.Instructor;
+import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentProfileStudentBinding;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
@@ -56,6 +60,7 @@ public class ProfileStudentFragment extends Fragment {
     private AppCompatImageView profile, camera;
     private TextView profileName;
     private RecyclerView mRecyclerView;
+    private ProfileStudentAdapter adapter;
 
 
     @Override
@@ -87,11 +92,12 @@ public class ProfileStudentFragment extends Fragment {
         camera = binding.camera;
         profileName = binding.textProfileName;
         mRecyclerView = binding.recyclerViewMyteacher;
+        adapter = new ProfileStudentAdapter();
+        mRecyclerView.setAdapter(adapter);
     }
 
     private void initListener() {
         camera.setOnClickListener(view -> checkPermission());
-
 
         FirebaseDataBaseClient.getInstance().getProfileImageUrl()
                 .addOnSuccessListener(snapshot ->
@@ -108,6 +114,25 @@ public class ProfileStudentFragment extends Fragment {
 
         binding.noteIcon.setOnClickListener((v) -> {
             NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToEditProfileFragment(UserTypes.TYPE_STUDENT));
+        });
+
+        FirebaseDataBaseClient.getInstance().getCurrentUser().addOnSuccessListener(snapshot -> {
+            Student currentStudent = snapshot.getValue(Student.class);
+            binding.textProfileName.setText((currentStudent.getUser().getFirstName() + " " + currentStudent.getUser().getLastName()));
+        });
+
+        FirebaseDataBaseClient.getInstance().getConnectionsForCurrentUser().addOnSuccessListener(connection -> {
+            ArrayList<Instructor> instructors = new ArrayList<>();
+
+            connection.getChildren().forEach(c ->
+                    FirebaseDataBaseClient
+                            .getInstance()
+                            .getUserByUid(c.getValue(ConnectionModel.class).getToUid())
+                            .addOnSuccessListener(s -> {
+                                instructors.add(s.getValue(Instructor.class));
+                                adapter.setList(instructors);
+                                Log.d(TAG, "initListener: " + instructors);
+                            }));
         });
     }
 
@@ -173,7 +198,7 @@ public class ProfileStudentFragment extends Fragment {
         }
     }
 
-    private void uploadImageToFireStore(byte[]img) {
+    private void uploadImageToFireStore(byte[] img) {
         if (img != null) {
             String userUid = FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid();
             StorageReference ref = FirebaseStorage.getInstance().getReference("profiles/" + userUid);
