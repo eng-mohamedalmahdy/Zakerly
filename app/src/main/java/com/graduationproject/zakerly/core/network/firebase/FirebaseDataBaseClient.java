@@ -222,4 +222,12 @@ public class FirebaseDataBaseClient {
                         .getCurrentUser()
                         .getUid()).get();
     }
+
+    public Task<DataSnapshot> getConnectionsForCurrentUser() {
+        return connectionsReference
+                .child(FireBaseAuthenticationClient
+                        .getInstance()
+                        .getCurrentUser()
+                        .getUid()).get();
+    }
 }
