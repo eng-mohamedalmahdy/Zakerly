@@ -141,6 +141,10 @@
         android:name="com.graduationproject.zakerly.navigation.notifications.NotificationsFragment"
         android:label="NotificationsFragment"
         tools:layout="@layout/fragment_notifications" >
+
+        <action
+            android:id="@+id/action_notificationsFragment_to_acceptNotificationsDialog"
+            app:destination="@id/acceptNotificationsDialog" />
     </fragment>
 
     <action
