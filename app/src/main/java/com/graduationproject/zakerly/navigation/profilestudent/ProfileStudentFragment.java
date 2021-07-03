@@ -112,27 +112,34 @@ public class ProfileStudentFragment extends Fragment {
                 })
                 .addOnFailureListener(e -> Log.d(TAG, "initListener: " + e.getMessage()));
 
-        binding.noteIcon.setOnClickListener((v) -> {
-            NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToEditProfileFragment(UserTypes.TYPE_STUDENT));
-        });
+
 
         FirebaseDataBaseClient.getInstance().getCurrentUser().addOnSuccessListener(snapshot -> {
             Student currentStudent = snapshot.getValue(Student.class);
             binding.textProfileName.setText((currentStudent.getUser().getFirstName() + " " + currentStudent.getUser().getLastName()));
         });
 
+
+        binding.noteIcon.setOnClickListener((v) -> {
+            NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToEditProfileFragment(UserTypes.TYPE_STUDENT));
+        });
         FirebaseDataBaseClient.getInstance().getConnectionsForCurrentUser().addOnSuccessListener(connection -> {
             ArrayList<Instructor> instructors = new ArrayList<>();
 
             connection.getChildren().forEach(c ->
+            {
+                ConnectionModel connectionModel = c.getValue(ConnectionModel.class);
+                if (connectionModel != null && connectionModel.isCurrentlyConnected()) {
                     FirebaseDataBaseClient
                             .getInstance()
-                            .getUserByUid(c.getValue(ConnectionModel.class).getToUid())
+                            .getUserByUid(connectionModel.getToUid())
                             .addOnSuccessListener(s -> {
                                 instructors.add(s.getValue(Instructor.class));
                                 adapter.setList(instructors);
                                 Log.d(TAG, "initListener: " + instructors);
-                            }));
+                            });
+                }
+            });
         });
     }
 

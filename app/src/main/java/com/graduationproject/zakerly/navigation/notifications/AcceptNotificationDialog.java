@@ -95,15 +95,15 @@ public class AcceptNotificationDialog extends DialogFragment {
                     .into(binding.receiverImage);
         });
 
-            binding.numberOfHoursInput.setText(Integer.toString(args.getNotification().getNeededHours()));
-            binding.numberOfHoursInput.setEnabled(false);
-            binding.numberOfHoursInput.setFocusable(false);
-            binding.learningTopic.setText(args.getNotification().getTitle());
-            binding.learningTopic.setEnabled(false);
-            binding.learningTopic.setFocusable(false);
-            binding.requestBody.setText(args.getNotification().getBody());
-            binding.requestBody.setEnabled(false);
-            binding.requestBody.setFocusable(false);
+        binding.numberOfHoursInput.setText(Integer.toString(args.getNotification().getNeededHours()));
+        binding.numberOfHoursInput.setEnabled(false);
+        binding.numberOfHoursInput.setFocusable(false);
+        binding.learningTopic.setText(args.getNotification().getTitle());
+        binding.learningTopic.setEnabled(false);
+        binding.learningTopic.setFocusable(false);
+        binding.requestBody.setText(args.getNotification().getBody());
+        binding.requestBody.setEnabled(false);
+        binding.requestBody.setFocusable(false);
 
 
         if (args.getConnection().getRequestStatus() != RequestStatus.PENDING) {
@@ -141,13 +141,13 @@ public class AcceptNotificationDialog extends DialogFragment {
                 PushNotification pushNotification = new PushNotification(notificationData,
                         s.getUser().getNotificationToken());
                 sendNotification(pushNotification);
-                setUpConnection(notificationId);
+                setUpConnection(notificationId, binding.learningTopic.getText().toString());
             });
         });
 
     }
 
-    private void setUpConnection(String notificationUid) {
+    private void setUpConnection(String notificationUid, String topic) {
 
         ConnectionModel c = args.getConnection();
         if (c == null) {
@@ -155,6 +155,7 @@ public class AcceptNotificationDialog extends DialogFragment {
                     FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
                     args.getNotification().getSenderUid(), RequestStatus.ANSWERED, true, notificationUid);
         }
+        c.setLatestTopic(topic);
         c.setLatestRequestUid(notificationUid);
         c.setRequestStatus(RequestStatus.ANSWERED);
         FirebaseDataBaseClient.getInstance().setConnection(c);

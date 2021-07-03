@@ -149,6 +149,7 @@ public class SendRequestDialog extends DialogFragment {
         }
         c.setLatestRequestUid(notificationUid);
         c.setRequestStatus(RequestStatus.PENDING);
+        c.setLatestTopic(binding.learningTopic.getText().toString());
         FirebaseDataBaseClient.getInstance().setConnection(c);
     }
 

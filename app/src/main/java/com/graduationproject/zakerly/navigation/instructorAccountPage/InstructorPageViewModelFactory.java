@@ -15,7 +15,7 @@ public class InstructorPageViewModelFactory implements ViewModelProvider.Factory
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(InstructorPageViewModel.class)){
-            return (T) new InstructorPageViewModel();
+            return (T) new InstructorPageViewModel(repository);
 
         }
         throw new IllegalArgumentException("Unable to construct viewmodel");

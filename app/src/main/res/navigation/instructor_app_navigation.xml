@@ -12,9 +12,6 @@
         android:label="ShowTeacherProfileFragment"
         tools:layout="@layout/fragment_instructor_home" />
 
-    <action
-        android:id="@+id/action_to_teacherHomeFragment"
-        app:destination="@id/teacherHomeFragment" />
 
     <fragment
         android:id="@+id/settingsFragment"
@@ -43,26 +40,19 @@
     </fragment>
 
     <fragment
-        android:id="@+id/notificationsFragment"
+        android:id="@+id/notificationsFragmentInstructor"
         android:name="com.graduationproject.zakerly.navigation.notifications.NotificationsFragment"
         android:label="NotificationsFragment"
-        tools:layout="@layout/fragment_notifications" >
+        tools:layout="@layout/fragment_notifications">
         <action
             android:id="@+id/action_notificationsFragment_to_acceptNotificationsDialog"
             app:destination="@id/acceptNotificationsDialog" />
     </fragment>
 
-    <action
-        android:id="@+id/navigate_to_settings"
-        app:destination="@id/settingsFragment" />
-
-    <action
-        android:id="@+id/navigate_to_notifications"
-        app:destination="@id/notificationsFragment" />
     <dialog
         android:id="@+id/acceptNotificationsDialog"
         android:name="com.graduationproject.zakerly.navigation.notifications.AcceptNotificationDialog"
-        android:label="AcceptNotificationsDialog" >
+        android:label="AcceptNotificationsDialog">
 
         <argument
             android:name="notification"
@@ -74,5 +64,41 @@
             app:argType="com.graduationproject.zakerly.core.models.ConnectionModel"
             app:nullable="true" />
     </dialog>
+    <fragment
+        android:id="@+id/instructorPageFragment"
+        android:name="com.graduationproject.zakerly.navigation.instructorAccountPage.InstructorPageFragment"
+        android:label="InstructorPageFragment"
+        tools:layout="@layout/fragment_instructor_page">
+        <action
+            android:id="@+id/action_instructorPageFragment_to_editProfileFragment2"
+            app:destination="@id/editProfileFragment2" />
+    </fragment>
+
+
+    <action
+        android:id="@+id/navigate_to_settings"
+        app:destination="@id/settingsFragment" />
+
+    <action
+        android:id="@+id/navigate_to_notifications"
+        app:destination="@id/notificationsFragmentInstructor" />
+
+
+    <action
+        android:id="@+id/action_to_teacherHomeFragment"
+        app:destination="@id/teacherHomeFragment" />
+
+    <action
+        android:id="@+id/action_to_profile_instructor"
+        app:destination="@id/instructorPageFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment2"
+        android:name="com.graduationproject.zakerly.userutils.editprofile.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile">
+        <argument
+            android:name="userType"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

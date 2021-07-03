@@ -126,6 +126,7 @@ public class MainActivity extends BaseActivity {
                         if (user.getType().equals(UserTypes.TYPE_STUDENT))
                             controller.navigate(R.id.navigate_to_student_profile);
                         else {
+                            controller.navigate(R.id.action_to_profile_instructor);
                         }
                         break;
                     }

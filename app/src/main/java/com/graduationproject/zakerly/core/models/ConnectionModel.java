@@ -12,6 +12,7 @@ public class ConnectionModel implements Parcelable {
     private RequestStatus requestStatus;
     private boolean currentlyConnected;
     private String latestRequestUid;
+    private String latestTopic;
 
     public ConnectionModel(String fromUid, String toUid, RequestStatus requestStatus, boolean currentlyConnected, String latestRequestUid) {
         this.fromUid = fromUid;
@@ -83,6 +84,15 @@ public class ConnectionModel implements Parcelable {
         this.latestRequestUid = latestRequestUid;
     }
 
+
+    public String getLatestTopic() {
+        return latestTopic;
+    }
+
+    public void setLatestTopic(String latestTopic) {
+        this.latestTopic = latestTopic;
+    }
+
     public ConnectionModel swapped() {
         ConnectionModel c = this;
         String toUidTemp = c.getToUid();
@@ -102,5 +112,17 @@ public class ConnectionModel implements Parcelable {
         dest.writeString(toUid);
         dest.writeByte((byte) (currentlyConnected ? 1 : 0));
         dest.writeString(latestRequestUid);
+    }
+
+    @Override
+    public String toString() {
+        return "ConnectionModel{" +
+                "fromUid='" + fromUid + '\'' +
+                ", toUid='" + toUid + '\'' +
+                ", requestStatus=" + requestStatus +
+                ", currentlyConnected=" + currentlyConnected +
+                ", latestRequestUid='" + latestRequestUid + '\'' +
+                ", latestTopic='" + latestTopic + '\'' +
+                '}';
     }
 }

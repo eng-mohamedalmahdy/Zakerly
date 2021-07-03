@@ -137,7 +137,7 @@
             app:nullable="true" />
     </dialog>
     <fragment
-        android:id="@+id/notificationsFragment"
+        android:id="@+id/notificationsFragmentStudent"
         android:name="com.graduationproject.zakerly.navigation.notifications.NotificationsFragment"
         android:label="NotificationsFragment"
         tools:layout="@layout/fragment_notifications" >
@@ -145,6 +145,6 @@
 
     <action
         android:id="@+id/navigate_to_notifications"
-        app:destination="@id/notificationsFragment" />
+        app:destination="@id/notificationsFragmentStudent" />
 
 </navigation>
