@@ -74,7 +74,9 @@
     <string name="recommended_for_you">Recommended for you</string>
     <string name="top_instructors">Top Instructors</string>
     <string name="discover">Discover</string>
-
+    <string name="select_search">حدد البحث </string>
+    <string name="hour_price"> سعر الساعة </string>
+    <string name="instructor_rate"> تقييم المحاضر </string>
     <string name="chat">Chat</string>
     <string name="video">Video</string>
     <string name="price">Price</string>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".navigation.search.FilterDialog"
+    android:padding="@dimen/_5sdp"
+    app:cardElevation="@dimen/_15sdp"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_shape"
+    >
+    <TextView
+        android:id="@+id/txt_select_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/_12sdp"
+        android:text="@string/select_search"
+        android:textSize="@dimen/_22sdp"
+        android:fontFamily="@font/roboto_black_italic"
+        android:textStyle="italic"
+        />
+    <TextView
+        android:id="@+id/txt_hour_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_select_search"
+        android:text="@string/hour_price"
+        android:textSize="@dimen/_20sdp"
+        android:background="@drawable/text_dailog_shape"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/_75sdp"
+        android:layout_marginEnd="@dimen/_75sdp"
+        android:padding="@dimen/_5sdp"
+        android:fontFamily="@font/roboto_regular"
+        />
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/range_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_hour_price"
+        android:layout_margin="@dimen/_15sdp"
+        app:values="@array/sliderRange"
+        android:valueFrom="0.0"
+        android:valueTo="100.0"
+        android:stepSize ="1.0"
+        app:thumbColor="#3E3939"
+        app:trackColorInactive="@color/lightGrey"
+        app:trackColorActive="@color/light_sky"
+        />
+    <TextView
+        android:id="@+id/txt_instructor_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/range_slider"
+        android:text="@string/instructor_rate"
+        android:textSize="@dimen/_20sdp"
+        android:background="@drawable/text_dailog_shape"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/_75sdp"
+        android:layout_marginEnd="@dimen/_75sdp"
+        android:padding="@dimen/_5sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:textStyle="italic"
+        />
+
+    <RatingBar
+        android:id="@+id/bottom_sheet_dialog_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_instructor_rate"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

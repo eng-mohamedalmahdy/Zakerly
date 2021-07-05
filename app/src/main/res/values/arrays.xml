@@ -4,4 +4,8 @@
         <item>Arabic</item>
         <item>English</item>
     </string-array>
+    <array name="sliderRange">
+        <item>5.0</item>
+        <item>90.0</item>
+    </array>
 </resources>

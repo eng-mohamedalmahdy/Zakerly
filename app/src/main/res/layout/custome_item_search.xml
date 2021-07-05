@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_4sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/search_shape">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/item_image"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:src="@drawable/no_user"
+
+            />
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/item_image"
+            app:layout_constraintStart_toEndOf="@id/item_image"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="Mohamed Magdy"
+            android:textStyle="italic"
+            android:textSize="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_black_italic" />
+
+        <TextView
+            android:id="@+id/item_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/item_name"
+            app:layout_constraintStart_toStartOf="@id/item_name"
+            android:textStyle="italic|bold"
+            android:textSize="@dimen/_10sdp"
+            android:text="Android developer"
+            android:textColor="#8A8787"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/roboto_black_italic" />
+
+        <RatingBar
+            android:id="@+id/item_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/item_name"
+            app:layout_constraintStart_toEndOf="@id/item_name"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:rating="3"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
