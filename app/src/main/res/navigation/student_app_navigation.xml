@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_profileStudentFragment_to_showTeacherProfileFragment"
             app:destination="@id/showTeacherProfileFragment" />
+        <action
+            android:id="@+id/action_profileStudentFragment_to_video_app_navigation"
+            app:destination="@id/video_app_navigation" />
 
     </fragment>
 
@@ -159,5 +162,6 @@
     <action
         android:id="@+id/navigate_to_notifications"
         app:destination="@id/notificationsFragmentStudent" />
+    <include app:graph="@navigation/meeting_app_navigation" />
 
 </navigation>

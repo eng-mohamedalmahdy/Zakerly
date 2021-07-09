@@ -8,6 +8,7 @@
     tools:context=".intro.onboarding.OnBoardingFragment">
 
     <androidx.viewpager.widget.ViewPager
+
         android:id="@+id/view_pager_slider"
         android:layout_width="match_parent"
         android:layout_height="0dp"

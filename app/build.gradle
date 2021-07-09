@@ -11,17 +11,13 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
-    dataBinding {
-        enabled = true
-    }
-
     defaultConfig {
         applicationId "com.graduationproject.zakerly"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        ndkVersion = "22.1.7171670"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -143,6 +139,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
+    //Meeting
+    implementation ('org.jitsi.react:jitsi-meet-sdk:2.+') { transitive = true }
 
 
 

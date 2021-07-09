@@ -230,4 +230,8 @@ public class FirebaseDataBaseClient {
                         .getCurrentUser()
                         .getUid()).get();
     }
+
+    public String getRandomKey() {
+        return notificationsReference.push().getKey();
+    }
 }
