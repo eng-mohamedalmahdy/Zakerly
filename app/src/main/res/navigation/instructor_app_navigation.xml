@@ -50,6 +50,7 @@
     </fragment>
 
     <dialog
+        tools:layout="@layout/dialog_send_request"
         android:id="@+id/acceptNotificationsDialog"
         android:name="com.graduationproject.zakerly.navigation.notifications.AcceptNotificationDialog"
         android:label="AcceptNotificationsDialog">
