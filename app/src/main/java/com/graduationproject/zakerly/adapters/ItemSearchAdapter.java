@@ -19,13 +19,14 @@ import com.graduationproject.zakerly.core.models.ItemSearchModel;
 
 import java.util.ArrayList;
 
-public class ItemSearchAdapter extends FirebaseRecyclerAdapter<
-        ItemSearchModel, ItemSearchAdapter.ViewHolder> {
+public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.ViewHolder> {
+
     ArrayList<ItemSearchModel> items ;
     Context context ;
 
-    public ItemSearchAdapter(FirebaseRecyclerOptions<ItemSearchModel> options) {
-       super(options);
+    public ItemSearchAdapter(ArrayList<ItemSearchModel> items, Context context) {
+        this.items = items;
+        this.context = context;
     }
 
     @NonNull
@@ -35,19 +36,14 @@ public class ItemSearchAdapter extends FirebaseRecyclerAdapter<
        return new ViewHolder(v);
     }
 
-    OnItemSearchClickListener onItemSearchClickListener;
-    public interface OnItemSearchClickListener{
-        void onItemSearch(int position, ItemSearchModel itemSearchModel);
-    }
-
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position,ItemSearchModel itemSearchModel) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItemSearchModel item = items.get(position);
-        holder.mName.setText(item.getFirstName());
-        holder.mJob.setText(item.getEn());
-        holder.mRate.setRating((float)item.getAverageRate());
+        holder.mName.setText(item.getName());
+        holder.mJob.setText(item.getJob());
+        holder.mRate.setRating((float)item.getRate());
         Glide.with(holder.itemView.getContext())
-                .load(item.getProfileImg())
+                .load(item.getImageProfile())
                 .into(holder.mImage);
 
         if (onItemSearchClickListener !=null){
@@ -55,7 +51,19 @@ public class ItemSearchAdapter extends FirebaseRecyclerAdapter<
         }
     }
 
-public void setItems(ArrayList<ItemSearchModel> items){
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+
+    OnItemSearchClickListener onItemSearchClickListener;
+    public interface OnItemSearchClickListener{
+        void onItemSearch(int position, ItemSearchModel itemSearchModel);
+    }
+
+
+    public void setItems(ArrayList<ItemSearchModel> items){
         this.items= items;
 }
 
