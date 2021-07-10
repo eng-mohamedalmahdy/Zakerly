@@ -113,4 +113,8 @@
     <string name="reject">Reject</string>
     <string name="name">Name :</string>
     <string name="classes">Class</string>
+    <string name="please_add_some_subjects">Please add some Subjects</string>
+    <string name="meeting_invitation">Meeting Invitation</string>
+    <string name="incoming">Incoming</string>
+    <string name="sending">Sending</string>
 </resources>

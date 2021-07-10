@@ -115,4 +115,8 @@
     <string name="select_search">Select Search</string>
     <string name="hour_price">Hour Price</string>
     <string name="instructor_rate">Instructor Rate</string>
+    <string name="please_add_some_subjects">Please add some Subjects</string>
+    <string name="meeting_invitation">Meeting Invitation</string>
+    <string name="incoming">Incoming</string>
+    <string name="sending">Sending</string>
 </resources>

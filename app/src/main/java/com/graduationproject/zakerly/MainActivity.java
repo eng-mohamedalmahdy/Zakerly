@@ -33,7 +33,10 @@ import com.graduationproject.zakerly.core.base.BaseActivity;
 import com.graduationproject.zakerly.core.cache.DataStoreManger;
 import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.AuthTypes;
+import com.graduationproject.zakerly.core.constants.MeetingAttendeesTypes;
+import com.graduationproject.zakerly.core.constants.NotificationType;
 import com.graduationproject.zakerly.core.constants.UserTypes;
+import com.graduationproject.zakerly.core.models.NotificationData;
 import com.graduationproject.zakerly.core.models.User;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
@@ -94,7 +97,28 @@ public class MainActivity extends BaseActivity {
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
 
+        if (getIntent() != null) {
+            NotificationData notificationData = getIntent().getParcelableExtra("NOTIFICATION_DATA");
+            String notificationType = getIntent().getStringExtra("NOTIFICATION_TYPE");
+            Log.d(TAG, "onCreate: " + notificationType);
+            if (notificationData != null) {
+                switch (notificationType) {
 
+                    case "VIDEO_MEETING":
+                    case "VOICE_MEETING": {
+                        navHostFragment.getNavController()
+                                .navigate(AuthNavigationDirections.actionToRequestCall(notificationData, MeetingAttendeesTypes.RECEIVER));
+                        break;
+                    }
+
+                    case "CANCEL": {
+                        controller.navigateUp();
+                        break;
+                    }
+
+                }
+            }
+        }
     }
 
     private void initViews() {

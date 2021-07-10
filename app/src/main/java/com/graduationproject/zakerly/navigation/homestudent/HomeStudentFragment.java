@@ -76,6 +76,7 @@ public class HomeStudentFragment extends Fragment {
                 Collections.shuffle(allInstructors);
                 FirebaseDataBaseClient.getInstance().getCurrentUser().addOnSuccessListener(s -> {
                     Student student = s.getValue(Student.class);
+                    if (student.getUser().getInterests()==null)return;
                     student.getUser()
                             .getInterests()
                             .forEach(specialisation -> recommendedInstructors.addAll(allInstructors

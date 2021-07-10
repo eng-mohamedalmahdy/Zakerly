@@ -121,10 +121,11 @@ public class SendRequestDialog extends DialogFragment {
                                 binding.requestBody.getText().toString(),
                                 NotificationType.REQUEST,
                                 currentUser.getUser().getFirstName() + " " + currentUser.getUser().getLastName(),
+                                args.getInstructor().getUser().getFirstName() + " " + args.getInstructor().getUser().getLastName(),
                                 currentUser.getUser().getUID(),
                                 args.getInstructor().getUser().getUID(),
+                                currentUser.getUser().getProfileImg(),
                                 Integer.parseInt(binding.numberOfHoursInput.getText().toString()));
-                notificationData.setSenderImageUrl(currentUser.getUser().getProfileImg());
 
                 if (args.getNotification() != null) {
                     notificationData.setNotificationId(args.getNotification().getNotificationId());

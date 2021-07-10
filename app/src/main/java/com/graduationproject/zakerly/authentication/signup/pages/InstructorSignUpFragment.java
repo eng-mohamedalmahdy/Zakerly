@@ -31,6 +31,7 @@ import com.graduationproject.zakerly.databinding.ViewInstructorSignUpBinding;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import io.realm.RealmList;
 
 
@@ -179,6 +180,10 @@ public class InstructorSignUpFragment extends BaseFragment {
             valid = false;
             binding.priceTextField.setErrorEnabled(true);
             binding.priceTextField.setError(getText(R.string.this_field_cannot_be_empty));
+        }
+        if (selectedSpecialisationsList.isEmpty()){
+            valid = false;
+            Toasty.error(getContext(),R.string.please_add_some_subjects).show();
         }
 
         if (valid) clearErrors();
