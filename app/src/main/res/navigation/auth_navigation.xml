@@ -136,4 +136,24 @@
     <action
         android:id="@+id/action_instructor_app_navigation"
         app:destination="@id/instructor_app_navigation" />
+    <fragment
+        android:id="@+id/meetingRequestingFragment"
+        android:name="com.graduationproject.zakerly.meetings.requestmeeting.MeetingRequestingFragment"
+        android:label="MeetingRequestingFragment"
+        tools:layout="@layout/fragment_meeting_requesting">
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+
+        <argument
+            android:name="attendeeType"
+            app:argType="com.graduationproject.zakerly.core.constants.MeetingAttendeesTypes" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_to_request_call"
+        app:destination="@id/meetingRequestingFragment" />
 </navigation>

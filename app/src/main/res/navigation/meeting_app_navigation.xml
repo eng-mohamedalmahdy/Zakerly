@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/video_app_navigation"
+    app:startDestination="@id/videoContactsListFragment">
+
+    <fragment
+        android:id="@+id/videoContactsListFragment"
+        android:name="com.graduationproject.zakerly.meetings.meetingshome.ContactsListFragment"
+        android:label="fragment_video_contacts_list"
+        tools:layout="@layout/fragment_video_contacts_list">
+        <action
+            android:id="@+id/action_videoContactsListFragment_to_meetingRequestingFragment"
+            app:destination="@id/meetingRequestingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/meetingRequestingFragment"
+        android:name="com.graduationproject.zakerly.meetings.requestmeeting.MeetingRequestingFragment"
+        android:label="MeetingRequestingFragment"
+        tools:layout="@layout/fragment_meeting_requesting">
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+        <argument
+            android:name="attendeeType"
+            app:argType="com.graduationproject.zakerly.core.constants.MeetingAttendeesTypes" />
+    </fragment>
+</navigation>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_75sdp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/user_first_letter"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_margin="@dimen/_3sdp"
+        android:background="@drawable/circle_red"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_40sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:background="@color/lightGrey"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_2sdp">
+
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@color/white"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical|start"
+            android:text="Adam"
+            android:textSize="@dimen/_25sdp" />
+
+        <ImageButton
+            android:id="@+id/audio_call"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_call_24" />
+
+        <ImageButton
+            android:id="@+id/video_call"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_videocam_24" />
+    </LinearLayout>
+</LinearLayout>

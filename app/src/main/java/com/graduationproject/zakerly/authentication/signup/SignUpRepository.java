@@ -1,26 +1,19 @@
 package com.graduationproject.zakerly.authentication.signup;
 
-import android.content.Context;
 import android.util.Log;
-
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavHost;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.AuthTypes;
-import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.core.network.GoogleClient;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
-import com.graduationproject.zakerly.intro.splash.SplashFragmentDirections;
-
 import es.dmoral.toasty.Toasty;
 
 public class SignUpRepository {

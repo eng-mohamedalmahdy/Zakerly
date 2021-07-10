@@ -141,6 +141,8 @@ public class ProfileStudentFragment extends Fragment {
                 }
             });
         });
+
+        videoCall.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToVideoAppNavigation()));
     }
 
     private void checkPermission() {

@@ -50,6 +50,7 @@
     </fragment>
 
     <dialog
+        tools:layout="@layout/dialog_send_request"
         android:id="@+id/acceptNotificationsDialog"
         android:name="com.graduationproject.zakerly.navigation.notifications.AcceptNotificationDialog"
         android:label="AcceptNotificationsDialog">
@@ -72,6 +73,9 @@
         <action
             android:id="@+id/action_instructorPageFragment_to_editProfileFragment2"
             app:destination="@id/editProfileFragment2" />
+        <action
+            android:id="@+id/action_instructorPageFragment_to_video_app_navigation"
+            app:destination="@id/video_app_navigation" />
     </fragment>
 
 
@@ -100,5 +104,6 @@
             android:name="userType"
             app:argType="string" />
     </fragment>
+    <include app:graph="@navigation/meeting_app_navigation" />
 
 </navigation>
