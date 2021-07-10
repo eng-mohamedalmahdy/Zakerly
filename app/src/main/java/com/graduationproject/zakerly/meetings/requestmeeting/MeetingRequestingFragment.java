@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.core.constants.MeetingAttendeesTypes;
 import com.graduationproject.zakerly.core.constants.NotificationType;
@@ -52,6 +53,7 @@ public class MeetingRequestingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentMeetingRequestingBinding.inflate(inflater, container, false);
+        ((MainActivity) requireActivity()).setNavigationVisibility(false);
         return binding.getRoot();
     }
 

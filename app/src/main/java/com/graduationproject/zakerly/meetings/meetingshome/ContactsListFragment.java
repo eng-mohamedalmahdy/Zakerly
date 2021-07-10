@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.core.models.ConnectionModel;
 import com.graduationproject.zakerly.core.models.User;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
@@ -36,6 +37,7 @@ public class ContactsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentVideoContactsListBinding.inflate(inflater, container, false);
+        ((MainActivity) requireActivity()).setNavigationVisibility(false);
         return binding.getRoot();
     }
 
