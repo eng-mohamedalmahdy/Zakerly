@@ -9,6 +9,7 @@ import io.realm.RealmObject;
 public class Instructor extends RealmObject implements Parcelable {
 
     private User user;
+
     private double pricePerHour;
     private double rate;
     private String bio;

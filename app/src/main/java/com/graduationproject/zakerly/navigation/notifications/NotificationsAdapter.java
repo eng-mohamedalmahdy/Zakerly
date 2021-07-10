@@ -90,7 +90,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                                 .getConnectionData(notificationData.getSenderUid()).addOnSuccessListener(snapshot -> {
                             NavHostFragment.findNavController(fragment)
                                     .navigate(NotificationsFragmentDirections
-                                            .actionNotificationsFragmentToAcceptNotificationsDialog(notificationData, snapshot.getValue(ConnectionModel.class)));
+                                           .actionNotificationsFragmentToAcceptNotificationsDialog());
                         });
                     }
                 }

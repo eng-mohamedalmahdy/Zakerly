@@ -18,7 +18,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_logInFragment"
-            app:destination="@id/signInFragment"
+            app:destination="@id/search_fragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/auth_navigation"
             app:popUpToInclusive="true" />
@@ -38,7 +38,9 @@
 
     </fragment>
 
-
+<fragment android:id="@+id/search_fragment"
+    tools:layout="@layout/fragment_search"
+    android:name="com.graduationproject.zakerly.navigation.search.SearchFragment"/>
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.graduationproject.zakerly.authentication.forgetpassword.ForgetPasswordFragment"

@@ -23,4 +23,5 @@
     <color name="light_red">#F3440D</color>
     <color name="card_opinion_bg">#169A9999</color>
     <color name="transparent">#00000000</color>
+    <color name="light_sky">#039BE5</color>
 </resources>
