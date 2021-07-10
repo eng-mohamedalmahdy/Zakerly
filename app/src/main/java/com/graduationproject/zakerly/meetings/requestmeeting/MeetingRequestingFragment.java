@@ -85,7 +85,7 @@ public class MeetingRequestingFragment extends Fragment {
                         .setRoom(("zakerly" + args.getNotification().getNotificationId()))
                         .setAudioMuted(false)
                         .setVideoMuted(false)
-                        .setAudioOnly(args.getNotification().getNotificationType() == NotificationType.VIDEO_MEETING)
+                        .setAudioOnly(args.getNotification().getNotificationType() == NotificationType.VOICE_MEETING)
                         .setWelcomePageEnabled(false)
                         .build();
                 NavHostFragment.findNavController(this).navigateUp();

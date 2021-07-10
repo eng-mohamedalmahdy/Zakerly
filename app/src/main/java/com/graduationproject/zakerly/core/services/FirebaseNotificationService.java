@@ -80,7 +80,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
                             .setRoom(("zakerly" + notificationData.getNotificationId()))
                             .setAudioMuted(false)
                             .setVideoMuted(false)
-                            .setAudioOnly(notificationData.getNotificationType() == NotificationType.VIDEO_MEETING)
+                            .setAudioOnly(notificationData.getNotificationType() == NotificationType.VOICE_MEETING)
                             .setWelcomePageEnabled(false)
                             .build();
 
