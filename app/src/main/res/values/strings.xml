@@ -110,9 +110,6 @@
     <string name="reject">Reject</string>
     <string name="name">Name:</string>
     <string name="classes">Class: </string>
-    <string name="search_about_teacher">Search About Teacher . . .</string>
-    <string name="txt_search_about_teacher">Search About Teacher</string>
-    <string name="select_search">Select Search</string>
-    <string name="hour_price">Hour Price</string>
-    <string name="instructor_rate">Instructor Rate</string>
+    <string name="please_add_some_subjects">Please add some Subjects</string>
+    <string name="you_don_t_have_any_incoming_lessons">You Don\'t have Any Incoming lessons</string>
 </resources>

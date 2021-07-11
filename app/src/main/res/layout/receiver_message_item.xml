@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_8sdp"
+    android:padding="@dimen/_8sdp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/message_received_image"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/no_user"
+        />
+    <TextView
+        android:id="@+id/message_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toEndOf="@id/message_received_image"
+        android:fontFamily="@font/roboto_bold"
+        android:background="@drawable/receiver_shape"
+        android:textStyle="bold"
+        android:text="Hi , Mohamed"
+        android:padding="@dimen/_13sdp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sdp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

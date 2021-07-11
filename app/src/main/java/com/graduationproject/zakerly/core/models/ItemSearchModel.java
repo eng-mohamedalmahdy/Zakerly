@@ -1,64 +1,49 @@
 package com.graduationproject.zakerly.core.models;
 
 public class ItemSearchModel {
-    private String profileImg, firstName,lastName,ar,en;
-    private int averageRate;
 
+    String imageProfile,name,job;
+    double rate;
 
-    public ItemSearchModel(String profileImg, String firstName, String lastName, String ar, String en, int averageRate) {
-        this.profileImg = profileImg;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.ar = ar;
-        this.en = en;
-        this.averageRate = averageRate;
+    public ItemSearchModel(String imageProfile, String name, String job, double rate) {
+        this.imageProfile = imageProfile;
+        this.name = name;
+        this.job = job;
+        this.rate = rate;
     }
 
-    public String getProfileImg() {
-        return profileImg;
+    public ItemSearchModel() {
     }
 
-    public void setProfileImg(String profileImg) {
-        this.profileImg = profileImg;
+    public String getImageProfile() {
+        return imageProfile;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setImageProfile(String imageProfile) {
+        this.imageProfile = imageProfile;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getName() {
+        return name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getJob() {
+        return job;
     }
 
-    public String getAr() {
-        return ar;
+    public void setJob(String job) {
+        this.job = job;
     }
 
-    public void setAr(String ar) {
-        this.ar = ar;
+    public double getRate() {
+        return rate;
     }
 
-    public String getEn() {
-        return en;
-    }
-
-    public void setEn(String en) {
-        this.en = en;
-    }
-
-    public int getAverageRate() {
-        return averageRate;
-    }
-
-    public void setAverageRate(int averageRate) {
-        this.averageRate = averageRate;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }

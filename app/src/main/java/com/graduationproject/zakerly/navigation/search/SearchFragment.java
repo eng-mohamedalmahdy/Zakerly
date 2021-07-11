@@ -22,6 +22,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,10 +47,11 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
-    private static DatabaseReference searchReference;
+   FirebaseUser fUser;
+   DatabaseReference ref;
     public static final String TAG = "searchFragment";
     private FragmentSearchBinding binding;
-    private SearchViewModel viewModel;
+
     private ItemSearchAdapter adapter;
     private RecyclerView mRecyclerView;
     CardView cardSearch;
@@ -56,8 +59,8 @@ public class SearchFragment extends Fragment {
     TextView txtSearch ;
     ImageView icFilter;
     ArrayList<ItemSearchModel> items ;
-    Instructor instructor;
-    FirebaseRecyclerOptions firebaseRecyclerOptions;
+
+
 
 
     @Override
@@ -65,7 +68,6 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        binding = FragmentSearchBinding.inflate(inflater,container,false);
-       // viewModel = new SearchViewModelFactory(new SearchRepository()).create(SearchViewModel.class);
         ((MainActivity) requireActivity()).setNavigationVisibility(true);
         return binding.getRoot();
     }
@@ -75,8 +77,7 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         initListener();
-        getData();
-        
+
     }
 
 
@@ -95,7 +96,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 txtSearch.setVisibility(View.GONE);
-               search(editable.toString());
+                 search(editable.toString());
             }
         });
         binding.icFilter.setOnClickListener(view -> showBottomSheet());
@@ -103,27 +104,23 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(String str) {
+    fUser = FirebaseAuth.getInstance().getCurrentUser();
+    ref = FirebaseDatabase.getInstance().getReference().child("users");
+    ref.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+           for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
+            }
+        }
 
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });
 
     }
-    private void getData(){
-
-        searchReference= FirebaseDatabase.getInstance().getReference();
-        FirebaseRecyclerOptions<ItemSearchModel> options
-                = new FirebaseRecyclerOptions.Builder<ItemSearchModel>()
-                .setQuery(searchReference, ItemSearchModel.class)
-                .build();
-        //Log.d(TAG, "getData: "+options.getSnapshots());
-        // Connecting object of required Adapter class to
-        // the Adapter class itself
-        adapter = new ItemSearchAdapter(options);
-        // Connecting Adapter class with the Recycler view*/
-        mRecyclerView.setAdapter(adapter);
-
-        adapter.startListening();
-    }
-
 
     private void initViews() {
         cardSearch = binding.cardSearch;

@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="@string/search_about_teacher"
+                android:hint="Search About Teacher . . "
                 android:padding="@dimen/_12sdp"
                 android:drawablePadding="@dimen/_10sdp"
                 android:drawableTint="@color/light_sky"
@@ -63,10 +63,11 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_25sdp"
                 android:textColor="@color/white"
+
                 android:padding="@dimen/_22sdp"
                 android:background="#C40D99DD"
                 android:fontFamily="@font/roboto_regular"
-                android:text="@string/txt_search_about_teacher" />
+                android:text="Search About Teacher" />
         </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
