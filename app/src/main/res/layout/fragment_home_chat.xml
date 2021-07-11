@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".navigation.chat.HomeChatFragment">
+        tools:context=".chat.HomeChatFragment">
 
         <View
             android:id="@+id/home_chat_view"
@@ -25,11 +25,11 @@
             android:id="@+id/home_chat_back"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:src="@drawable/ic_back_forgetpassword" />
+            android:src="@drawable/ic_back_forgetpassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/home_chat_cardView"
@@ -60,9 +60,11 @@
             android:id="@+id/home_chat_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="@dimen/_4sdp"
+            android:padding="@dimen/_5sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_chat_view"
-            android:layout_margin="@dimen/_4sdp"
-            android:padding="@dimen/_5sdp" />
+            tools:listitem="@layout/list_item_notification" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

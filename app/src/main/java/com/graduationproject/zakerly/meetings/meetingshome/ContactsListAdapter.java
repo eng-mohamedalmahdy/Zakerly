@@ -21,6 +21,7 @@ import com.graduationproject.zakerly.core.models.User;
 import com.graduationproject.zakerly.core.network.firebase.FireBaseAuthenticationClient;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.core.network.retrofit.RetrofitClient;
+import com.graduationproject.zakerly.core.util.Util;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -97,30 +98,18 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             voiceCall.setOnClickListener(v -> {
                 notification.setNotificationType(NotificationType.VOICE_MEETING);
                 PushNotification p = new PushNotification(notification, user.getNotificationToken());
-                sendNotification(p);
+                Util.sendNotification(p);
+                NavHostFragment.findNavController(fragment).navigate(ContactsListFragmentDirections.actionVideoContactsListFragmentToMeetingRequestingFragment(notification, MeetingAttendeesTypes.SENDER));
             });
             videoCall.setOnClickListener(v -> {
                 notification.setNotificationType(NotificationType.VIDEO_MEETING);
                 PushNotification p = new PushNotification(notification, user.getNotificationToken());
-                sendNotification(p);
+                Util.sendNotification(p);
+                NavHostFragment.findNavController(fragment).navigate(ContactsListFragmentDirections.actionVideoContactsListFragmentToMeetingRequestingFragment(notification, MeetingAttendeesTypes.SENDER));
+
             });
         }
 
 
-        private void sendNotification(PushNotification notification) {
-
-            Disposable d = RetrofitClient.getApi()
-                    .postNotification(notification)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(responseBodyResponse -> {
-                                if (responseBodyResponse.isSuccessful()) {
-                                    NavHostFragment.findNavController(fragment).navigate(
-                                            ContactsListFragmentDirections.actionVideoContactsListFragmentToMeetingRequestingFragment(notification.getData(), MeetingAttendeesTypes.SENDER)
-                                    );
-                                }
-                            },
-                            throwable -> Log.d(TAG, "sendNotification: error" + throwable.getMessage()));
-        }
     }
 }

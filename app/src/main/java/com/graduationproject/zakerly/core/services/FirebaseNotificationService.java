@@ -59,7 +59,8 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
 
         Timber.d("onMessageReceived: incoming request%s", notificationData);
         switch (notificationData.getNotificationType()) {
-            case REQUEST: {
+            case REQUEST:
+            case MESSAGE: {
                 sendRequestNotification(notificationData);
                 break;
             }

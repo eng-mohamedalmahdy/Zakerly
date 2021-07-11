@@ -11,6 +11,8 @@ public class Instructor extends RealmObject implements Parcelable {
     private User user;
 
     private double pricePerHour;
+    private int ratesCount;
+    private int rateSum;
     private double rate;
     private String bio;
     private String title;
@@ -35,6 +37,8 @@ public class Instructor extends RealmObject implements Parcelable {
 
     protected Instructor(Parcel in) {
         pricePerHour = in.readDouble();
+        ratesCount = in.readInt();
+        rateSum = in.readInt();
         rate = in.readDouble();
         bio = in.readString();
         title = in.readString();
@@ -76,7 +80,7 @@ public class Instructor extends RealmObject implements Parcelable {
     }
 
     public int getAverageRate() {
-        return averageRate;
+        return ratesCount == 0 ? 0 : rateSum / ratesCount;
     }
 
     public void setAverageRate(int averageRate) {
@@ -155,6 +159,22 @@ public class Instructor extends RealmObject implements Parcelable {
         this.bio = bio;
     }
 
+    public int getRatesCount() {
+        return ratesCount;
+    }
+
+    public void setRatesCount(int ratesCount) {
+        this.ratesCount = ratesCount;
+    }
+
+    public int getRateSum() {
+        return rateSum;
+    }
+
+    public void setRateSum(int rateSum) {
+        this.rateSum = rateSum;
+    }
+
     @Override
     public String toString() {
         return "Instructor{" +
@@ -164,25 +184,6 @@ public class Instructor extends RealmObject implements Parcelable {
                 '}';
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeDouble(pricePerHour);
-        dest.writeDouble(rate);
-        dest.writeString(bio);
-        dest.writeString(title);
-        dest.writeInt(numberOfStudents);
-        dest.writeInt(averageRate);
-        dest.writeInt(fiveStarCount);
-        dest.writeInt(fourStarCount);
-        dest.writeInt(threeStarCount);
-        dest.writeInt(twoStarCount);
-        dest.writeInt(oneStarCount);
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -197,5 +198,27 @@ public class Instructor extends RealmObject implements Parcelable {
     @Override
     public int hashCode() {
         return user.hashCode();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(pricePerHour);
+        dest.writeInt(ratesCount);
+        dest.writeInt(rateSum);
+        dest.writeDouble(rate);
+        dest.writeString(bio);
+        dest.writeString(title);
+        dest.writeInt(numberOfStudents);
+        dest.writeInt(averageRate);
+        dest.writeInt(fiveStarCount);
+        dest.writeInt(fourStarCount);
+        dest.writeInt(threeStarCount);
+        dest.writeInt(twoStarCount);
+        dest.writeInt(oneStarCount);
     }
 }

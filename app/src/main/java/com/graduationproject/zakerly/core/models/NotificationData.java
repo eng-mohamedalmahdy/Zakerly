@@ -18,7 +18,20 @@ public class NotificationData implements Parcelable {
     private String senderImageUrl;
     private int neededHours;
 
-    public NotificationData(long notificationTime, String notificationId, String title, String body, NotificationType notificationType, String senderName, String receiverName, String senderUid, String receiverUid, String senderImageUrl, int neededHours) {
+    public NotificationData() {
+    }
+
+    public NotificationData(long notificationTime,
+                            String notificationId,
+                            String title,
+                            String body,
+                            NotificationType notificationType,
+                            String senderName,
+                            String receiverName,
+                            String senderUid,
+                            String receiverUid,
+                            String senderImageUrl,
+                            int neededHours) {
         this.notificationTime = notificationTime;
         this.notificationId = notificationId;
         this.title = title;

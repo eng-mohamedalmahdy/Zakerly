@@ -1,6 +1,11 @@
 package com.graduationproject.zakerly.core.util;
 
 
+import android.util.Log;
+
+import com.graduationproject.zakerly.core.models.PushNotification;
+import com.graduationproject.zakerly.core.network.retrofit.RetrofitClient;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +13,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class Util {
+    private static final String TAG = "Util";
 
     public static String getDateFromStamp(long timeStamp) {
         Calendar c = Calendar.getInstance();
@@ -39,5 +49,15 @@ public class Util {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public static void sendNotification(PushNotification notification) {
+
+        Disposable d = RetrofitClient.getApi()
+                .postNotification(notification)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(responseBodyResponse -> Log.d(TAG, "sendNotification: result" + responseBodyResponse.message()),
+                        throwable -> Log.d(TAG, "sendNotification: error" + throwable.getMessage()));
     }
 }

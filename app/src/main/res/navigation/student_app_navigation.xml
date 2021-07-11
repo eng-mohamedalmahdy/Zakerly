@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_profileStudentFragment_to_video_app_navigation"
             app:destination="@id/video_app_navigation" />
+        <action
+            android:id="@+id/action_profileStudentFragment_to_homeChatFragment"
+            app:destination="@id/homeChatFragment" />
 
     </fragment>
 
@@ -112,6 +115,12 @@
         <action
             android:id="@+id/action_profileStudentFragment_to_sendRequestDialog"
             app:destination="@id/sendRequestDialog" />
+        <action
+            android:id="@+id/action_showTeacherProfileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_showTeacherProfileFragment_to_meetingRequestingFragment"
+            app:destination="@id/meetingRequestingFragment" />
     </fragment>
 
     <action
@@ -163,5 +172,42 @@
         android:id="@+id/navigate_to_notifications"
         app:destination="@id/notificationsFragmentStudent" />
     <include app:graph="@navigation/meeting_app_navigation" />
+    <fragment
+        android:id="@+id/homeChatFragment"
+        android:name="com.graduationproject.zakerly.chat.HomeChatFragment"
+        android:label="HomeChatFragment"
+        tools:layout="@layout/fragment_home_chat">
+        <action
+            android:id="@+id/action_homeChatFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.graduationproject.zakerly.chat.ChatFragment"
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="user"
+            app:argType="com.graduationproject.zakerly.core.models.User" />
+        <action
+            android:id="@+id/action_chatFragment_to_meetingRequestingFragment"
+            app:destination="@id/meetingRequestingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/meetingRequestingFragment"
+        android:name="com.graduationproject.zakerly.meetings.requestmeeting.MeetingRequestingFragment"
+        android:label="MeetingRequestingFragment"
+        tools:layout="@layout/fragment_meeting_requesting">
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+        <argument
+            android:name="attendeeType"
+            app:argType="com.graduationproject.zakerly.core.constants.MeetingAttendeesTypes" />
+    </fragment>
 
 </navigation>

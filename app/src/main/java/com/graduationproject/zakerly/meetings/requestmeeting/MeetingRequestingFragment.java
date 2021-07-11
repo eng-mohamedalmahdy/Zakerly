@@ -21,6 +21,7 @@ import com.graduationproject.zakerly.core.models.PushNotification;
 import com.graduationproject.zakerly.core.models.User;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.core.network.retrofit.RetrofitClient;
+import com.graduationproject.zakerly.core.util.Util;
 import com.graduationproject.zakerly.databinding.FragmentMeetingRequestingBinding;
 import com.graduationproject.zakerly.meetings.meetingshome.ContactsListFragmentDirections;
 
@@ -74,7 +75,7 @@ public class MeetingRequestingFragment extends Fragment {
             FirebaseDataBaseClient.getInstance().getUserByUid(args.getNotification().getSenderUid())
                     .addOnSuccessListener(dataSnapshot -> {
                         PushNotification p = new PushNotification(notification, dataSnapshot.child("user").getValue(User.class).getNotificationToken());
-                        sendNotification(p);
+                        Util.sendNotification(p);
 
                     });
             NavHostFragment.findNavController(this).navigateUp();
@@ -98,7 +99,7 @@ public class MeetingRequestingFragment extends Fragment {
                 FirebaseDataBaseClient.getInstance().getUserByUid(args.getNotification().getSenderUid())
                         .addOnSuccessListener(dataSnapshot -> {
                             PushNotification p = new PushNotification(notification, dataSnapshot.child("user").getValue(User.class).getNotificationToken());
-                            sendNotification(p);
+                            Util.sendNotification(p);
 
                         });
             } catch (MalformedURLException e) {
@@ -109,13 +110,5 @@ public class MeetingRequestingFragment extends Fragment {
         binding.answer.setVisibility(args.getAttendeeType() == MeetingAttendeesTypes.RECEIVER ? View.VISIBLE : View.GONE);
     }
 
-    private void sendNotification(PushNotification notification) {
 
-        Disposable d = RetrofitClient.getApi()
-                .postNotification(notification)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseBodyResponse -> Log.d(TAG, "sendNotification: result" + responseBodyResponse.message()),
-                        throwable -> Log.d(TAG, "sendNotification: error" + throwable.getMessage()));
-    }
 }

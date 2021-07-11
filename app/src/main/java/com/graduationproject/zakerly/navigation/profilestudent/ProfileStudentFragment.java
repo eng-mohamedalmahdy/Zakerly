@@ -97,6 +97,8 @@ public class ProfileStudentFragment extends Fragment {
     }
 
     private void initListener() {
+
+        binding.favoriteIcon.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToHomeChatFragment()));
         camera.setOnClickListener(view -> checkPermission());
 
         FirebaseDataBaseClient.getInstance().getProfileImageUrl()
@@ -113,16 +115,13 @@ public class ProfileStudentFragment extends Fragment {
                 .addOnFailureListener(e -> Log.d(TAG, "initListener: " + e.getMessage()));
 
 
-
         FirebaseDataBaseClient.getInstance().getCurrentUser().addOnSuccessListener(snapshot -> {
             Student currentStudent = snapshot.getValue(Student.class);
             binding.textProfileName.setText((currentStudent.getUser().getFirstName() + " " + currentStudent.getUser().getLastName()));
         });
 
 
-        binding.noteIcon.setOnClickListener((v) -> {
-            NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToEditProfileFragment(UserTypes.TYPE_STUDENT));
-        });
+        binding.noteIcon.setOnClickListener((v) -> NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToEditProfileFragment(UserTypes.TYPE_STUDENT)));
         FirebaseDataBaseClient.getInstance().getConnectionsForCurrentUser().addOnSuccessListener(connection -> {
             ArrayList<Instructor> instructors = new ArrayList<>();
 

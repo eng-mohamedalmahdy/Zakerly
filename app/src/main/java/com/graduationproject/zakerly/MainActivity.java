@@ -49,6 +49,7 @@ import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
 
 import es.dmoral.toasty.Toasty;
 import io.realm.Realm;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
 
@@ -68,13 +69,13 @@ public class MainActivity extends BaseActivity {
             FirebaseMessaging.getInstance().getToken()
                     .addOnCompleteListener(task -> {
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            Timber.tag(TAG).w(task.getException(), "Fetching FCM registration token failed");
                             return;
                         }
                         String token = task.getResult();
                         FirebaseDataBaseClient.getInstance()
                                 .setToken(token)
-                                .addOnCompleteListener(command -> Log.d(TAG, "onCreate: " + command.isSuccessful()));
+                                .addOnCompleteListener(command -> Timber.d("onCreate: %s", command.isSuccessful()));
                         DataStoreManger.getInstance(this).setToken(token);
                     });
 
@@ -100,7 +101,6 @@ public class MainActivity extends BaseActivity {
         if (getIntent() != null) {
             NotificationData notificationData = getIntent().getParcelableExtra("NOTIFICATION_DATA");
             String notificationType = getIntent().getStringExtra("NOTIFICATION_TYPE");
-            Log.d(TAG, "onCreate: " + notificationType);
             if (notificationData != null) {
                 switch (notificationType) {
 

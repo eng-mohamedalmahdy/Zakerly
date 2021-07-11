@@ -8,11 +8,9 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public class SplashRepository{
 
-   private Context context;
-   private DataStoreManger dataStoreManger;
+    private final DataStoreManger dataStoreManger;
 
     public SplashRepository(Context context){
-        this.context = context ;
         this.dataStoreManger = DataStoreManger.getInstance(context);
     }
     public Flowable<Boolean> getIsFirstLaunch(){

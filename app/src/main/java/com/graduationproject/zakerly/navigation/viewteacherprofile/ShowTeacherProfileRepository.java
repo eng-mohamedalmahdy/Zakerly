@@ -6,7 +6,7 @@ import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClien
 
 public class ShowTeacherProfileRepository {
 
-    public static Task<DataSnapshot> getOpinions() {
-        return FirebaseDataBaseClient.getInstance().getOpinions();
+    public static Task<DataSnapshot> getOpinions(String uid) {
+        return FirebaseDataBaseClient.getInstance().getOpinions(uid);
     }
 }

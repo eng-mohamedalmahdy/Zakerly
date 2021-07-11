@@ -5,19 +5,23 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Task;
-import com.google.common.net.InternetDomainName;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.graduationproject.zakerly.core.cache.Realm.RealmQueries;
 import com.graduationproject.zakerly.core.constants.UserTypes;
 import com.graduationproject.zakerly.core.models.ConnectionModel;
 import com.graduationproject.zakerly.core.models.Instructor;
+import com.graduationproject.zakerly.core.models.Message;
 import com.graduationproject.zakerly.core.models.NotificationData;
+import com.graduationproject.zakerly.core.models.OpinionModel;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
+import com.graduationproject.zakerly.core.models.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -34,6 +38,7 @@ public class FirebaseDataBaseClient {
     private static DatabaseReference opinionsReference;
     private static DatabaseReference notificationsReference;
     private static DatabaseReference connectionsReference;
+    private static DatabaseReference chatsReference;
 
 
     private FirebaseDataBaseClient() {
@@ -44,6 +49,7 @@ public class FirebaseDataBaseClient {
         opinionsReference = database.getReference("opinions");
         notificationsReference = database.getReference("notifications");
         connectionsReference = database.getReference("connections");
+        chatsReference = database.getReference("chats");
     }
 
     public static FirebaseDataBaseClient getInstance() {
@@ -154,8 +160,8 @@ public class FirebaseDataBaseClient {
         return usersReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).get();
     }
 
-    public Task<DataSnapshot> getOpinions() {
-        return opinionsReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).get();
+    public Task<DataSnapshot> getOpinions(String uid) {
+        return opinionsReference.child(uid).get();
 
     }
 
@@ -233,5 +239,56 @@ public class FirebaseDataBaseClient {
 
     public String getRandomKey() {
         return notificationsReference.push().getKey();
+    }
+
+    public Task<Void> addFeedback(String uid, OpinionModel opinionModel) {
+        String id = getRandomKey();
+        return opinionsReference.child(uid).child(id).setValue(opinionModel);
+    }
+
+    public Task<DataSnapshot> getConnectionsUser(String uid) {
+        return connectionsReference.child(uid).get();
+    }
+
+    public void removeConnections(String uid, String uid1) {
+        connectionsReference.child(uid).child(uid1).removeValue();
+        connectionsReference.child(uid1).child(uid).removeValue();
+    }
+
+    public Task<Void> setUser(String uid, Instructor instructor) {
+        return usersReference.child(uid).setValue(instructor);
+    }
+
+    public Task<Void> setUser(String uid, Student student) {
+        return usersReference.child(uid).setValue(student);
+    }
+
+    public Task<DataSnapshot> getLastMessageWithUser(String combinedUid) {
+        return chatsReference.child(combinedUid).orderByChild("timeOfSendMsg").limitToFirst(1).get();
+    }
+
+    public String getCombinedUid(String uid) {
+
+        FirebaseUser firebaseuser = FireBaseAuthenticationClient.getInstance().getCurrentUser();
+        User localUser = null;
+        if (firebaseuser != null) {
+            localUser = new RealmQueries().getUser(firebaseuser.getUid());
+        }
+
+        String instructorUid = localUser.getType().equals(UserTypes.TYPE_INSTRUCTOR) ? localUser.getUID() : uid;
+        String studentUid = localUser.getType().equals(UserTypes.TYPE_STUDENT) ? uid : localUser.getUID();
+        return instructorUid + "_" + studentUid;
+    }
+
+    public Task<DataSnapshot> getChatWithUser(String uid) {
+        return chatsReference.child(getCombinedUid(uid)).get();
+    }
+
+    public Task<Void> sendMessage(Message message) {
+        return chatsReference.child(getCombinedUid(message.getReceiverID())).child(message.getMessageId()).setValue(message);
+    }
+
+    public DatabaseReference getChat(String uid) {
+        return chatsReference.child(getCombinedUid(uid));
     }
 }

@@ -6,18 +6,16 @@ public class OpinionModel {
     private String imageStudent;
     private String opinion;
     private float numStarRating;
-    private int imageStudentInt;
     private String date;
+
 
     public OpinionModel() {
     }
 
-
-    public OpinionModel(String imageStudent, String opinion, float numStarRating, int imageStudentInt, String date) {
+    public OpinionModel(String imageStudent, String opinion, float numStarRating, String date) {
         this.imageStudent = imageStudent;
         this.opinion = opinion;
         this.numStarRating = numStarRating;
-        this.imageStudentInt = imageStudentInt;
         this.date = date;
     }
 
@@ -35,15 +33,6 @@ public class OpinionModel {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-
-    public int getImageStudentInt() {
-        return imageStudentInt;
-    }
-
-    public void setImageStudentInt(int imageStudentInt) {
-        this.imageStudentInt = imageStudentInt;
     }
 
     public String getImageStudent() {

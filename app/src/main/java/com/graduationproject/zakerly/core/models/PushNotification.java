@@ -1,5 +1,7 @@
 package com.graduationproject.zakerly.core.models;
 
+import com.graduationproject.zakerly.core.constants.NotificationType;
+
 public class PushNotification {
     private NotificationData data;
     private String to;
@@ -10,6 +12,21 @@ public class PushNotification {
     }
 
     public PushNotification() {
+    }
+
+    public PushNotification(Message message, String to) {
+        data = new NotificationData(message.getTimeOfSendMsg(),
+                message.getMessageId(),
+                message.getReceiverName(),
+                message.getMessage(), NotificationType.MESSAGE,
+                message.senderName,
+                message.receiverName,
+                message.senderID,
+                message.receiverID,
+                "",
+                -1
+        );
+        this.to = to;
     }
 
     public NotificationData getData() {
