@@ -92,7 +92,7 @@ public class ProfileStudentFragment extends Fragment {
         camera = binding.camera;
         profileName = binding.textProfileName;
         mRecyclerView = binding.recyclerViewMyteacher;
-        adapter = new ProfileStudentAdapter();
+        adapter = new ProfileStudentAdapter(this);
         mRecyclerView.setAdapter(adapter);
     }
 

@@ -124,10 +124,12 @@ public class ChatFragment extends Fragment {
                     @Override
                     public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
                         Message message = snapshot.getValue(Message.class);
-                        Log.d(TAG, "onChildAdded: " + message);
-                        messages.add(message);
-                        adapter.setMessages(messages);
-                        mRecyclerView.scrollToPosition(messages.size() - 1);
+                        if (messages.isEmpty() || messages.get(messages.size() - 1).getTimeOfSendMsg() != message.getTimeOfSendMsg()) {
+                            Log.d(TAG, "onChildAdded: " + message);
+                            messages.add(message);
+                            adapter.setMessages(messages);
+                            mRecyclerView.scrollToPosition(messages.size() - 1);
+                        }
                     }
 
                     @Override

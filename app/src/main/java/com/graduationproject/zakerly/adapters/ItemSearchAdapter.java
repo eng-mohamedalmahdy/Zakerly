@@ -8,10 +8,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.StudentAppNavigationDirections;
 import com.graduationproject.zakerly.core.models.ItemSearchModel;
 
 import java.util.ArrayList;
@@ -19,7 +22,11 @@ import java.util.ArrayList;
 public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.ViewHolder> {
 
     ArrayList<ItemSearchModel> items;
+    Fragment fragment;
 
+    public ItemSearchAdapter(Fragment fragment) {
+        this.fragment = fragment;
+    }
 
     @NonNull
     @Override
@@ -37,22 +44,12 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.Vi
         Glide.with(holder.itemView.getContext())
                 .load(item.getImageProfile())
                 .into(holder.mImage);
-
-        if (onItemSearchClickListener != null) {
-            onItemSearchClickListener.onItemSearch(position, item);
-        }
+        holder.itemView.setOnClickListener(v -> NavHostFragment.findNavController(fragment).navigate(StudentAppNavigationDirections.navigateToShowTeacherProfile(item.getInstructor())));
     }
 
     @Override
     public int getItemCount() {
         return items == null ? 0 : items.size();
-    }
-
-
-    OnItemSearchClickListener onItemSearchClickListener;
-
-    public interface OnItemSearchClickListener {
-        void onItemSearch(int position, ItemSearchModel itemSearchModel);
     }
 
 

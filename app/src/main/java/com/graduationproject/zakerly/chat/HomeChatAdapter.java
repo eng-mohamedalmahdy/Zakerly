@@ -48,13 +48,11 @@ public class HomeChatAdapter extends RecyclerView.Adapter<HomeChatAdapter.ViewHo
         holder.mDate.setVisibility(itemChat.getMsgTime() == -1 ? View.GONE : View.VISIBLE);
         holder.mDate.setText(Util.getTimeFromStamp(itemChat.getMsgTime()));
         Glide.with(holder.itemView).load(itemChat.getImage()).error(R.drawable.baseline_account_circle_24).into(holder.mImage);
-        holder.itemView.setOnClickListener(view -> {
-            FirebaseDataBaseClient.getInstance().getUserByUid(itemChat.getUid()).addOnSuccessListener(dataSnapshot -> {
-                User user = dataSnapshot.child("user").getValue(User.class);
-                NavHostFragment.findNavController(fragment)
-                        .navigate(HomeChatFragmentDirections.actionHomeChatFragmentToChatFragment(user));
-            });
-        });
+        holder.itemView.setOnClickListener(view -> FirebaseDataBaseClient.getInstance().getUserByUid(itemChat.getUid()).addOnSuccessListener(dataSnapshot -> {
+            User user = dataSnapshot.child("user").getValue(User.class);
+            NavHostFragment.findNavController(fragment)
+                    .navigate(HomeChatFragmentDirections.actionHomeChatFragmentToChatFragment(user));
+        }));
     }
 
     public void changeData(ArrayList<ItemChat> itemChats) {

@@ -132,7 +132,7 @@ public class SearchFragment extends Fragment {
         txtSearch = binding.txtSearchAboutTeacher;
         mRecyclerView = binding.searchItemRecyclerView;
         icFilter = binding.icFilter;
-        adapter = new ItemSearchAdapter();
+        adapter = new ItemSearchAdapter(this);
         mRecyclerView.setAdapter(adapter);
     }
 
