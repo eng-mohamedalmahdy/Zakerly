@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_profileStudentFragment_to_homeChatFragment"
             app:destination="@id/homeChatFragment" />
+        <action
+            android:id="@+id/action_profileStudentFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
 
     </fragment>
 
@@ -169,6 +172,9 @@
                 app:argType="com.graduationproject.zakerly.core.models.ConnectionModel"
                 app:nullable="true" />
         </action>
+        <action
+            android:id="@+id/action_notificationsFragmentStudent_to_showTeacherProfileFragment"
+            app:destination="@id/showTeacherProfileFragment" />
     </fragment>
 
     <action
@@ -216,11 +222,16 @@
         android:id="@+id/searchFragment"
         android:name="com.graduationproject.zakerly.navigation.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
 
         <action
             android:id="@+id/action_searchFragment_to_showTeacherProfileFragment"
             app:destination="@id/showTeacherProfileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.graduationproject.zakerly.navigation.schedule.ScheduleFragment"
+        android:label="ScheduleFragment"
+        tools:layout="@layout/fragment_schedule" />
 
 </navigation>

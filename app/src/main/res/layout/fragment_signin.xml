@@ -37,7 +37,7 @@
             android:layout_marginStart="@dimen/_26sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_26sdp"
-            android:src="@drawable/login_img"
+            android:src="@drawable/zakerlynozom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".18"
             app:layout_constraintStart_toStartOf="parent"

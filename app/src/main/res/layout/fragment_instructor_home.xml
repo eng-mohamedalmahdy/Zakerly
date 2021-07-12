@@ -46,6 +46,7 @@
                             android:textSize="@dimen/_16sdp" />
 
                         <TextView
+                            android:text="2"
                             android:id="@+id/completed_lessons_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -81,6 +82,7 @@
                             android:textSize="@dimen/_16sdp" />
 
                         <TextView
+                            android:text="3"
                             android:id="@+id/incoming_lessons_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -119,6 +121,7 @@
                         android:textSize="@dimen/_16sdp" />
 
                     <TextView
+                        android:text="5"
                         android:id="@+id/lessons_hours_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

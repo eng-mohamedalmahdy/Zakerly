@@ -140,7 +140,7 @@ public class ProfileStudentFragment extends Fragment {
                 }
             });
         });
-
+        calender.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToScheduleFragment()));
         videoCall.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToVideoAppNavigation()));
     }
 

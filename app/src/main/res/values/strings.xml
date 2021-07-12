@@ -101,7 +101,7 @@
     <string name="student_column">Student: </string>
     <string name="upcoming_appointments">Upcoming Appointments</string>
     <string name="send_request">Send Request</string>
-    <string name="seclude">Seclude</string>
+    <string name="seclude">Schedule</string>
     <string name="what_do_you_need_to_learn">What do you need to learn ?</string>
     <string name="cancel">Cancel</string>
     <string name="send">Send</string>
@@ -110,7 +110,6 @@
     <string name="reject">Reject</string>
     <string name="name">Name:</string>
     <string name="classes">Class: </string>
-    <string name="please_add_some_subjects">Please add some Subjects</string>
     <string name="you_don_t_have_any_incoming_lessons">You Don\'t have Any Incoming lessons</string>
     <string name="search_about_teacher">Search About Teacher . . .</string>
     <string name="txt_search_about_teacher">Search About Teacher</string>
@@ -127,4 +126,8 @@
     <string name="thanks_for_feedback">Thanks for feedback</string>
     <string name="feedback_error">Please make sure rate is above 0 and the feedback field isn\'t empty</string>
     <string name="no_messages">No messages</string>
+    <string name="with">With</string>
+    <string name="confirm">Confirm</string>
+    <string name="welcome_to_zakerly">Welcome to zakerly</string>
+    <string name="search_in_chats">Search in Chats</string>
 </resources>

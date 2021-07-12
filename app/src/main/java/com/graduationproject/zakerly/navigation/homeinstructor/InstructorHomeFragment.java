@@ -25,6 +25,7 @@ import com.graduationproject.zakerly.databinding.FragmentInstructorHomeBinding;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class InstructorHomeFragment extends Fragment {
@@ -47,14 +48,20 @@ public class InstructorHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         studentsPieChart = binding.studentsPieChart;
         hoursPieChart = binding.hoursPieChart;
+
+
+        setHoursDataChart(getList());
+        setStudentDataChart(getList());
+
+    }
+
+    private ArrayList<PieEntry> getList() {
         ArrayList<PieEntry> values = new ArrayList<>();
-        values.add(new PieEntry(50, "TEST"));
-        values.add(new PieEntry(50, "TEST2"));
-        values.add(new PieEntry(50, "TEST3"));
-
-        setHoursDataChart(values);
-        setStudentDataChart(values);
-
+        Random r = new Random();
+        values.add(new PieEntry(r.nextInt(20), "2020"));
+        values.add(new PieEntry(r.nextInt(20), "2021"));
+        values.add(new PieEntry(r.nextInt(20), "2019"));
+        return values;
     }
 
     private void setStudentDataChart(ArrayList<PieEntry> values) {

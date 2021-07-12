@@ -173,10 +173,9 @@ public class MainActivity extends BaseActivity {
                     }
 
                     case R.id.seclude: {
-
+                        controller.navigate(R.id.action_global_scheduleFragment);
                         break;
                     }
-
                 }
             }
         });

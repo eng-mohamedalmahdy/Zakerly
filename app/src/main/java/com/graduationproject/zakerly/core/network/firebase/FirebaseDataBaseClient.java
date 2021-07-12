@@ -19,6 +19,7 @@ import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.Message;
 import com.graduationproject.zakerly.core.models.NotificationData;
 import com.graduationproject.zakerly.core.models.OpinionModel;
+import com.graduationproject.zakerly.core.models.Schedule;
 import com.graduationproject.zakerly.core.models.Student;
 import com.graduationproject.zakerly.adapters.TeacherCardAdapter;
 import com.graduationproject.zakerly.core.models.User;
@@ -39,6 +40,7 @@ public class FirebaseDataBaseClient {
     private static DatabaseReference notificationsReference;
     private static DatabaseReference connectionsReference;
     private static DatabaseReference chatsReference;
+    private static DatabaseReference schedulesReference;
 
 
     private FirebaseDataBaseClient() {
@@ -50,6 +52,7 @@ public class FirebaseDataBaseClient {
         notificationsReference = database.getReference("notifications");
         connectionsReference = database.getReference("connections");
         chatsReference = database.getReference("chats");
+        schedulesReference = database.getReference("schedules");
     }
 
     public static FirebaseDataBaseClient getInstance() {
@@ -291,4 +294,19 @@ public class FirebaseDataBaseClient {
     public DatabaseReference getChat(String uid) {
         return chatsReference.child(getCombinedUid(uid));
     }
+
+    public Task<DataSnapshot> getSchedules() {
+        return schedulesReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid()).get();
+    }
+
+    public Task<Void> addSchedules(Schedule schedule) {
+        return schedulesReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid())
+                .child(schedule.getId()).setValue(schedule);
+    }
+
+    public Task<Void> deleteSchedules(Schedule schedule) {
+        return schedulesReference.child(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid())
+                .child(schedule.getId()).removeValue();
+    }
+
 }

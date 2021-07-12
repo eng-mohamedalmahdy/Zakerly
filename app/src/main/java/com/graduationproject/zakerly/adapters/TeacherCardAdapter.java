@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,12 +62,13 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Instructor dataClass = instructors.get(position);
-        if (dataClass!=null&&dataClass.getUser()!=null){
+        if (dataClass != null && dataClass.getUser() != null) {
             String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
             String jobName = dataClass.getTitle();
             holder.teacherName.setText(fullName);
             holder.teacherJob.setText(jobName);
             holder.teacherDesc.setText(dataClass.getBio());
+            holder.ratingBar.setRating(dataClass.getAverageRate());
             holder.teacherFavorite.setImageResource(favoritesResults.get(position) ? R.drawable.ic_stargreen : R.drawable.ic_star);
             Glide.with(holder.itemView.getContext())
                     .load(dataClass.getUser().getProfileImg())
@@ -114,6 +116,7 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
         ImageView teacherImage, teacherFavorite;
         TextView teacherName, teacherJob, teacherDesc;
         ConstraintLayout container;
+        RatingBar ratingBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -123,13 +126,14 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
             teacherDesc = itemView.findViewById(R.id.desc_teacher);
             teacherFavorite = itemView.findViewById(R.id.favorite_teacher);
             container = itemView.findViewById(R.id.contact_container);
+            ratingBar = itemView.findViewById(R.id.ratingbar_teacher);
         }
     }
 
     ArrayList<Boolean> favoriteMatches(ArrayList<Instructor> originalList, ArrayList<String> favorites) {
         ArrayList<Boolean> results = new ArrayList<>();
         originalList.forEach(instructor -> {
-            if (instructor!=null&&instructor.getUser() != null)
+            if (instructor != null && instructor.getUser() != null)
                 results.add(favorites.contains(instructor.getUser().getUID()));
 
         });

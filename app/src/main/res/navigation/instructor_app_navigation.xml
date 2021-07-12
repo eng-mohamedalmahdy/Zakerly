@@ -97,22 +97,7 @@
     </fragment>
 
 
-    <action
-        android:id="@+id/navigate_to_settings"
-        app:destination="@id/settingsFragment" />
 
-    <action
-        android:id="@+id/navigate_to_notifications"
-        app:destination="@id/notificationsFragmentInstructor" />
-
-
-    <action
-        android:id="@+id/action_to_teacherHomeFragment"
-        app:destination="@id/teacherHomeFragment" />
-
-    <action
-        android:id="@+id/action_to_profile_instructor"
-        app:destination="@id/instructorPageFragment" />
     <fragment
         android:id="@+id/editProfileFragment2"
         android:name="com.graduationproject.zakerly.userutils.editprofile.EditProfileFragment"
@@ -141,5 +126,34 @@
         <argument
             android:name="user"
             app:argType="com.graduationproject.zakerly.core.models.User" />
+        <action
+            android:id="@+id/action_chatFragment_to_meetingRequestingFragment2"
+            app:destination="@id/meetingRequestingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.graduationproject.zakerly.navigation.schedule.ScheduleFragment"
+        android:label="ScheduleFragment"
+        tools:layout="@layout/fragment_schedule" />
+
+    <action
+        android:id="@+id/navigate_to_settings"
+        app:destination="@id/settingsFragment" />
+
+    <action
+        android:id="@+id/navigate_to_notifications"
+        app:destination="@id/notificationsFragmentInstructor" />
+
+
+    <action
+        android:id="@+id/action_to_teacherHomeFragment"
+        app:destination="@id/teacherHomeFragment" />
+
+    <action
+        android:id="@+id/action_to_profile_instructor"
+        app:destination="@id/instructorPageFragment" />
+    <action
+        android:id="@+id/action_global_scheduleFragment"
+        app:destination="@id/scheduleFragment" />
+
 </navigation>

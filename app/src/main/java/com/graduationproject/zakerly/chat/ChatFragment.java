@@ -111,10 +111,7 @@ public class ChatFragment extends Fragment {
                     messageBody);
 
             FirebaseDataBaseClient.getInstance().sendMessage(message).addOnSuccessListener(unused ->
-                    Util.sendNotification(new PushNotification(message, args.getUser().getNotificationToken())));
-
-
-        });
+                    Util.sendNotification(new PushNotification(message, args.getUser().getNotificationToken()))); });
 
 
         FirebaseDataBaseClient.
