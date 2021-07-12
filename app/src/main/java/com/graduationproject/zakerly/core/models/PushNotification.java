@@ -17,7 +17,7 @@ public class PushNotification {
     public PushNotification(Message message, String to) {
         data = new NotificationData(message.getTimeOfSendMsg(),
                 message.getMessageId(),
-                message.getReceiverName(),
+                message.senderName,
                 message.getMessage(), NotificationType.MESSAGE,
                 message.senderName,
                 message.receiverName,
