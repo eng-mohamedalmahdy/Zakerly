@@ -38,11 +38,14 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/schedule_fragment"
+        tools:layout="@layout/fragment_schedule"
+        android:name="com.graduationproject.zakerly.navigation.schedule.ScheduleFragment"/>
 <fragment
     android:id="@+id/search_fragment"
     tools:layout="@layout/fragment_search"
     android:name="com.graduationproject.zakerly.navigation.search.SearchFragment"/>
-
 
     <fragment
         android:id="@+id/forgetPasswordFragment"
@@ -95,6 +98,11 @@
 
     </fragment>
 
+<fragment
+    android:id="@+id/search_fragment"
+    tools:layout="@layout/fragment_search"
+    android:name="com.graduationproject.zakerly.navigation.search.SearchFragment"/>
+
 
     <fragment
         android:id="@+id/signUpFragment"
@@ -136,6 +144,11 @@
     <action
         android:id="@+id/action_instructor_app_navigation"
         app:destination="@id/instructor_app_navigation" />
+
+    <fragment
+        android:id="@id/search_fragment"
+        tools:layout="@layout/fragment_search"
+        android:name="com.graduationproject.zakerly.navigation.search.SearchFragment"/>
     <fragment
         android:id="@+id/meetingRequestingFragment"
         android:name="com.graduationproject.zakerly.meetings.requestmeeting.MeetingRequestingFragment"

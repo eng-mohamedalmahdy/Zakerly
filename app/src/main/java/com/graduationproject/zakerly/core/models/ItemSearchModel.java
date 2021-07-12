@@ -1,6 +1,5 @@
 package com.graduationproject.zakerly.core.models;
 
-
 import io.realm.RealmList;
 
 public class ItemSearchModel {

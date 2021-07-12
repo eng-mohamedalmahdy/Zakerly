@@ -1,5 +1,6 @@
 package com.graduationproject.zakerly.core.models;
 
+
 public class ItemChat implements Comparable<ItemChat> {
     String image, name, lastMsg, uid;
     long msgTime;
@@ -54,7 +55,6 @@ public class ItemChat implements Comparable<ItemChat> {
     public void setMsgTime(long msgTime) {
         this.msgTime = msgTime;
     }
-
 
     @Override
     public int compareTo(ItemChat o) {

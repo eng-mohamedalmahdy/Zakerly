@@ -1,6 +1,7 @@
 package com.graduationproject.zakerly.core.models;
 
 public class Message {
+
     String messageId;
     String senderID;
     String receiverID;
@@ -83,7 +84,6 @@ public class Message {
     public void setReceiverName(String receiverName) {
         this.receiverName = receiverName;
     }
-
 
     @Override
     public String toString() {

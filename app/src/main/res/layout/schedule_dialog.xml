@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/light_sky"
+    app:cardCornerRadius="@dimen/_15sdp"
+    android:layout_margin="@dimen/_8sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_12sdp"
+            >
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date "
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_bold"
+                />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@id/date"
+                app:layout_constraintTop_toBottomOf="@id/date"
+                android:text="Time "
+                android:textSize="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_bold"
+                />
+            <TextView
+                android:id="@+id/lesson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/time"
+                app:layout_constraintStart_toStartOf="@id/time"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Lesson "
+                android:textSize="@dimen/_20sdp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_bold"
+                />
+
+            <TextView
+                android:id="@+id/student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/lesson"
+                app:layout_constraintStart_toStartOf="@id/lesson"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Student "
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_bold"
+                />
+            <EditText
+                android:id="@+id/entry_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/date"
+                app:layout_constraintTop_toTopOf="@id/date"
+                android:layout_marginStart="@dimen/_85sdp"
+                android:background="@drawable/schedule_bg_text"
+                android:textSize="@dimen/_16sdp"
+                android:gravity="center"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                />
+            <EditText
+                android:id="@+id/entry_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/time"
+                app:layout_constraintTop_toTopOf="@id/time"
+                android:layout_marginStart="@dimen/_85sdp"
+                android:background="@drawable/schedule_bg_text"
+                android:textSize="@dimen/_16sdp"
+                android:gravity="center"
+                android:padding="@dimen/_2sdp"
+                android:textStyle="bold|italic"
+                android:layout_marginEnd="@dimen/_12sdp"
+                />
+
+            <EditText
+                android:id="@+id/entry_lesson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/lesson"
+                app:layout_constraintTop_toTopOf="@id/lesson"
+                android:background="@drawable/schedule_bg_text"
+                android:layout_marginStart="@dimen/_85sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:padding="@dimen/_2sdp"
+                android:textSize="@dimen/_16sdp"
+                android:gravity="center"
+                />
+
+            <EditText
+                android:id="@+id/entry_student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/student"
+                app:layout_constraintTop_toTopOf="@id/student"
+                android:layout_marginStart="@dimen/_85sdp"
+                android:background="@drawable/schedule_bg_text"
+                android:textSize="@dimen/_16sdp"
+                android:gravity="center"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/entry_student"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:gravity="end"
+                >
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sdp"
+                    android:text="Cancel"
+                    android:background="@drawable/schedule_bg_text2"
+                    android:padding="@dimen/_7sdp"
+                    android:layout_margin="@dimen/_8sdp"
+                    />
+                <TextView
+                    android:id="@+id/confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp"
+                    android:text="Confirm"
+                    android:padding="@dimen/_7sdp"
+                    android:layout_margin="@dimen/_8sdp"
+                    />
+            </LinearLayout>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

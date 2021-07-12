@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.slider.RangeSlider;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +29,6 @@ import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.ItemSearchModel;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentSearchBinding;
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -56,7 +53,6 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         ((MainActivity) requireActivity()).setNavigationVisibility(false);
         return binding.getRoot();
@@ -86,7 +82,6 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
         binding.icFilter.setOnClickListener(view -> showBottomSheet());
@@ -94,6 +89,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(String str) {
+
         FirebaseDataBaseClient.getInstance().getAllInstructors().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -123,7 +119,6 @@ public class SearchFragment extends Fragment {
 
             }
         });
-
     }
 
     private void initViews() {

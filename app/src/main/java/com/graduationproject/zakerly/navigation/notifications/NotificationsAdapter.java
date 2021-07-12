@@ -87,6 +87,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                     User user = new RealmQueries().getUser(uid);
                     if (user.getType().equals(UserTypes.TYPE_INSTRUCTOR)) {
                         FirebaseDataBaseClient.getInstance()
+
                                 .getConnectionData(notificationData.getSenderUid()).addOnSuccessListener(snapshot ->
                                 NavHostFragment.findNavController(fragment)
                                 .navigate(NotificationsFragmentDirections

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.ViewHolder> {
 
+
     ArrayList<ItemSearchModel> items;
     Fragment fragment;
 
@@ -31,8 +32,8 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_item_search, parent, false);
-        return new ViewHolder(v);
+       View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.custome_item_search,parent,false);
+       return new ViewHolder(v);
     }
 
     @Override
@@ -51,6 +52,7 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.Vi
     public int getItemCount() {
         return items == null ? 0 : items.size();
     }
+
 
 
     public void setItems(ArrayList<ItemSearchModel> items) {
