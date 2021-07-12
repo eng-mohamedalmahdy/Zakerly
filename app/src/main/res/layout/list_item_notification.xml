@@ -36,6 +36,7 @@
         android:fontFamily="@font/roboto_regular"
         android:text="body text"
         android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/notification_sender"
         app:layout_constraintTop_toBottomOf="@id/notification_sender" />
 
@@ -47,6 +48,7 @@
         android:fontFamily="@font/roboto_regular"
         android:text="10:19PM"
         android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/notification_sender" />
 

@@ -131,10 +131,11 @@ public class AcceptNotificationDialog extends DialogFragment {
                             binding.requestBody.getText().toString(),
                             NotificationType.REQUEST,
                             currentUser.getUser().getFirstName() + " " + currentUser.getUser().getLastName(),
+                            args.getNotification().getReceiverName(),
                             currentUser.getUser().getUID(),
                             args.getNotification().getSenderUid(),
+                            currentUser.getUser().getProfileImg(),
                             Integer.parseInt(binding.numberOfHoursInput.getText().toString()));
-            notificationData.setSenderImageUrl(currentUser.getUser().getProfileImg());
 
             FirebaseDataBaseClient.getInstance().getUserByUid(args.getNotification().getSenderUid()).addOnSuccessListener(snapshot -> {
                 Student s = snapshot.getValue(Student.class);
@@ -155,36 +156,13 @@ public class AcceptNotificationDialog extends DialogFragment {
                     FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
                     args.getNotification().getSenderUid(), RequestStatus.ANSWERED, true, notificationUid);
         }
+        c.setCurrentlyConnected(true);
         c.setLatestTopic(topic);
         c.setLatestRequestUid(notificationUid);
         c.setRequestStatus(RequestStatus.ANSWERED);
         FirebaseDataBaseClient.getInstance().setConnection(c);
     }
 
-    private void clearErrors() {
-        binding.learningTopicContainer.setErrorEnabled(false);
-        binding.numberOfHoursInputContainer.setErrorEnabled(false);
-        binding.requestBodyContainer.setErrorEnabled(false);
-    }
-
-    private boolean valid() {
-        if (binding.learningTopic.getText().toString().isEmpty()) {
-            binding.learningTopicContainer.setErrorEnabled(true);
-            binding.learningTopicContainer.setError(getString(R.string.this_field_cannot_be_empty));
-            return false;
-        }
-        if (binding.numberOfHoursInput.getText().toString().isEmpty()) {
-            binding.numberOfHoursInputContainer.setErrorEnabled(true);
-            binding.numberOfHoursInputContainer.setError(getString(R.string.this_field_cannot_be_empty));
-            return false;
-        }
-        if (binding.requestBody.getText().toString().isEmpty()) {
-            binding.requestBodyContainer.setErrorEnabled(true);
-            binding.requestBodyContainer.setError(getString(R.string.this_field_cannot_be_empty));
-            return false;
-        }
-        return true;
-    }
 
     private void sendNotification(PushNotification notification) {
         Disposable d = RetrofitClient.getApi()

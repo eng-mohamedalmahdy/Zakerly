@@ -1,6 +1,5 @@
 package com.graduationproject.zakerly.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,24 +8,25 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.graduationproject.zakerly.R;
+import com.graduationproject.zakerly.StudentAppNavigationDirections;
 import com.graduationproject.zakerly.core.models.ItemSearchModel;
 
 import java.util.ArrayList;
 
 public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.ViewHolder> {
 
-    ArrayList<ItemSearchModel> items ;
-    Context context ;
 
-    public ItemSearchAdapter(ArrayList<ItemSearchModel> items, Context context) {
-        this.items = items;
-        this.context = context;
+    ArrayList<ItemSearchModel> items;
+    Fragment fragment;
+
+    public ItemSearchAdapter(Fragment fragment) {
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -41,43 +41,36 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.Vi
         ItemSearchModel item = items.get(position);
         holder.mName.setText(item.getName());
         holder.mJob.setText(item.getJob());
-        holder.mRate.setRating((float)item.getRate());
+        holder.mRate.setRating((float) item.getRate());
         Glide.with(holder.itemView.getContext())
                 .load(item.getImageProfile())
                 .into(holder.mImage);
-
-        if (onItemSearchClickListener !=null){
-            onItemSearchClickListener.onItemSearch(position, item);
-        }
+        holder.itemView.setOnClickListener(v -> NavHostFragment.findNavController(fragment).navigate(StudentAppNavigationDirections.navigateToShowTeacherProfile(item.getInstructor())));
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
 
-    OnItemSearchClickListener onItemSearchClickListener;
-    public interface OnItemSearchClickListener{
-        void onItemSearch(int position, ItemSearchModel itemSearchModel);
+
+    public void setItems(ArrayList<ItemSearchModel> items) {
+        this.items = items;
+        notifyDataSetChanged();
     }
 
-
-    public void setItems(ArrayList<ItemSearchModel> items){
-        this.items= items;
-}
-
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView mImage;
         TextView mName, mJob;
         RatingBar mRate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-           onBind();
+            onBind();
         }
 
-        void onBind(){
+        void onBind() {
             mImage = itemView.findViewById(R.id.item_image);
             mName = itemView.findViewById(R.id.item_name);
             mJob = itemView.findViewById(R.id.item_job);

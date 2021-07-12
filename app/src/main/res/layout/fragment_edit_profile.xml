@@ -203,7 +203,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
-                        android:fontFamily="@font/roboto_regular" />
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@{viewModel.instructorMutableLiveData.title}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -288,7 +289,8 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
                         android:fontFamily="@font/roboto_regular"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:text="@{``+viewModel.instructorMutableLiveData.pricePerHour}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
 

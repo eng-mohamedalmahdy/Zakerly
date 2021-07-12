@@ -119,4 +119,13 @@
     <string name="reject">Reject</string>
     <string name="name">Name :</string>
     <string name="classes">Class</string>
+    <string name="please_add_some_subjects">Please add some Subjects</string>
+    <string name="meeting_invitation">Meeting Invitation</string>
+    <string name="incoming">Incoming</string>
+    <string name="sending">Sending</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="remove">Remove</string>
+    <string name="thanks_for_feedback">Thanks for feedback</string>
+    <string name="feedback_error">Please make sure rate is above 0 and the feedback field isn\'t empty</string>
+    <string name="no_messages">No messages</string>
 </resources>

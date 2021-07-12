@@ -12,24 +12,46 @@ public class NotificationData implements Parcelable {
     private String body;
     private NotificationType notificationType;
     private String senderName;
+    private String receiverName;
     private String senderUid;
     private String receiverUid;
     private String senderImageUrl;
     private int neededHours;
 
-    public NotificationData(long notificationTime, String notificationId, String title, String body, NotificationType notificationType, String senderName, String senderUid, String receiverUid, int neededHours) {
+    public NotificationData() {
+    }
+
+    public NotificationData(long notificationTime,
+                            String notificationId,
+                            String title,
+                            String body,
+                            NotificationType notificationType,
+                            String senderName,
+                            String receiverName,
+                            String senderUid,
+                            String receiverUid,
+                            String senderImageUrl,
+                            int neededHours) {
         this.notificationTime = notificationTime;
         this.notificationId = notificationId;
         this.title = title;
         this.body = body;
         this.notificationType = notificationType;
         this.senderName = senderName;
+        this.receiverName = receiverName;
         this.senderUid = senderUid;
         this.receiverUid = receiverUid;
+        this.senderImageUrl = senderImageUrl;
         this.neededHours = neededHours;
     }
 
-    public NotificationData() {
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
     protected NotificationData(Parcel in) {

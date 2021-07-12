@@ -18,7 +18,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_logInFragment"
-            app:destination="@id/schedule_fragment"
+            app:destination="@id/signInFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/auth_navigation"
             app:popUpToInclusive="true" />
@@ -38,11 +38,14 @@
 
     </fragment>
 
-
     <fragment
         android:id="@+id/schedule_fragment"
         tools:layout="@layout/fragment_schedule"
         android:name="com.graduationproject.zakerly.navigation.schedule.ScheduleFragment"/>
+<fragment
+    android:id="@+id/search_fragment"
+    tools:layout="@layout/fragment_search"
+    android:name="com.graduationproject.zakerly.navigation.search.SearchFragment"/>
 
     <fragment
         android:id="@+id/forgetPasswordFragment"
@@ -146,4 +149,24 @@
         android:id="@id/search_fragment"
         tools:layout="@layout/fragment_search"
         android:name="com.graduationproject.zakerly.navigation.search.SearchFragment"/>
+    <fragment
+        android:id="@+id/meetingRequestingFragment"
+        android:name="com.graduationproject.zakerly.meetings.requestmeeting.MeetingRequestingFragment"
+        android:label="MeetingRequestingFragment"
+        tools:layout="@layout/fragment_meeting_requesting">
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+
+        <argument
+            android:name="attendeeType"
+            app:argType="com.graduationproject.zakerly.core.constants.MeetingAttendeesTypes" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_to_request_call"
+        app:destination="@id/meetingRequestingFragment" />
 </navigation>

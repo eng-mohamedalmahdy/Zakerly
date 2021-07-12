@@ -2,6 +2,9 @@ package com.graduationproject.zakerly.core.models;
 
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Index;
 
-public class User extends RealmObject {
+public class User extends RealmObject implements Parcelable {
     @Index
     private String UID;
     private String type;
@@ -138,5 +141,15 @@ public class User extends RealmObject {
     @Override
     public int hashCode() {
         return UID.hashCode();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

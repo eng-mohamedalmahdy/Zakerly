@@ -29,6 +29,7 @@ import com.graduationproject.zakerly.databinding.ViewStudentSignUpBinding;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import io.realm.RealmList;
 
 public class StudentSignUpFragment extends BaseFragment {
@@ -153,6 +154,10 @@ public class StudentSignUpFragment extends BaseFragment {
                 valid = false;
                 binding.passwordTextField.setErrorEnabled(true);
                 binding.passwordTextField.setError(getText(R.string.password_must_be_at_least_8));
+            }
+            if (selectedSpecialisationsList.isEmpty()){
+                valid = false;
+                Toasty.error(getContext(),R.string.please_add_some_subjects).show();
             }
         }
 

@@ -1,15 +1,19 @@
 package com.graduationproject.zakerly.core.models;
 
-public class ItemChat {
-    String image,name,lastMsg, uid;
+
+public class ItemChat implements Comparable<ItemChat> {
+    String image, name, lastMsg, uid;
     long msgTime;
+
+    public ItemChat() {
+    }
 
     public ItemChat(String image, String name, String lastMsg, long msgTime, String uid) {
         this.image = image;
         this.name = name;
         this.lastMsg = lastMsg;
         this.msgTime = msgTime;
-        this.uid= uid;
+        this.uid = uid;
     }
 
     public String getUid() {
@@ -50,5 +54,10 @@ public class ItemChat {
 
     public void setMsgTime(long msgTime) {
         this.msgTime = msgTime;
+    }
+
+    @Override
+    public int compareTo(ItemChat o) {
+        return Long.compare(this.msgTime, o.msgTime);
     }
 }

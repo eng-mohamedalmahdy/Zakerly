@@ -87,17 +87,19 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                     User user = new RealmQueries().getUser(uid);
                     if (user.getType().equals(UserTypes.TYPE_INSTRUCTOR)) {
                         FirebaseDataBaseClient.getInstance()
-                                .getConnectionData(notificationData.getSenderUid()).addOnSuccessListener(snapshot -> {
-                            NavHostFragment.findNavController(fragment)
-                                    .navigate(NotificationsFragmentDirections
-                                            .actionNotificationsFragmentToAcceptNotificationsDialog());
-                        });
+
+                                .getConnectionData(notificationData.getSenderUid()).addOnSuccessListener(snapshot ->
+                                NavHostFragment.findNavController(fragment)
+                                .navigate(NotificationsFragmentDirections
+                                        .actionNotificationsFragmentToAcceptNotificationsDialog(notificationData, snapshot.getValue(ConnectionModel.class))));
                     }
                 }
             });
 
         }
     }
+
+
 
     public void filter(String input) {
         if (input == null || input.isEmpty()) {

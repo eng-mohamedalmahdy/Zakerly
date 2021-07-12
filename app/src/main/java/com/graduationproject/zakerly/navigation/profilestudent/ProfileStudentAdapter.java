@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,9 +25,10 @@ public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAd
 
 
     private ArrayList<Instructor> list;
+    Fragment fragment;
 
-    public ProfileStudentAdapter() {
-
+    public ProfileStudentAdapter(Fragment fragment) {
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -49,6 +52,7 @@ public class ProfileStudentAdapter extends RecyclerView.Adapter<ProfileStudentAd
                 .load(dataClass.getUser().getProfileImg())
                 .placeholder(R.drawable.baseline_account_circle_24)
                 .into(holder.teacherImage);
+        holder.itemView.setOnClickListener(v -> NavHostFragment.findNavController(fragment).navigate(ProfileStudentFragmentDirections.actionProfileStudentFragmentToShowTeacherProfileFragment(dataClass)));
     }
 
     public void setList(ArrayList<Instructor> list) {

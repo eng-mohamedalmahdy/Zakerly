@@ -10,7 +10,7 @@ public class ShowTeacherProfileViewModel extends ViewModel {
 
     public ShowTeacherProfileViewModel() {
     }
-    public Task<DataSnapshot> getOpinions(){
-        return  ShowTeacherProfileRepository.getOpinions();
+    public Task<DataSnapshot> getOpinions(String uid){
+        return  ShowTeacherProfileRepository.getOpinions(uid);
     }
 }

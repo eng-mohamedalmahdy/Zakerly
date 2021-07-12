@@ -58,6 +58,7 @@ public class InstructorPageFragment extends Fragment {
 
     private void initListeners() {
 
+        binding.instructorPageIcFavorite.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(InstructorPageFragmentDirections.actionInstructorPageFragmentToHomeChatFragment()));
         FirebaseDataBaseClient.getInstance().getProfileImageUrl()
                 .addOnSuccessListener(snapshot ->
                 {
@@ -101,6 +102,7 @@ public class InstructorPageFragment extends Fragment {
                 }
             });
         });
+        icVideoCall.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(InstructorPageFragmentDirections.actionInstructorPageFragmentToVideoAppNavigation()));
         editProfile.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(InstructorPageFragmentDirections.actionInstructorPageFragmentToEditProfileFragment2(UserTypes.TYPE_INSTRUCTOR)));
     }
 

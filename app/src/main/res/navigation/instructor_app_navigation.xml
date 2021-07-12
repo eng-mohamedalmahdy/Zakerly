@@ -5,6 +5,21 @@
     android:id="@+id/instructor_app_navigation"
     app:startDestination="@id/teacherHomeFragment">
 
+    <fragment
+        android:id="@+id/meetingRequestingFragment"
+        android:name="com.graduationproject.zakerly.meetings.requestmeeting.MeetingRequestingFragment"
+        android:label="MeetingRequestingFragment"
+        tools:layout="@layout/fragment_meeting_requesting">
+
+        <argument
+            android:name="notification"
+            app:argType="com.graduationproject.zakerly.core.models.NotificationData"
+            app:nullable="true" />
+
+        <argument
+            android:name="attendeeType"
+            app:argType="com.graduationproject.zakerly.core.constants.MeetingAttendeesTypes" />
+    </fragment>
 
     <fragment
         android:id="@+id/teacherHomeFragment"
@@ -52,7 +67,8 @@
     <dialog
         android:id="@+id/acceptNotificationsDialog"
         android:name="com.graduationproject.zakerly.navigation.notifications.AcceptNotificationDialog"
-        android:label="AcceptNotificationsDialog">
+        android:label="AcceptNotificationsDialog"
+        tools:layout="@layout/dialog_send_request">
 
         <argument
             android:name="notification"
@@ -72,6 +88,12 @@
         <action
             android:id="@+id/action_instructorPageFragment_to_editProfileFragment2"
             app:destination="@id/editProfileFragment2" />
+        <action
+            android:id="@+id/action_instructorPageFragment_to_video_app_navigation"
+            app:destination="@id/video_app_navigation" />
+        <action
+            android:id="@+id/action_instructorPageFragment_to_homeChatFragment"
+            app:destination="@id/homeChatFragment" />
     </fragment>
 
 
@@ -100,5 +122,24 @@
             android:name="userType"
             app:argType="string" />
     </fragment>
+    <include app:graph="@navigation/meeting_app_navigation" />
+    <fragment
+        android:id="@id/homeChatFragment"
+        android:name="com.graduationproject.zakerly.chat.HomeChatFragment"
+        android:label="HomeChatFragment"
+        tools:layout="@layout/fragment_home_chat">
+        <action
+            android:id="@+id/action_homeChatFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.graduationproject.zakerly.chat.ChatFragment"
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_chat">
+        <argument
+            android:name="user"
+            app:argType="com.graduationproject.zakerly.core.models.User" />
+    </fragment>
 </navigation>
