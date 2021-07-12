@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -76,7 +77,7 @@ public class HomeStudentFragment extends Fragment {
                 Collections.shuffle(allInstructors);
                 FirebaseDataBaseClient.getInstance().getCurrentUser().addOnSuccessListener(s -> {
                     Student student = s.getValue(Student.class);
-                    if (student.getUser().getInterests()==null)return;
+                    if (student.getUser().getInterests() == null) return;
                     student.getUser()
                             .getInterests()
                             .forEach(specialisation -> recommendedInstructors.addAll(allInstructors
@@ -99,5 +100,7 @@ public class HomeStudentFragment extends Fragment {
                 Log.d(TAG, "onCancelled: " + error.getDetails());
             }
         });
+
+        binding.search.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(HomeStudentFragmentDirections.actionHomeStudentFragmentToSearchFragment()));
     }
 }

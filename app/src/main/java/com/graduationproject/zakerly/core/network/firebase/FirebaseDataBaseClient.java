@@ -276,7 +276,7 @@ public class FirebaseDataBaseClient {
         }
 
         String instructorUid = localUser.getType().equals(UserTypes.TYPE_INSTRUCTOR) ? localUser.getUID() : uid;
-        String studentUid = localUser.getType().equals(UserTypes.TYPE_STUDENT) ? uid : localUser.getUID();
+        String studentUid = localUser.getType().equals(UserTypes.TYPE_STUDENT) ? localUser.getUID() : uid;
         return instructorUid + "_" + studentUid;
     }
 

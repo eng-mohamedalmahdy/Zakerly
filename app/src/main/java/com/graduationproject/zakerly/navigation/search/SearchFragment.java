@@ -16,22 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.material.slider.RangeSlider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.core.FirestoreClient;
 import com.graduationproject.zakerly.MainActivity;
 import com.graduationproject.zakerly.R;
 import com.graduationproject.zakerly.adapters.ItemSearchAdapter;
@@ -39,16 +31,15 @@ import com.graduationproject.zakerly.core.models.Instructor;
 import com.graduationproject.zakerly.core.models.ItemSearchModel;
 import com.graduationproject.zakerly.core.network.firebase.FirebaseDataBaseClient;
 import com.graduationproject.zakerly.databinding.FragmentSearchBinding;
-import com.graduationproject.zakerly.navigation.instructorAccountPage.InstructorPageRepository;
-import com.graduationproject.zakerly.navigation.instructorAccountPage.InstructorPageViewModel;
-import com.graduationproject.zakerly.navigation.instructorAccountPage.InstructorPageViewModelFactory;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchFragment extends Fragment {
 
-   FirebaseUser fUser;
-   DatabaseReference ref;
     public static final String TAG = "searchFragment";
     private FragmentSearchBinding binding;
 
@@ -56,19 +47,18 @@ public class SearchFragment extends Fragment {
     private RecyclerView mRecyclerView;
     CardView cardSearch;
     EditText etSearch;
-    TextView txtSearch ;
+    TextView txtSearch;
     ImageView icFilter;
-    ArrayList<ItemSearchModel> items ;
-
-
-
+    private float minRate = 0f;
+    private float minPrice = 0f;
+    private float maxPrice = 1000f;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       binding = FragmentSearchBinding.inflate(inflater,container,false);
-        ((MainActivity) requireActivity()).setNavigationVisibility(true);
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
+        ((MainActivity) requireActivity()).setNavigationVisibility(false);
         return binding.getRoot();
     }
 
@@ -90,13 +80,13 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                txtSearch.setVisibility(charSequence.length() == 0 && adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+                search(charSequence.toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                txtSearch.setVisibility(View.GONE);
-                 search(editable.toString());
+
             }
         });
         binding.icFilter.setOnClickListener(view -> showBottomSheet());
@@ -104,21 +94,35 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(String str) {
-    fUser = FirebaseAuth.getInstance().getCurrentUser();
-    ref = FirebaseDatabase.getInstance().getReference().child("users");
-    ref.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                Log.d("Test = ",dataSnapshot.getValue().toString());
+        FirebaseDataBaseClient.getInstance().getAllInstructors().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<ItemSearchModel> results = new ArrayList<>();
+                snapshot.getChildren().forEach(instructorsDataSnapshot -> {
+                    if (instructorsDataSnapshot.getValue(Instructor.class) != null) {
+                        results.add(new ItemSearchModel(instructorsDataSnapshot.getValue(Instructor.class)));
+                    }
+                });
+                List<ItemSearchModel> items = results.stream().filter(itemSearchModel -> {
+                    boolean specialRes = itemSearchModel.getSpecialisations() != null &&
+                            itemSearchModel.getSpecialisations()
+                                    .stream()
+                                    .map(specialisation -> specialisation.getEn().contains(str) || specialisation.getAr().contains(str))
+                                    .reduce(false, (a, b) -> a || b);
+                    boolean nameRes = itemSearchModel.getName().contains(str);
+                    boolean jobRes = itemSearchModel.getJob() != null && itemSearchModel.getJob().contains(str);
+                    boolean aboveRate = itemSearchModel.getRate() >= minRate;
+                    boolean inPriceRange = itemSearchModel.getInstructor().getPricePerHour() >= minPrice && itemSearchModel.getInstructor().getPricePerHour() <= maxPrice;
+                    return (specialRes || nameRes || jobRes) && aboveRate && inPriceRange;
+                }).collect(Collectors.toList());
+                adapter.setItems(new ArrayList<>(items));
             }
-        }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        }
-    });
+            }
+        });
 
     }
 
@@ -128,10 +132,32 @@ public class SearchFragment extends Fragment {
         txtSearch = binding.txtSearchAboutTeacher;
         mRecyclerView = binding.searchItemRecyclerView;
         icFilter = binding.icFilter;
+        adapter = new ItemSearchAdapter();
+        mRecyclerView.setAdapter(adapter);
     }
-    private void showBottomSheet(){
+
+    private void showBottomSheet() {
+        Log.d(TAG, "showBottomSheet: Filter");
         BottomSheetDialog dialogFragment = new BottomSheetDialog(requireContext());
         dialogFragment.setContentView(R.layout.fragment_filter_dialog);
+        RatingBar minRateBar = dialogFragment.findViewById(R.id.bottom_sheet_dialog_rate);
+        RangeSlider slider = dialogFragment.findViewById(R.id.range_slider);
+
+        slider.setValues(minRate, maxPrice);
+        slider.setLabelFormatter(value -> {
+            NumberFormat format = NumberFormat.getCurrencyInstance();
+            format.setMaximumFractionDigits(0);
+            format.setCurrency(Currency.getInstance("EGP"));
+            return format.format(Double.valueOf(value));
+        });
+
+        minRateBar.setRating(minRate);
+        dialogFragment.setOnDismissListener(dialog -> {
+            minRate = minRateBar.getRating();
+            minPrice = slider.getValues().get(0);
+            maxPrice = slider.getValues().get(1);
+            search(binding.etSearch.getText().toString());
+        });
         dialogFragment.show();
     }
 }

@@ -156,16 +156,11 @@ public class AcceptNotificationDialog extends DialogFragment {
                     FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
                     args.getNotification().getSenderUid(), RequestStatus.ANSWERED, true, notificationUid);
         }
+        c.setCurrentlyConnected(true);
         c.setLatestTopic(topic);
         c.setLatestRequestUid(notificationUid);
         c.setRequestStatus(RequestStatus.ANSWERED);
         FirebaseDataBaseClient.getInstance().setConnection(c);
-    }
-
-    private void clearErrors() {
-        binding.learningTopicContainer.setErrorEnabled(false);
-        binding.numberOfHoursInputContainer.setErrorEnabled(false);
-        binding.requestBodyContainer.setErrorEnabled(false);
     }
 
 
