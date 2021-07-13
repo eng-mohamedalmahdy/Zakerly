@@ -94,7 +94,7 @@ public class ChatFragment extends Fragment {
             binding.chatEtSend.setText("");
             String messageId = FirebaseDataBaseClient.getInstance().getRandomKey();
             Message message = new Message(messageId,
-                    FireBaseAuthentic`ationClient.getInstance().getCurrentUser().getUid(),
+                    FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
                     args.getUser().getUID(),
                     FireBaseAuthenticationClient.getInstance().getCurrentUser().getDisplayName(),
                     args.getUser().getFirstName(),
