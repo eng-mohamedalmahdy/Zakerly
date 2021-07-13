@@ -54,7 +54,7 @@
                 android:id="@+id/txt_search_about_teacher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:visibility="gone"
                 android:background="#C40D99DD"
                 android:fontFamily="@font/roboto_regular"
                 android:padding="@dimen/_22sdp"

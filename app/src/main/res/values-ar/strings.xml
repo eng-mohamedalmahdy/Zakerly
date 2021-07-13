@@ -51,7 +51,7 @@
     <string name="email_field_cannot_be_empty">لا يمكن ان يكون البريد الالكتروني فارغ</string>
     <string name="failed_to_login">تعذر تسجيل الدخول</string>
     <string name="my_teachers">مدرسيني</string>
-    <string name="descriptionOfTeacher">I,am A Teacher Of Android and My HourPrice is 300$ because I,am Gamed Fashekh</string>
+    <string name="descriptionOfTeacher">fb259345919172555</string>
     <string name="favorites">المفضلة</string>
     <string name="invalid_password">كلمة مرور غير صحيحة</string>
     <string name="settings">الإعدادات</string>
@@ -117,7 +117,7 @@
     <string name="reject">رفض</string>
     <string name="name">الاسم:</string>
     <string name="classes">الصف:</string>
-    <string name="please_add_some_subjects">Please add some Subjects</string>
+    <string name="please_add_some_subjects">الرجاء اضافة بعض الموضوعات</string>
     <string name="meeting_invitation">دعوة لمقابلة</string>
     <string name="incoming">قادم</string>
     <string name="sending">ارسل</string>
@@ -130,4 +130,5 @@
     <string name="confirm">تاكيد</string>
     <string name="welcome_to_zakerly">اهلا بك في ذاكرلي</string>
     <string name="search_in_chats">ابحث في المحادثات</string>
+    <string name="price_hour">سعر الساعة</string>
 </resources>

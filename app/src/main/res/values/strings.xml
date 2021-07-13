@@ -12,7 +12,7 @@
     <string name="text_slider_description_one">You can search about perfect instructors and make a good deal with him</string>
     <string name="text_slider_description_two">You can find all majors and learn as if you were a college student</string>
     <string name="text_slider_description_three">And now you can start your career</string>
-    <string name="log_in">login</string>
+    <string name="log_in">Login</string>
     <string name="hint_your_email">Your Email</string>
     <string name="hint_password">password</string>
     <string name="sign_in">Sign In</string>
@@ -128,6 +128,7 @@
     <string name="no_messages">No messages</string>
     <string name="with">With</string>
     <string name="confirm">Confirm</string>
-    <string name="welcome_to_zakerly">Welcome to zakerly</string>
+    <string name="welcome_to_zakerly">Welcome to Zakerly</string>
     <string name="search_in_chats">Search in Chats</string>
+    <string name="price_hour">Price hour</string>
 </resources>

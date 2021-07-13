@@ -81,15 +81,6 @@ public class ChatFragment extends Fragment {
         setUpValues();
         initListener();
 
-        FirebaseDataBaseClient
-                .getInstance()
-                .getChatWithUser(args.getUser().getUID())
-                .addOnSuccessListener(messagesDataSnapshot -> {
-                    messagesDataSnapshot.getChildren().forEach(messageSnapshot -> messages.add(messageSnapshot.getValue(Message.class)));
-                    adapter.setMessages(messages);
-                    mRecyclerView.scrollToPosition(messages.size() - 1);
-
-                });
 
     }
 
@@ -103,7 +94,7 @@ public class ChatFragment extends Fragment {
             binding.chatEtSend.setText("");
             String messageId = FirebaseDataBaseClient.getInstance().getRandomKey();
             Message message = new Message(messageId,
-                    FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
+                    FireBaseAuthentic`ationClient.getInstance().getCurrentUser().getUid(),
                     args.getUser().getUID(),
                     FireBaseAuthenticationClient.getInstance().getCurrentUser().getDisplayName(),
                     args.getUser().getFirstName(),
@@ -121,7 +112,7 @@ public class ChatFragment extends Fragment {
                     @Override
                     public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
                         Message message = snapshot.getValue(Message.class);
-                        if (messages.isEmpty() || messages.get(messages.size() - 1).getTimeOfSendMsg() != message.getTimeOfSendMsg()) {
+                        if (messages.isEmpty() || (messages.get(messages.size() - 1).getTimeOfSendMsg() != message.getTimeOfSendMsg())) {
                             Log.d(TAG, "onChildAdded: " + message);
                             messages.add(message);
                             adapter.setMessages(messages);
@@ -161,7 +152,7 @@ public class ChatFragment extends Fragment {
                     0);
             PushNotification p = new PushNotification(notification, user.getNotificationToken());
             Util.sendNotification(p);
-            NavHostFragment.findNavController(this).navigate(ContactsListFragmentDirections.actionVideoContactsListFragmentToMeetingRequestingFragment(notification, MeetingAttendeesTypes.SENDER));
+            NavHostFragment.findNavController(this).navigate(ChatFragmentDirections.actionChatFragmentToMeetingRequestingFragment(notification, MeetingAttendeesTypes.SENDER));
 
         });
         binding.chatBack.setOnClickListener(v -> NavHostFragment.findNavController(this).navigateUp());

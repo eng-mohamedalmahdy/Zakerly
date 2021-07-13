@@ -62,7 +62,8 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Instructor dataClass = instructors.get(position);
-        if (dataClass != null && dataClass.getUser() != null) {
+        if (dataClass==null)return;
+        if (dataClass.getUser() != null) {
             String fullName = dataClass.getUser().getFirstName() + " " + dataClass.getUser().getLastName();
             String jobName = dataClass.getTitle();
             holder.teacherName.setText(fullName);
@@ -80,9 +81,11 @@ public class TeacherCardAdapter extends RecyclerView.Adapter<TeacherCardAdapter.
                                     .navigateToShowTeacherProfile(instructors
                                             .get(position))));
 
+
             holder.teacherFavorite.setOnClickListener(view -> {
-                FirebaseDataBaseClient.getInstance().setFavorite(
-                        FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
+                FirebaseDataBaseClient
+                        .getInstance()
+                        .setFavorite(FireBaseAuthenticationClient.getInstance().getCurrentUser().getUid(),
                         instructors.get(position).getUser().getUID(), !favoritesResults.get(position)).addOnSuccessListener(command -> Toasty.success(view.getContext(), R.string.done).show());
                 favoritesResults.set(position, !favoritesResults.get(position));
                 notifyDataSetChanged();

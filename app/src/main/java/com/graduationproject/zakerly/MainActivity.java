@@ -2,6 +2,7 @@ package com.graduationproject.zakerly;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +47,12 @@ import com.graduationproject.zakerly.core.network.GoogleClient;
 import com.graduationproject.zakerly.intro.splash.SplashFragmentDirections;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.graduationproject.zakerly.core.constants.BottomNavigationConstants;
+
+import org.jitsi.meet.sdk.JitsiMeetActivity;
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import es.dmoral.toasty.Toasty;
 import io.realm.Realm;
@@ -101,6 +108,8 @@ public class MainActivity extends BaseActivity {
         if (getIntent() != null) {
             NotificationData notificationData = getIntent().getParcelableExtra("NOTIFICATION_DATA");
             String notificationType = getIntent().getStringExtra("NOTIFICATION_TYPE");
+
+
             if (notificationData != null) {
                 switch (notificationType) {
 
@@ -117,6 +126,27 @@ public class MainActivity extends BaseActivity {
                     }
 
                 }
+            } else {
+                JitsiMeetConferenceOptions options = null;
+                try {
+                    Uri uri = this.getIntent().getData();
+                    if (uri == null) return;
+                    URL url = new URL(uri.getScheme(), uri.getHost(), uri.getPath());
+                    String room = url.getPath();
+                    Log.d(TAG, "onCreate: " + room);
+                    options = new JitsiMeetConferenceOptions.Builder()
+                            .setServerURL(new URL("https://meet.jit.si"))
+                            .setRoom(room)
+                            .setAudioMuted(false)
+                            .setVideoMuted(false)
+                            .setAudioOnly(false)
+                            .setWelcomePageEnabled(false)
+                            .build();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                controller.navigateUp();
+                JitsiMeetActivity.launch(this, options);
             }
         }
     }

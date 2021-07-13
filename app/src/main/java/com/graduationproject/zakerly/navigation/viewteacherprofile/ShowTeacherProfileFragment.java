@@ -158,7 +158,7 @@ public class ShowTeacherProfileFragment extends Fragment {
                     0);
             PushNotification p = new PushNotification(notification, user.getNotificationToken());
             Util.sendNotification(p);
-            NavHostFragment.findNavController(this).navigate(ContactsListFragmentDirections.actionVideoContactsListFragmentToMeetingRequestingFragment(notification, MeetingAttendeesTypes.SENDER));
+            NavHostFragment.findNavController(this).navigate(ShowTeacherProfileFragmentDirections.actionShowTeacherProfileFragmentToMeetingRequestingFragment(notification, MeetingAttendeesTypes.SENDER));
 
         });
     }
